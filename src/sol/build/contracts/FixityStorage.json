@@ -1,0 +1,971 @@
+{
+  "contractName": "FixityStorage",
+  "abi": [
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint32",
+          "name": "poolId",
+          "type": "uint32"
+        }
+      ],
+      "name": "getPoolHash",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint32",
+          "name": "poolId",
+          "type": "uint32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "poolHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "setPoolHash",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"poolId\",\"type\":\"uint32\"}],\"name\":\"getPoolHash\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint32\",\"name\":\"poolId\",\"type\":\"uint32\"},{\"internalType\":\"bytes32\",\"name\":\"poolHash\",\"type\":\"bytes32\"}],\"name\":\"setPoolHash\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/FixityStorage.sol\":\"FixityStorage\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/FixityStorage.sol\":{\"keccak256\":\"0xd4ab174a5359bc99d9d117b7551378e8070a83b26d976dddccf7a548cf727139\",\"urls\":[\"bzz-raw://f15ddad9e2a5b17c4f8761a785ba9d16b05474048da15c4cbc462544d2c10876\",\"dweb:/ipfs/QmWqCC3u8QQ36zRiKVMJcj4W5BYKb1KQsCFVB9hxGvzaXR\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610145806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c8063178d29291461003b57806331bc18ac14610079575b600080fd5b6100776004803603604081101561005157600080fd5b81019080803563ffffffff169060200190929190803590602001909291905050506100c1565b005b6100ab6004803603602081101561008f57600080fd5b81019080803563ffffffff1690602001909291905050506100e8565b6040518082815260200191505060405180910390f35b806000808463ffffffff1663ffffffff168152602001908152602001600020819055505050565b60008060008363ffffffff1663ffffffff16815260200190815260200160002054905091905056fea265627a7a72315820eda99826211a5a4eaf2a5076913fd9bc910a71bcf6c99c552ef808ecf58e465864736f6c63430005100032",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100365760003560e01c8063178d29291461003b57806331bc18ac14610079575b600080fd5b6100776004803603604081101561005157600080fd5b81019080803563ffffffff169060200190929190803590602001909291905050506100c1565b005b6100ab6004803603602081101561008f57600080fd5b81019080803563ffffffff1690602001909291905050506100e8565b6040518082815260200191505060405180910390f35b806000808463ffffffff1663ffffffff168152602001908152602001600020819055505050565b60008060008363ffffffff1663ffffffff16815260200190815260200160002054905091905056fea265627a7a72315820eda99826211a5a4eaf2a5076913fd9bc910a71bcf6c99c552ef808ecf58e465864736f6c63430005100032",
+  "sourceMap": "66:291:0:-;;;131:24;8:9:-1;5:2;;;30:1;27;20:12;5:2;131:24:0;66:291;;;;;;",
+  "deployedSourceMap": "66:291:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;66:291:0;;;;;;;;;;;;;;;;;;;;;;;;261:94;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;261:94:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;159:98;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;159:98:0;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;261:94;342:8;328:5;:13;334:6;328:13;;;;;;;;;;;;;;;:22;;;;261:94;;:::o;159:98::-;215:7;239:5;:13;245:6;239:13;;;;;;;;;;;;;;;;232:20;;159:98;;;:::o",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.4.22 <0.9.0;\n\ncontract FixityStorage {\n  \n  mapping(uint32=>bytes32) pools;\n\n  constructor()public{\n  }\n\n  function getPoolHash(uint32 poolId) public view returns(bytes32) {\n      return pools[poolId];\n  }\n\n  function setPoolHash(uint32 poolId, bytes32 poolHash) public {\n    pools[poolId]=poolHash;\n  }\n}\n",
+  "sourcePath": "C:\\Users\\User\\Uni\\Masterarbeit\\src\\sol\\contracts\\FixityStorage.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/FixityStorage.sol",
+    "exportedSymbols": {
+      "FixityStorage": [
+        36
+      ]
+    },
+    "id": 37,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".22",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:32:0"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 36,
+        "linearizedBaseContracts": [
+          36
+        ],
+        "name": "FixityStorage",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 5,
+            "name": "pools",
+            "nodeType": "VariableDeclaration",
+            "scope": 36,
+            "src": "96:30:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint32_$_t_bytes32_$",
+              "typeString": "mapping(uint32 => bytes32)"
+            },
+            "typeName": {
+              "id": 4,
+              "keyType": {
+                "id": 2,
+                "name": "uint32",
+                "nodeType": "ElementaryTypeName",
+                "src": "104:6:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint32",
+                  "typeString": "uint32"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "96:24:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint32_$_t_bytes32_$",
+                "typeString": "mapping(uint32 => bytes32)"
+              },
+              "valueType": {
+                "id": 3,
+                "name": "bytes32",
+                "nodeType": "ElementaryTypeName",
+                "src": "112:7:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 8,
+              "nodeType": "Block",
+              "src": "150:5:0",
+              "statements": []
+            },
+            "documentation": null,
+            "id": 9,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 6,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "142:2:0"
+            },
+            "returnParameters": {
+              "id": 7,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "150:0:0"
+            },
+            "scope": 36,
+            "src": "131:24:0",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 20,
+              "nodeType": "Block",
+              "src": "224:33:0",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "baseExpression": {
+                      "argumentTypes": null,
+                      "id": 16,
+                      "name": "pools",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 5,
+                      "src": "239:5:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint32_$_t_bytes32_$",
+                        "typeString": "mapping(uint32 => bytes32)"
+                      }
+                    },
+                    "id": 18,
+                    "indexExpression": {
+                      "argumentTypes": null,
+                      "id": 17,
+                      "name": "poolId",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 11,
+                      "src": "245:6:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint32",
+                        "typeString": "uint32"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "239:13:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "functionReturnParameters": 15,
+                  "id": 19,
+                  "nodeType": "Return",
+                  "src": "232:20:0"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 21,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getPoolHash",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 12,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 11,
+                  "name": "poolId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21,
+                  "src": "180:13:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  },
+                  "typeName": {
+                    "id": 10,
+                    "name": "uint32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "180:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "179:15:0"
+            },
+            "returnParameters": {
+              "id": 15,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 14,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 21,
+                  "src": "215:7:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 13,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "215:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "214:9:0"
+            },
+            "scope": 36,
+            "src": "159:98:0",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 34,
+              "nodeType": "Block",
+              "src": "322:33:0",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 32,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "baseExpression": {
+                        "argumentTypes": null,
+                        "id": 28,
+                        "name": "pools",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 5,
+                        "src": "328:5:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint32_$_t_bytes32_$",
+                          "typeString": "mapping(uint32 => bytes32)"
+                        }
+                      },
+                      "id": 30,
+                      "indexExpression": {
+                        "argumentTypes": null,
+                        "id": 29,
+                        "name": "poolId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 23,
+                        "src": "334:6:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint32",
+                          "typeString": "uint32"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "328:13:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 31,
+                      "name": "poolHash",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 25,
+                      "src": "342:8:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "src": "328:22:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "id": 33,
+                  "nodeType": "ExpressionStatement",
+                  "src": "328:22:0"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 35,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setPoolHash",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 26,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 23,
+                  "name": "poolId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 35,
+                  "src": "282:13:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint32",
+                    "typeString": "uint32"
+                  },
+                  "typeName": {
+                    "id": 22,
+                    "name": "uint32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "282:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint32",
+                      "typeString": "uint32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 25,
+                  "name": "poolHash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 35,
+                  "src": "297:16:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 24,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "297:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "281:33:0"
+            },
+            "returnParameters": {
+              "id": 27,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "322:0:0"
+            },
+            "scope": 36,
+            "src": "261:94:0",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 37,
+        "src": "66:291:0"
+      }
+    ],
+    "src": "32:326:0"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/FixityStorage.sol",
+      "exportedSymbols": {
+        "FixityStorage": [
+          36
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.4",
+            ".22",
+            "<",
+            "0.9",
+            ".0"
+          ]
+        },
+        "id": 1,
+        "name": "PragmaDirective",
+        "src": "32:32:0"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            36
+          ],
+          "name": "FixityStorage",
+          "scope": 37
+        },
+        "children": [
+          {
+            "attributes": {
+              "constant": false,
+              "name": "pools",
+              "scope": 36,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "mapping(uint32 => bytes32)",
+              "value": null,
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "type": "mapping(uint32 => bytes32)"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint32",
+                      "type": "uint32"
+                    },
+                    "id": 2,
+                    "name": "ElementaryTypeName",
+                    "src": "104:6:0"
+                  },
+                  {
+                    "attributes": {
+                      "name": "bytes32",
+                      "type": "bytes32"
+                    },
+                    "id": 3,
+                    "name": "ElementaryTypeName",
+                    "src": "112:7:0"
+                  }
+                ],
+                "id": 4,
+                "name": "Mapping",
+                "src": "96:24:0"
+              }
+            ],
+            "id": 5,
+            "name": "VariableDeclaration",
+            "src": "96:30:0"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": true,
+              "kind": "constructor",
+              "modifiers": [
+                null
+              ],
+              "name": "",
+              "scope": 36,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 6,
+                "name": "ParameterList",
+                "src": "142:2:0"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 7,
+                "name": "ParameterList",
+                "src": "150:0:0"
+              },
+              {
+                "attributes": {
+                  "statements": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 8,
+                "name": "Block",
+                "src": "150:5:0"
+              }
+            ],
+            "id": 9,
+            "name": "FunctionDefinition",
+            "src": "131:24:0"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "getPoolHash",
+              "scope": 36,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "poolId",
+                      "scope": 21,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint32",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint32",
+                          "type": "uint32"
+                        },
+                        "id": 10,
+                        "name": "ElementaryTypeName",
+                        "src": "180:6:0"
+                      }
+                    ],
+                    "id": 11,
+                    "name": "VariableDeclaration",
+                    "src": "180:13:0"
+                  }
+                ],
+                "id": 12,
+                "name": "ParameterList",
+                "src": "179:15:0"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 21,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "bytes32",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes32",
+                          "type": "bytes32"
+                        },
+                        "id": 13,
+                        "name": "ElementaryTypeName",
+                        "src": "215:7:0"
+                      }
+                    ],
+                    "id": 14,
+                    "name": "VariableDeclaration",
+                    "src": "215:7:0"
+                  }
+                ],
+                "id": 15,
+                "name": "ParameterList",
+                "src": "214:9:0"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 15
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "type": "bytes32"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 5,
+                              "type": "mapping(uint32 => bytes32)",
+                              "value": "pools"
+                            },
+                            "id": 16,
+                            "name": "Identifier",
+                            "src": "239:5:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 11,
+                              "type": "uint32",
+                              "value": "poolId"
+                            },
+                            "id": 17,
+                            "name": "Identifier",
+                            "src": "245:6:0"
+                          }
+                        ],
+                        "id": 18,
+                        "name": "IndexAccess",
+                        "src": "239:13:0"
+                      }
+                    ],
+                    "id": 19,
+                    "name": "Return",
+                    "src": "232:20:0"
+                  }
+                ],
+                "id": 20,
+                "name": "Block",
+                "src": "224:33:0"
+              }
+            ],
+            "id": 21,
+            "name": "FunctionDefinition",
+            "src": "159:98:0"
+          },
+          {
+            "attributes": {
+              "documentation": null,
+              "implemented": true,
+              "isConstructor": false,
+              "kind": "function",
+              "modifiers": [
+                null
+              ],
+              "name": "setPoolHash",
+              "scope": 36,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "poolId",
+                      "scope": 35,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint32",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint32",
+                          "type": "uint32"
+                        },
+                        "id": 22,
+                        "name": "ElementaryTypeName",
+                        "src": "282:6:0"
+                      }
+                    ],
+                    "id": 23,
+                    "name": "VariableDeclaration",
+                    "src": "282:13:0"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "poolHash",
+                      "scope": 35,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "bytes32",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bytes32",
+                          "type": "bytes32"
+                        },
+                        "id": 24,
+                        "name": "ElementaryTypeName",
+                        "src": "297:7:0"
+                      }
+                    ],
+                    "id": 25,
+                    "name": "VariableDeclaration",
+                    "src": "297:16:0"
+                  }
+                ],
+                "id": 26,
+                "name": "ParameterList",
+                "src": "281:33:0"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 27,
+                "name": "ParameterList",
+                "src": "322:0:0"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "bytes32"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "type": "bytes32"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 5,
+                                  "type": "mapping(uint32 => bytes32)",
+                                  "value": "pools"
+                                },
+                                "id": 28,
+                                "name": "Identifier",
+                                "src": "328:5:0"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 23,
+                                  "type": "uint32",
+                                  "value": "poolId"
+                                },
+                                "id": 29,
+                                "name": "Identifier",
+                                "src": "334:6:0"
+                              }
+                            ],
+                            "id": 30,
+                            "name": "IndexAccess",
+                            "src": "328:13:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 25,
+                              "type": "bytes32",
+                              "value": "poolHash"
+                            },
+                            "id": 31,
+                            "name": "Identifier",
+                            "src": "342:8:0"
+                          }
+                        ],
+                        "id": 32,
+                        "name": "Assignment",
+                        "src": "328:22:0"
+                      }
+                    ],
+                    "id": 33,
+                    "name": "ExpressionStatement",
+                    "src": "328:22:0"
+                  }
+                ],
+                "id": 34,
+                "name": "Block",
+                "src": "322:33:0"
+              }
+            ],
+            "id": 35,
+            "name": "FunctionDefinition",
+            "src": "261:94:0"
+          }
+        ],
+        "id": 36,
+        "name": "ContractDefinition",
+        "src": "66:291:0"
+      }
+    ],
+    "id": 37,
+    "name": "SourceUnit",
+    "src": "32:326:0"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0x1b247D057272a6ce5c3048CcbeFC9e8037817eA8",
+      "transactionHash": "0x8523aed66d5c24faf8e24aa0afe889d9e8fa4152de5e59bb696fe8f80c0152a7"
+    }
+  },
+  "schemaVersion": "3.4.2",
+  "updatedAt": "2022-02-11T10:40:38.740Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
