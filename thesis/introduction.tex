@@ -1,0 +1,28 @@
+Storing cultural heritage in digital archives offers malicious actors the possibility to manipulate the data and possibly forge history. Recent digital technologies make data manipulation more efficient, less costly, and more exact and there is a long history of forging history. 
+In 1920 a photography was taken of Vladimir Lenin atop a platform speaking to a crowd. In the original photo, see Figure \ref{fig:f1}, Lenin's comrade Leon Trotsky can be seen standing beside the platform on Lenin's left side. When power struggles within the revolution forced Trotsky out of the party 7 years later, he was retouched out of the picture, see Figure \ref{fig:f2}, using paint, razors and airbrushes. Soviet photo artists altered the historical record by literally removing Trotsky from the pictures \cite[3]{hofer2005digital}.
+
+\begin{figure}[h]%
+    \centering
+    \begin{subfigure}{6cm}
+    \includegraphics[width=\linewidth]{graphics/trotzki1.jpg}
+    \caption{Original}\label{fig:f1}
+    \end{subfigure}
+    \qquad
+    \begin{subfigure}{6cm}
+    \includegraphics[width=\linewidth]{graphics/trotzki2.jpg}
+    \caption{Original}\label{fig:f2}
+    \end{subfigure}
+    \caption{Catalog Images}%
+    \label{fig:figure1}%
+\end{figure}
+
+Digital archives must earn the trust of current and future digital creators by developing a robust infrastructure and long-term preservation plans to demonstrate that the archive and its staff are trustworthy stewards of the digital materials in their care \cite[37]{kirschenbaum2010digital}. Digital objects can be corrupted easily, with or without fraudulent intent, and even without intent at all. Data corruption is usually detected by comparing cryptographic hashes, so called fixity information, at different time intervals \cite[1]{de2014checking}. The object is seen as uncorrupted if the hash values are identical, since the smallest change to the object would alter the newly computed hash value immensely. Although generating fixity information (e.g., MD5, SHA-256) is relatively easy, managing that information over time is harder considering that if a malicious actor can alter the fixity information, the actor is also able to alter the underlying object illicit \cite[35]{kirschenbaum2010digital}.\\Fixity information is usually stored in databases; object metadata records or alongside content, whereas this thesis deals with blockchain as a storage medium. \cite{collomosse2018archangel} and \cite{Sigwart2020} have shown that the Ethereum blockchain, implemented by \cite{buterin2013ethereum}, can indeed be utilized to ensure data integrity, but there is a problem with that: the operation cost. The cost of storing a SHA256 bit word on the Ethereum blockchain is 20.000 gas, which oscillate at the time of writing at about 5\$, which means the operation cost for an ingest of 10.000 objects costs about 50.000\$.\\
+This thesis proposes a way to reduce the operational cost of a blockchain-based fixity information storage by applying a pool testing strategy in which several object hashes are combined in a pool to form a hash list.
+The idea for this approach stems from the ongoing pandemic, in which the test capacities also must be used optimally.
+\begin{quote}
+Pool testing strategies build on testing a pooled sample from several patients: if the results from
+the pool test are negative, all patients in the pooled sample are declared not to have COVID-19; if the
+results of the pool are positive, each patient sample is tested individually. The pooled testing strategy
+is appealing, particularly when test availability is limited. \cite[1]{cherif2020simulation}
+\end{quote}
+This paradigm will be utilized in this thesis where the test specimen are cryptographic hashes, and the pool is hash list.

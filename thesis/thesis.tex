@@ -22,11 +22,11 @@
 \usepackage{todonotes} % Provides tooltip-like todo notes.
 \usepackage{hyperref}  % Enables cross linking in the electronic document version. This package has to be included second to last.
 \usepackage[acronym,toc]{glossaries} % Enables the generation of glossaries and lists fo acronyms. This package has to be included last.
+\usepackage{float}
 
 % Define convenience functions to use the author name and the thesis title in the PDF document properties.
 \newcommand{\authorname}{Michael Etschbacher} % The author name without titles.
 \newcommand{\thesistitle}{Reducing the operation cost of a file fixity storage service on the ethereum blockchain by utilizing pool testing strategies.} % The title of the thesis. The English version should be used, if it exists.
-
 % Set PDF document properties
 \hypersetup{
     pdfpagelayout   = TwoPageRight,           % How the document is shown in PDF viewers (optional).
@@ -99,23 +99,23 @@
 \mainmatter
 
 \chapter{Introduction}
-
+\input{introduction.tex}
 \chapter{Digital Archives}
-
+\input{digitalArchives.tex}
 \chapter{Data Integrity and Authenticity}
-\input{integrity}
+\input{integrity.tex}
 
 \chapter{Ethereum Blockchain}
 \input{ethereum}
-
+aer
 \chapter{Fixity Storage}
-
-\chapter{Pooling Strategy}
-
+\input{fixityStorage.tex}
+\chapter{Pooled Testing}
+\input{pooledTesting.tex}
 \chapter{Experiment}
-
+\input{experiment.tex}
 \chapter{Evaluation}
-
+\input{evaluation.tex}
 \chapter{Discussion}
 
 \chapter{Conclusion}
