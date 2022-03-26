@@ -23,6 +23,7 @@
 \usepackage{hyperref}  % Enables cross linking in the electronic document version. This package has to be included second to last.
 \usepackage[acronym,toc]{glossaries} % Enables the generation of glossaries and lists fo acronyms. This package has to be included last.
 \usepackage{float}
+\input{solidity-highlighting.tex}
 
 % Define convenience functions to use the author name and the thesis title in the PDF document properties.
 \newcommand{\authorname}{Michael Etschbacher} % The author name without titles.
@@ -100,20 +101,19 @@
 
 \chapter{Introduction}
 \input{introduction.tex}
-\chapter{Digital Archives}
-\input{digitalArchives.tex}
+\chapter{Related Work}
+\input{related_work.tex}
 \chapter{Diplomatics of Digital Records}
 \input{diplomatics.tex}
 
 \chapter{Ethereum Blockchain}
 \input{ethereum}
-aer
-\chapter{Fixity Storage}
-\label{chapter:fixity_storage}
-\input{fixityStorage.tex}
 \chapter{Pooled Testing}
 \label{chapter:pooled_testing}
 \input{pooledTesting.tex}
+\chapter{Fixity Storage}
+\label{chapter:fixity_storage}
+\input{fixityStorage.tex}
 \chapter{Experiment}
 \input{experiment.tex}
 \chapter{Evaluation}
@@ -122,7 +122,7 @@ aer
 
 \chapter{Conclusion}
 
-\chapter{Related Work}
+
 
 % Remove following line for the final thesis.
 %\input{intro.tex} % A short introduction to LaTeX.
