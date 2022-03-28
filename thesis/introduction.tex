@@ -5,16 +5,15 @@ In 1920 a photography was taken of Vladimir Lenin atop a platform speaking to a 
 \begin{figure}[h]%
     \centering
     \begin{subfigure}{6cm}
-    \includegraphics[width=\linewidth]{graphics/trotzki1.jpg}\label{fig:f1}
-    \caption{Original}
+    \includegraphics[width=\linewidth]{graphics/trotzki1.jpg}
+    \caption{Original}\label{fig:f1}
     \end{subfigure}
     \qquad
-    \begin{subfigure}{6cm}\label{fig:f2}
-    \includegraphics[width=\linewidth]{graphics/trotzki2.jpg}\label{fig:f1}
+    \begin{subfigure}{6cm}
+    \includegraphics[width=\linewidth]{graphics/trotzki2.jpg}
     \caption{Original}
     \end{subfigure}
-    \caption{Catalog Images}%
-    \label{fig:figure1}%
+    \caption{Catalog Images}\label{fig:f2}
 \end{figure}
 
 Digital archives must earn the trust of current and future digital creators by developing a robust infrastructure and long-term preservation plans to demonstrate that the archive and its staff are trustworthy stewards of the digital materials in their care \cite[37]{kirschenbaum2010digital}. Digital objects can be corrupted easily, with or without fraudulent intent, and even without intent at all. Data corruption is usually detected by comparing cryptographic hashes, so called fixity information, at different time intervals \cite[1]{de2014checking}. The object is seen as uncorrupted if the hash values are identical, since the smallest change to the object would alter the newly computed hash value immensely. 
@@ -32,9 +31,9 @@ This paradigm will be utilized in this thesis where the test specimen are crypto
 \section{Research Questions}
 Based on the problem described above, the following research questions arise:
 
-\textit{RQ1 What is the optimal pool size based on the corruption rates of digital objects in the archive in terms of operation throughput and cost}
+\textit{RQ1 What is the optimal pool size based on the corruption rates of digital objects in the archive in terms of efficiency and cost}
 
-\textit{RQ2 To what extend can pooled object hashes increaes the transaction throughput and reduce cost for a fixity information storage service on the ethereum blockchain?}
+\textit{RQ2 To what extend can pooled object hashes increaes the efficiency and reduce cost for a fixity information storage service on the ethereum blockchain?}
 
 \textit{RQ3 Given that metadata has a higher corruption rate, what effect has the split of metadata and objects on the operation cost?}
 
@@ -45,9 +44,9 @@ This work will follow the principles of Design Science Research, from \cite{hevn
 The \textit{Application environment} is a digital archive which manages any kind of data, data will be referenced as information object in the archive and each object is provided with necessary metadata, as described in the OAIS reference model. I assume that the data integrity is ensured on ingest where a cryptographic hash value of the information object is computed and stored on the blockchain. The "location" of the fixity information on the blockchain is stored in the preservation description infromation in the form of a unique transaction hash, see Figure \ref{fig:oais-fixity}. 
 
 \begin{figure}[h]
-    \label{fig:oais-fixity}
-    \caption{The transaction hash, used to retrieve data from the blockchain, is stored in the fixity information of the PDI of an information object \cite[7]{lee2010open}}
-    \centering
+  \caption{The transaction hash, used to retrieve data from the blockchain, is stored in the fixity information of the PDI of an information object \cite[7]{lee2010open}}
+  \label{fig:oais-fixity}
+  \centering
     \includegraphics[width=0.7\textwidth]{oais.png}
 \end{figure}
 
