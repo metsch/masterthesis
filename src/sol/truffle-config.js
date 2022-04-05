@@ -41,6 +41,7 @@ module.exports = {
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
+
     development: {
      host: "127.0.0.1",     // Localhost (default: none)
      port: 8545,            // Standard Ethereum port (default: none)
@@ -65,9 +66,9 @@ module.exports = {
     ropsten: {
     provider: () => new HDWalletProvider("card eagle clog never income rug recycle such finish husband oak zero", `https://ropsten.infura.io/v3/55a512fc01d84f59aa61929ffc8dff87`),
     network_id: 3,       // Ropsten's id
-    gas: 5500000,        // Ropsten has a lower block limit than mainnet
+    gas: 4000000,        // Ropsten has a lower block limit than mainnet
+    gasPrice: 9350000000,        // Ropsten has a lower block limit than mainnet
     confirmations: 2,    // # of confs to wait between deployments. (default: 0)
-    timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
     skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
     },
     // Useful for private networks
@@ -97,7 +98,15 @@ module.exports = {
       // }
     }
   },
+  plugins: [
+    'truffle-plugin-verify',
+    "truffle-contract-size"
 
+  ],
+
+  api_keys: {
+    etherscan: '3UD61D47R5IRBASJFM9X42B6GCUA4VYVUF'
+  },
   // Truffle DB is currently disabled by default; to enable it, change enabled:
   // false to enabled: true. The default storage location can also be
   // overridden by specifying the adapter settings, as shown in the commented code below.

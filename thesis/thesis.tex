@@ -24,7 +24,8 @@
 \usepackage[acronym,toc]{glossaries} % Enables the generation of glossaries and lists fo acronyms. This package has to be included last.
 \usepackage{float}
 \input{solidity-highlighting.tex}
-
+\usepackage{seqsplit}
+\newcommand{\hash}[1]{{\ttfamily\seqsplit{#1}}}
 % Define convenience functions to use the author name and the thesis title in the PDF document properties.
 \newcommand{\authorname}{Michael Etschbacher} % The author name without titles.
 \newcommand{\thesistitle}{Reducing the operation cost of a file fixity storage service on the ethereum blockchain by utilizing pool testing strategies.} % The title of the thesis. The English version should be used, if it exists.
@@ -56,7 +57,7 @@
 
 % Required data.
 \setregnumber{51828999}
-\setdate{01}{01}{2001} % Set date with 3 arguments: {day}{month}{year}.
+\setdate{19}{05}{2022} % Set date with 3 arguments: {day}{month}{year}.
 \settitle{\thesistitle}{\thesistitle} % Sets English and German version of the title (both can be English or German). If your title contains commas, enclose it with additional curvy brackets (i.e., {{your title}}) or define it as a macro as done with \thesistitle.
 
 \setthesis{master}
@@ -98,29 +99,31 @@
 
 % Switch to arabic numbering and start the enumeration of chapters in the table of content.
 \mainmatter
-
+\input{glossary.tex}
 \chapter{Introduction}
 \input{introduction.tex}
 \chapter{Related Work}
 \input{related_work.tex}
 \chapter{Diplomatics of Digital Records}
+\label{ch:diplomatics}
 \input{diplomatics.tex}
 
 \chapter{Ethereum Blockchain}
-\input{ethereum}
-\chapter{Pooled Testing}
-\label{chapter:pooled_testing}
-\input{pooledTesting.tex}
+\label{ch:ethereum}
+\input{ethereum.tex}
 \chapter{Fixity Storage}
-\label{chapter:fixity_storage}
+\label{ch:fixity_storage}
 \input{fixityStorage.tex}
 \chapter{Experiment}
+\label{ch:experiment}
 \input{experiment.tex}
 \chapter{Evaluation}
+\label{ch:evaluation}
 \input{evaluation.tex}
 \chapter{Discussion}
-
+\input{discussion.tex}
 \chapter{Conclusion}
+\input{conclusion.tex}
 
 
 

@@ -16,10 +16,10 @@ In 1920 a photography was taken of Vladimir Lenin atop a platform speaking to a 
     \caption{Catalog Images}\label{fig:f2}
 \end{figure}
 
-Digital archives must earn the trust of current and future digital creators by developing a robust infrastructure and long-term preservation plans to demonstrate that the archive and its staff are trustworthy stewards of the digital materials in their care \cite[37]{kirschenbaum2010digital}. Digital objects can be corrupted easily, with or without fraudulent intent, and even without intent at all. Data corruption is usually detected by comparing cryptographic hashes, so called fixity information, at different time intervals \cite[1]{de2014checking}. The object is seen as uncorrupted if the hash values are identical, since the smallest change to the object would alter the newly computed hash value immensely. 
+Digital archives must earn the trust of current and future digital creators by developing a robust infrastructure and long-term preservation plans to demonstrate that the archive and its staff are trustworthy stewards of the digital materials in their care \cite[37]{kirschenbaum2010digital}. Digital objects can be corrupted easily, with or without fraudulent intent, and even without intent at all. Data corruption is usually detected by comparing cryptographic hashes, so-called fixity information, at different time intervals \cite[1]{de2014checking}. The object is seen as uncorrupted if the hash values are identical, since the smallest change to the object would alter the newly computed hash value immensely. 
 
 \section{Research Problem}
-Although generating fixity information (e.g., MD5, SHA-256) is relatively easy, managing that information over time is harder considering that if a malicious actor can alter the fixity information, the actor is also able to alter the underlying object illicit \cite[35]{kirschenbaum2010digital}.Fixity information is usually stored in databases; object metadata records or alongside content, whereas this thesis deals with blockchain as a storage medium. \cite{collomosse2018archangel} and \cite{Sigwart2020} have shown that the Ethereum blockchain, implemented by \cite{buterin2013ethereum}, can indeed be utilized to ensure data integrity, but there is a problem with that: the operation cost. The cost of storing a SHA256 values on the Ethereum blockchain is 20.000 gas (the unit for transaction fees), which oscillate at the time of writing at about 5\$, which means the operation cost for an ingest of 10.000 objects costs about 50.000\$.
+Although generating fixity information (e.g., MD5, SHA-256) is relatively easy, managing that information over time is harder considering that if a malicious actor can alter the fixity information, the actor is also able to alter the underlying object illicit \cite[35]{kirschenbaum2010digital}. Fixity information is usually stored in databases; object metadata records or alongside content, whereas this thesis deals with blockchain as a storage medium. \cite{collomosse2018archangel} and \cite{Sigwart2020} have shown that the Ethereum blockchain, implemented by \cite{buterin2013ethereum}, can indeed be utilized to ensure data integrity, but there is a problem with that: the operation cost. The cost of storing a SHA256 values on the Ethereum blockchain is 20,000 gas (the unit for transaction fees), which oscillate at the time of writing at about \$5, which means the operation cost for an ingest of 10,000 objects costs about \$50,000.
 
 \section{Research Goal}
 This thesis proposes a way to reduce the operational cost of a blockchain-based fixity information storage by applying a pool testing strategy in which several digital objects are combined in a pool to form a hash list. The idea for this approach stems from the ongoing pandemic, in which the test capacities also must be used optimally.
@@ -33,7 +33,7 @@ Based on the problem described above, the following research questions arise:
 
 \textit{RQ1 What is the optimal pool size based on the corruption rates of digital objects in the archive in terms of efficiency and cost}
 
-\textit{RQ2 To what extend can pooled object hashes increaes the efficiency and reduce cost for a fixity information storage service on the ethereum blockchain?}
+\textit{RQ2 To what extent can pooled object hashes increase the efficiency and reduce cost for a fixity information storage service on the Ethereum blockchain?}
 
 \textit{RQ3 Given that metadata has a higher corruption rate, what effect has the split of metadata and objects on the operation cost?}
 
@@ -41,7 +41,7 @@ Based on the problem described above, the following research questions arise:
 \label{sec:approach}
 This work will follow the principles of Design Science Research, from \cite{hevner2007three}. The artifact is designed based on a literature review of the following main topics \textit{Diplomatics of Digital Records};\textit{Ethereum Blockchain}; and \textit{Pooled testing}.
 
-The \textit{Application environment} is a digital archive which manages any kind of data, data will be referenced as information object in the archive and each object is provided with necessary metadata, as described in the OAIS reference model. I assume that the data integrity is ensured on ingest where a cryptographic hash value of the information object is computed and stored on the blockchain. The "location" of the fixity information on the blockchain is stored in the preservation description infromation in the form of a unique transaction hash, see Figure \ref{fig:oais-fixity}. 
+The \textit{Application environment} is a digital archive which manages any kind of data, data will be referenced as information object in the archive and each object is provided with necessary metadata, as described in the OAIS reference model. I assume that the data integrity is ensured on ingest where a cryptographic hash value of the information object is computed and stored on the blockchain. The "location" of the fixity information on the blockchain is stored in the preservation description information in the form of a unique transaction hash, see Figure \ref{fig:oais-fixity}. 
 
 \begin{figure}[h]
   \caption{The transaction hash, used to retrieve data from the blockchain, is stored in the fixity information of the PDI of an information object \cite[7]{lee2010open}}
@@ -50,11 +50,11 @@ The \textit{Application environment} is a digital archive which manages any kind
     \includegraphics[width=0.7\textwidth]{oais.png}
 \end{figure}
 
-The \textit{Artefact} is a combination of decentralized application on the ethereum blockchain and a local pool strucutre in the archive. The smart contract exposes functions for managing cryptographic hashes of pools.
+The \textit{Artifact} is a combination of decentralized application on the Ethereum blockchain and a local pool structure in the archive. The smart contract exposes functions for managing cryptographic hashes of pools.
 The artifact must provide the following functionalities:
 \begin{itemize}
   \item Create, Read, Update SHA256 values of pools.
-  \item Must hold a reference (id) for the respective pool in the archive.
-  \item Must be tamper proof for unauthorized calls.
+  \item Must hold a reference (ID) for the respective pool in the archive.
+  \item Must be tamperproof for unauthorized calls.
 \end{itemize}
-The smart contract complements the local pool structure in the archive where fixity information of certain object pools may be requested on any given time. The artefact should reduce the amount of operations needed to ensure the integrity of 10.000 objects from ingest to retrieval process by at least 50\%.
+The smart contract complements the local pool structure in the archive where fixity information of certain object pools may be requested on any given time. The artifact should reduce the amount of operations needed to ensure the integrity of 10,000 objects from ingest to retrieval process by at least 50\%.

@@ -1,108 +1,176 @@
 The proposed fixity storage is evaluated on a local installation of the Ethereum blockchain and on the online Ropsten test network, where ETH used for transactions are free of charge.
 The two key parameters for evaluation are the operation cost and efficiency. 
-\textit{Operation cost} is calculated by multiplying the number of relevant cost transactions with the average gas cost of a writing transaction on the blockchain, see Eq. \ref{eq:expected_cost}
+\textit{Operation cost} is calculated by multiplying the number of relevant cost transactions with the average gas cost of a writing transaction on the blockchain, see Equation \ref{eq:expected_cost}
 \begin{equation}\label{eq:expected_cost}
-    C = J * Tx_c = \lceil N/k \rceil * (G_{transaction} + G_{txdatanonzero}*Tx_{bytesize})
+    C = J * C_{setPoolHash} = \lceil N/k \rceil * gasAmount * gasPrice * ethPrice
 \end{equation}
-where \textit{J} is the number of pools on ingest; \textit{$Tx_c$} is the cost for a transaction in gas, see Section \ref{sec:costs} for the gas cost of certain operations.
-I intent to present the operation cost in the form of gas, the unit that measures the amount of computation effort requried to execute specific operations, instead of the cost in USD or EUR. This is because, the amount of gas used during the experiment should stay constant, whereas the price of the ETH token fluctuates heavily. Therefore the amount of gas is a better indicator on how costly the fixity storage is.
-\textit{Efficiency} is measured by operations needed per object utilizing pooled testing compared with the individual testing strategy, where the efficiency of pooling strategy S is expressed by Equation \ref{eq:efficiency}
+where $J$ is the number of pools on ingest; $C_{setPoolHash} $ is the cost for a transaction in gas, see Section \ref{sec:cost-interating}.
+I intend to present the operation cost in the form of gas, the unit that measures the amount of computation effort required to execute specific operations, instead of the cost in USD or EUR. This is because, the amount of gas used during the experiment should stay constant, whereas the price of the ETH token fluctuates heavily. Therefore, the amount of gas is a better indicator on how costly the fixity storage is.
+\textit{Efficiency} $E(S)$ is measured by the number operations needed utilizing pooled testing compared $T(S_{pooling})$ with the individual testing strategy $T(S_{individual})$, where the efficiency of pooling strategy S is expressed by Equation \ref{eq:efficiency}
 \begin{equation}\label{eq:efficiency}
     E(S) = N/T(S)
 \end{equation}
-where, assuming the preservation process of n digital objects without pooling requires N operations and the preservation of the same objects using strategy S requires T(S) operations. In the case of indivudual testing the efficiency of E(N) is 1, whereas if strategy S requires two times less operations the efficiency E(S) is 2 \cite[4]{vzilinskas2021pooled}.
+where, assuming the preservation process of 10,000 digital objects without pooling requires $N$ operations and the preservation of the same objects using strategy S requires $T(S)$ operations. In the case of individual testing the efficiency is 1, whereas if strategy S requires two times fewer operations the efficiency E(S) is 2 \cite[4]{vzilinskas2021pooled}.
 
 \textit{What is the optimal pool size based on the corruption rates of digital objects in the archive regarding cost and efficiency?}
 
 Corruption rate $p$ represents the prevalence of corruption, e.g., when I assume that 2000 of 10000 objects will be corrupted during the preservation process, $p = 2000/10000 = 0.2$. 
 
-\textit{Expected Operation Cost:} The optimal pool size, which will result in the lowest number of cost relevant transactions is the number of pools $J$, as seen in eq. \ref{fig:expected_cost}, because I only must write onto the blockchain during the ingest process where the root hashes of pools are persisted.
-After the first Iteration of the experiment, the number of corrupt objects per positive pools were included in the first draft of Equation \ref{eq:expected_cost}, where I assumed that I had to re-calculate corrupt pool hashes and re-store them on the blockchain, but these "repairing" actions can be done locally through data scrubbing. I only need to know that the pool is corrupt, then I can to substitute each object in the pool with a correct copy in the archive. For this part of the research question, local operations are out of scope because they do not cause direct cost on the blockchain, therefore the optimal poolsize calculated by Eq. \ref{eq:expected_cost} is $N$, see Figure \ref{fig:expected_cost}. A poolsize of $N$ results in exactly 1 cost relevant transaction since I have combined every object on ingest into a hash-list which's root will be stored on the blockchain. This solution does not scale well, e.g., picture the process of retrieving a single object from the archive. In order to guarantee that the object is unaltered, I would have to re-compute the hash list from every object in the archive (or the bulk ingest in question). Additionally, if the single pool is corrupted, I must replace the whole bulk with copies. 
-So, there must be an answer, which rewards smaller poolsizes to avoid data scrubbing. Eq. \ref{eq:expected_operations} accounts in the number of times I have to perform data scrubbing in the archive, therefore the data scrubbing actions are included in the efficiency, since they have to be performed at retrieval in the archive.
+\textit{Expected Operation Cost:} The optimal pool size, which will result in the lowest number of cost relevant transactions is the number of pools $J$, as seen in Equation \ref{fig:expected_cost}, because I only must write onto the blockchain during the ingest process where the root hashes of pools are persisted.
+After the first Iteration of the experiment, the number of corrupt objects per positive pools were included in the first draft of Equation \ref{eq:expected_cost}, where I assumed that I had to re-calculate corrupt pool hashes and re-store them on the blockchain, but these "repairing" actions can be done locally through data scrubbing. I only need to know that the pool is corrupt, then I can to substitute each object in the pool with a correct copy in the archive. For this part of the research question, local operations are out of scope because they do not cause direct cost on the blockchain, therefore the optimal pool size calculated by Equation \ref{eq:expected_cost} is $N$, see Figure \ref{fig:expected_cost}. A pool size of $N$ results in exactly 1 cost relevant transaction since I have combined every object on ingest into a hash-list which's root will be stored on the blockchain. This solution does not scale well, e.g., picture the process of retrieving a single object from the archive. In order to guarantee that the object is unaltered, I would have to re-compute the hash list from every object in the archive (or the bulk ingest in question). Additionally, if the single pool is corrupted, I must replace the whole bulk with copies. 
+So, there must be an answer, which rewards smaller pool sizes to avoid too much data scrubbing. The number of data scrubbing operations is the number of objects in positive pools on retrieval and is calculated with Equation \ref{eq:expected_data-scrubbing},
+\begin{equation}\label{eq:expected_data-scrubbing}
+    T(S) = J_+ * k = ((1-(1-p)^k)* \lceil N/k \rceil) * k
+\end{equation}
+where $(1-p)^k$ is the probability of a pool of size k being negative at a prevalence of p and the probability of a pool being positive is $1-(1-p)^k$. To find the optimal pool size regarding the amount of data scrubbing operations, I had to minimize Equation \ref{eq:expected_data-scrubbing}, as seen in Figure \ref{fig:expected_scrubbing}.
+To find the optimal pool size in terms of operation cost and efficiency, operation cost and data scrubbing has to be accounted, which results in the final Equation \ref{eq:expected_operations}
 \begin{equation}\label{eq:expected_operations}
     T(S) = J + J_+ * k = \lceil N/k \rceil + ((1-(1-p)^k)* \lceil N/k \rceil) * k
 \end{equation}
-where \textit{J} is the number of pools and \textit{$J_+ * k$} is the number of digital objects in corrupted pools. Therefore the number of expected operations is the number of writing operations on ingest plus the number of data scrubbing operations on retrieval. By adding the amound of data scrubbing operations, the optimal pool size gets significantly lower, see Figure \ref{fig:expected_throughput} The optimal poolsize \text{k} can be determined by finding the minimum of Eq. \ref{eq:expected_operations}, which results in the highest efficiency in Eq. \ref{eq:efficiency}.
+where \textit{J} is the number of pools and \textit{$J_+ * k$} is the number of objects in corrupted pools. Therefore, the number of expected operations is the number of writing operations on ingest plus the number of data scrubbing operations on retrieval. By adding the amount of data scrubbing operations, the optimal pool size gets significantly lower, see Figure \ref{fig:expected_operations}. The optimal pool size \text{k} can be determined by finding the global minimum of Equation \ref{eq:expected_operations}, which results in the highest efficiency in Equation \ref{eq:efficiency}.
+In the experiment, I have utilized Equation \ref{eq:poolsize} presented by \cite[3]{regen2020simple} and round the pool size up in order to avoid non integer pool sizes.
+\begin{equation}\label{eq:poolsize}
+    k = \lceil 1.24*p^-0.466 \rceil
+\end{equation}
 \begin{figure}[b]%
     \centering
-    \begin{subfigure}{6cm}
-    \includegraphics[width=\linewidth]{graphics/expected_cost.png}
-    \caption{Expected Cost}\label{fig:expected_cost}
+        \begin{subfigure}{6cm}
+        \includegraphics[width=\linewidth]{graphics/expected_cost.png}
+        \caption{Optimal pool size regarding the writing transactions. $E[T_w]$}\label{fig:expected_cost}
     \end{subfigure}
     \qquad
     \begin{subfigure}{6cm}
-    \includegraphics[width=\linewidth]{graphics/expected_throughput.png}
-    \caption{Expected Throughput}\label{fig:expected_throughput}
+        \includegraphics[width=\linewidth]{graphics/expected_scrubbing.png}
+        \caption{Optimal pool size regarding the data scrubbing operations $E[T_s]$.}\label{fig:expected_scrubbing}
     \end{subfigure}
-    \caption{Comparison of optimal poolsizes}%
+    \qquad
+    \begin{subfigure}{6cm}
+        \includegraphics[width=\linewidth]{graphics/expected_operations.png}
+        \caption{Optimal pool size regarding the total operations $E[T] = E[T_w]$ + $E[T_s]$.}\label{fig:expected_operations}
+    \end{subfigure}
+    \caption{Comparison of optimal pool sizes}%
     \label{fig:optimal_pool_size}%
 \end{figure}
-In Table \ref{tb:expected costs}  it is shown that for ingest bulks with higher prevalence of corruption rate, smaller poolsizes are favorable.
+In Table \ref{tb:expected costs} and Figure \ref{fig:pool-sizes} it is shown that for ingest bulks with higher prevalence of corruption smaller pool sizes are favorable.
+\begin{figure}[h]%
+    \centering
+    \caption{Optimal pool sizes $k$ with prevalence $p$}\label{fig:pool-sizes}
+    \includegraphics[width=0.5\textwidth]{graphics/poolsizes.png}
+\end{figure}
+The highest efficiency $E(S)$ can be achieved when the prevalence rate is the lowest, where larger pool sizes are favorable.
 \begin{table}[h]
     \caption{Expected transaction throughput with different prevalence of corruption rates}
     \centering
     \begin{tabular}{ c c c c}
     \label{tb:expected costs}
-     N & p & k & E[T] \\ 
-     10000 & 0.01 & 10 & 12052 \\ 
+     N & p & k & E(S) \\ 
+     10000 & 0.010 & 11 & 5.16 \\ 
      \hline
-     10000 & 0.02 & 8 & 12929 \\  
+     10000 & 0.037 & 6 & 2.77 \\  
      \hline
-     10000 & 0.1 & 4 & 16799 \\  
+     10000 & 0.065 & 5 & 2.18 \\  
      \hline
-     10000 & 0.15 & 4 & 18475 \\  
+     10000 & 0.121 & 4 & 1.71 \\  
      \hline
-     10000 & 0.2 & 3 & 19842  
+     10000 & 0.177 & 4 & 1.51  \\
+     \hline
+     10000 & 0.205 & 3 & 1.45  \\
+     \hline
+     10000 & 0.316 & 3 & 1.29  \\
+     \hline
+     10000 & 0.372 & 3 & 1.24  \\
+     \hline
+     10000 & 0.400 & 2 & 1.22  
     \end{tabular}
 \end{table}
-\textit{To what extend can pooled object hashes increase the efficiency and reduce cost for a fixity information storage service on the Ethereum blockchain?}
-\label{sec:rq2}
-The efficiency of a pooling strategy were measured by savings of tests (in times) using a pooling strategy comparing with the individual testing of a target population. Assuming that the testing of a population of n individuals without pooling requires n tests and the testing of the same population using the strategy S requires T(S) tests, the efficiency of the strategy S can be mathematically expressed by 
-\begin{equation}\label{eq:expected_throughput}
-    E(S) = N/T(S)
-\end{equation}
-In the case of individual testing which requires to test all samples, E(S) = 1. If a strategy S requires two times less tests than the individual testing, then E(S) = 2. A larger efciency value means a better efciency of the strategy \cite[4]{vzilinskas2021pooled}.
-\subsection{Evenly Distributed corruption rates}
-\subsection{Context-Sensitive}
-A context sensitive approach in the medical field was proposed in 2020 were members of homogeneous groups were pooled, e.g. families, office colleagues or neighbours, and is proven to be more effective than individual testing \cite[4]{deckert2020simulation}. In this thesis, the idea of grouping similar files to increaes efficiency of the pooling strategy is implemented by grouping various file extensions, the results of in group efficiency are presented in table \ref{tb-efficiency}.
+
+\textit{To what extent can pooled testing increase the efficiency and reduce cost for a fixity information storage service on the Ethereum blockchain?}
+
+A context-sensitive approach in the medical field was proposed in 2020 were members of homogeneous groups were pooled, e.g. families, office colleagues or neighbors, and is proven to be more effective than individual testing \cite[4]{deckert2020simulation}. In this thesis, the idea of grouping similar files to increase efficiency of the pooling strategy is implemented by grouping various file extensions, estimating their prevalence in form of alterations and calculating the efficiency per file extension as presented in Equation \ref{eq:efficiency}. The dataset used is presented in Section \ref{sec:dataset}.
+\begin{figure}[h]%
+    \centering
+    \caption{Distribution of prevalence rates $p$}\label{fig:pool-sizes}
+    \includegraphics[width=0.5\textwidth]{graphics/p-distribution.png}
+\end{figure}
+In Figure \ref{fig:p-distribution}, it is shown that the volatility in the repository only affects a few file extensions, where 77 out of 90 file extension where never altered and have therefore a $p$ value of 0.00. These unaltered file extensions are grouped with a group size of $Group_N$, which results in large bulks in the ingest process that have no impact on the retrieval since I assume that no object in this particular group will be altered during the preservation process. For instance, in Table \ref{tb:efficiency}, the file extension MOV has an prevalence rate of $0.00$, and therefore I can assign a group size of $N$ to reach the maximum overall efficiency.
 \begin{table}[b]
     \caption{In group efficiency of various file extensions}
     \centering
-    \begin{tabular}{ c c c c c c}
-    \label{tb-efficiency}
-     extension & N & positives & p & k & efficiency\\ 
+    \begin{tabular}{ c c c c c c c}
+    \label{tb:efficiency}
+     extension & N & p & k & T(S) & T($S_{writing}$) & T($S_{scrubbing}$) \\ 
      \hline
-     xml & 986 & 432 & 0.43  & 2 & 1.21\\  
+     XML & 986 & 0.43 & 2 & 1.21  & 2.00 & 0.64\\  
      \hline
-     pdf &106 &2 &0.01  & 8 &  3.60\\
+     PDF &106 &0.01 & 8 &  3.60 & 7.57 & 0.12\\
      \hline
-     md & 74 & 17 & 0.22  & 3 & 1.37\\    
+     MD & 74 & 0.22  & 3 & 2.96 & 2.00 & 0.41\\    
      \hline
-     mov&61 & 0 & 0.00 &  61 & 61.00\\  
+     MOV&61 & 0.00 &  61 & 61.00 & 2.00 & 1.00\\  
      \hline
-     java &47 &39&0.82 & 2  & 1.21\\  
+     JAVA &47 &0.82 & 2  & 1.21 & 1.95 & 0.82\\  
      \hline
-     zip & 17 &0 &0.00 &  17 & 17.00\\
+     ZIP & 17 &0.00 &  17 & 17.00 & 17.00 & 1.00\\
      \hline
-     txt & 14 & 2 & 0.14 &  4 & 1.33\\ 
+     TXT & 14 & 0.14 &  4 & 1.33 & 3.50 & 0.25\\ 
      \hline
-     doc & 13 & 0 & 0.00 &  13 & 13.00\\   
+     DOC & 13 & 0.00 &  13 & 13.00 & 13.00 & 1.00\\   
      \hline
-     jp2 & 12 & 0 & 0.00 &  12 & 12.00\\    
+     JP2 & 12 & 0.00 &  12 & 12.00 & 12.00 & 1.00\\   
      \hline
-     html & 11 & 6 & 0.54 &  2 & 1.06\\   
+     CSS & 11 & 0.36 & 2  & 1.07 & 1.83 & 0.50\\  
      \hline
-     css & 11 & 4 & 0.36 & 2  & 1.07\\ 
+     HTML & 11 & 0.54 &  2 & 1.06 & 1.83 & 0.60\\   
      \hline
-     js & 10 & 3 & 0.3 & 1.08
+     JS & 10 & 0.3 & 1.08 & 2.50 & 0.50
     \end{tabular}
 \end{table}
-In Figure \ref{fig:p-distribution}, it is shown that the volatility in the repository only affects a few file extensions, where 77 out of 90 file extension where never altered and have therefore a $p$ value of 0.00. These unaltered file extensions are grouped with a group size of $Group_N$, which results in large bulks in the ingest process that have no impact on the retrieval since I assume that no object in this particular group will be altered during the preservation process. 
-\begin{figure}[h]
-    \caption{Distribution file corruption by alteration in the format-corpus of Open Preserve Foundation. \url{https://github.com/openpreserve/format-corpus}}
-    \label{fig:p-distribution}
-    \centering
-    \includegraphics[width=0.5\textwidth]{p-distribution.png}
-\end{figure}
 
-\section{RQ 3 Given that metadata has a higher corruption rate, what effect has the split of metadata and objects on the operation cost?}
+To calculate the efficiency of the two stage hierarchical pooling strategy, I took the mean $p$ value of the data in Table \ref{tb:efficiency} as an estimator for the overall alteration rate which resulted in 0.06. The input for Equation \ref{eq:expected_operations} was therefore N=1560; p=0.06 and k=5.0.
+With context-sensitive pooling, another increase in efficiency can be made. In Table \ref{tb:context-sensitive} I compare the two strategies presented before, with respect to Equation \ref{eq:efficiency}, where the Two-Stage-hierarchical pooling algorithm has achieved an efficiency rate of 2.24 and context-sensitive pooling has achieved an efficiency rate of 3.03. 
+\begin{table}[b]
+    \caption{Efficiency of context-sensitive pooling vs. two stage hierarchical pooling}
+    \centering
+    \begin{tabular}{c c}
+    \label{tb:context-sensitive}
+    Strategy & T(S) \\
+    Individual & 1.00 \\
+    Two stage hierarchical & 2.24 \\
+    Context Sensitive & 3.03 
+    \end{tabular}
+\end{table}
+
+\textit{RQ 3 Given that metadata has a higher corruption rate, what effect has the split of metadata and objects on the operation cost?}
+
+To know what effect the split off metadata has, I had to double the initial 1560 file extensions and assign the postfix .meta to the newly created rows resulting in Table \ref{tb:metadata},
+\begin{table}[b]
+    \caption{Arbitrary prevalence rates $p$ and $p_{meta}$ in the format-corpus dataset}
+    \centering
+    \begin{tabular}{c c c}
+    \label{tb:metadata}
+    Extension & N & p\\
+    METADATA & 1560 & 0.990 \\
+    XML& 986 & 0.001 \\
+    PDF& 986 & 0.001 \\
+    MD& 986 & 0.001 \\
+    MOV& 986 & 0.001 
+    \end{tabular}
+\end{table}
+where $p=0.005$ for each file extension and $p_{meta}=0.800$. 
+I have calculated the efficiency for context-sensitive and two-stage hierarchical for various combinations of $p$ and $p_{meta}$ and the result is, that with split off metadata the context-sensitive strategy is much worse than the two-stage hierarchical algorithm.
+For instance in Table \ref{tb:split-off}, the context-sensitive strategy never even reaches a 1.00 efficiency, which would state that it performs worse as the individual testing in terms of efficiency, whereas the two-stage hierarchical strategy performs better with split off metadata when the $p$ value is low enough. This is because I can assign larger group sizes when the majority of file extensions (the objects) in the dataset do have a very low prevalence rate $p$. This is due to the fact, that the average $p$ value is calculated after grouping the file extensions, where we have only one file extension where the $p$ value is very vast, the metadata.
+\begin{table}[b]
+    \caption{Arbitrary prevalence rates $p$ and $p_{meta}$ in the format-corpus dataset compared with the individual testing strategy T(N) where 2044 operations are needed.}
+    \centering
+    \begin{tabular}{c c c c}
+    \label{tb:split-off}
+    $p$ & $p_{meta}$ & $T(S_{two-stage})$ & $T(S_{context-sensitive})$\\
+    0.001 &0.99 & 3.10 & 0.76\\
+    0.002 &0.98 & 2.95 & 0.75\\
+    0.006 &0.97 & 2.72 & 0.73\\
+    0.023 &0.90 & 1.86 & 0.68\\
+    0.042 &0.82 & 1.53 & 0.66
+    \end{tabular}
+\end{table}
+
+
