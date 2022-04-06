@@ -16,7 +16,7 @@ class Archive:
     def corrupt(self,p):
         for obj in self.objects:
             if(random.uniform(0, 1)<p):
-                obj.hash=hashlib.sha256((str(obj.id) + "x").encode("uft-8")).hexdigest()
+                obj.hash=hashlib.sha256((str(obj.id) + "x").encode("utf-8")).hexdigest()
                 obj.is_corruped=True
 
     def clean(self):
