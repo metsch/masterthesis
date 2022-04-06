@@ -805,7 +805,7 @@
   \AddTitlePage
 }%
 \newcommand{\addstatementpage}{%
-  \selectlanguage{naustrian}%
+  \selectlanguage{english}%
   \ifundergraduate{\AddStatementPage}%
   \ifgraduate{%
     \ifdoctor{\AddStatementPage}%

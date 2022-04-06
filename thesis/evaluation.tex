@@ -89,10 +89,10 @@ The highest efficiency $E(S)$ can be achieved when the prevalence rate is the lo
 A context-sensitive approach in the medical field was proposed in 2020 were members of homogeneous groups were pooled, e.g. families, office colleagues or neighbors, and is proven to be more effective than individual testing \cite[4]{deckert2020simulation}. In this thesis, the idea of grouping similar files to increase efficiency of the pooling strategy is implemented by grouping various file extensions, estimating their prevalence in form of alterations and calculating the efficiency per file extension as presented in Equation \ref{eq:efficiency}. The dataset used is presented in Section \ref{sec:dataset}.
 \begin{figure}[h]%
     \centering
-    \caption{Distribution of prevalence rates $p$}\label{fig:pool-sizes}
+    \caption{Distribution of prevalence rates $p$}\label{fig:p-distribution}
     \includegraphics[width=0.5\textwidth]{graphics/p-distribution.png}
 \end{figure}
-In Figure \ref{fig:p-distribution}, it is shown that the volatility in the repository only affects a few file extensions, where 77 out of 90 file extension where never altered and have therefore a $p$ value of 0.00. These unaltered file extensions are grouped with a group size of $Group_N$, which results in large bulks in the ingest process that have no impact on the retrieval since I assume that no object in this particular group will be altered during the preservation process. For instance, in Table \ref{tb:efficiency}, the file extension MOV has an prevalence rate of $0.00$, and therefore I can assign a group size of $N$ to reach the maximum overall efficiency.
+In Figure \ref{fig:p-distribution}, it is shown that the volatility in the repository only affects a few file extensions, where 77 out of 90 file extension where never altered and have therefore a $p$ value of 0.00. These unaltered file extensions are grouped with a group size of $Group_N$, which results in large bulks in the ingest process that have no impact on the retrieval since I assume that no object in this particular group will be altered during the preservation process. For instance, in Table \ref{tb:efficiency}, the file extension MOV has a prevalence rate of $0.00$, and therefore I can assign a group size of $N$ to reach the maximum overall efficiency.
 \begin{table}[b]
     \caption{In group efficiency of various file extensions}
     \centering
