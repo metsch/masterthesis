@@ -1,4 +1,4 @@
-# Reducing the operation cost of a file fixity storage service on the ethereum blockchain by utilizing pool testing strategies.
+# Master Thesis: Reducing the operation cost of a file fixity storage service on the Ethereum blockchain by utilizing pool testing strategies.
 
 ## Author: Michael Etschbacher
 

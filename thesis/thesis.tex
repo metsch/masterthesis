@@ -47,34 +47,7 @@
 
 \makeindex      % Use an optional index.
 \makenoidxglossaries % Use an optional glossary.
-\newacronym{eth}{ETH}{Ether}
-\newacronym{oais}{OAIS}{Open Archival Information System}
-\newacronym{eff}{E(S)}{Efficiency of strategy S compared to individual testing}
-\newacronym{cost}{C(S)}{Cost Efficiency of strategy S compared to individual testing}
-\newacronym{count_op}{T(S)}{Number of operations needed with strategy S}
-\newacronym{count_wr}{TC(S)}{Number of cost relevant operations needed with strategy S}
-\newacronym{evm}{EVM}{Ethereum Virtual Machine}
-
-\newglossaryentry{transaction}
-{
-  name={transaction},
-  description={An Ethereum transaction refers to an action initiated by an account managed from a human, changes the state of the blockchain.}
-}
-\newglossaryentry{call}
-{
-  name={call},
-  description={An Ethereum call refers to an interaction with a smart contract which does not change the state on the blockchain.}
-}
-\newglossaryentry{data-scrubbing}
-{
-  name={data-scrubbing},
-  description={Data-scrubbing is an error correction technique which replaces corrupted object with copies.}
-}
-\newglossaryentry{history-forgery}
-{
-  name={history-forgery},
-  description={The creation of false artifacts.}
-}
+\input{glossary.tex}
 %\glstocfalse   % Remove the glossaries from the table of contents.
 
 % Set persons with 4 arguments:
@@ -88,7 +61,6 @@
 \setdate{19}{05}{2022} % Set date with 3 arguments: {day}{month}{year}.
 \settitle{\thesistitle}{\thesistitle} % Sets English and German version of the title (both can be English or German). If your title contains commas, enclose it with additional curvy brackets (i.e., {{your title}}) or define it as a macro as done with \thesistitle.
 
-\setthesis{master}
 \setthesis{master}
 \setmasterdegree{dipl.} % dipl. / rer.nat. / rer.soc.oec. / master
 \setcurriculum{Data Science}{Data Science} % Sets the English and German name of the curriculum.
@@ -134,9 +106,6 @@
 \chapter{Fixity Storage}
 \label{ch:fixity-storage}
 \input{fixityStorage.tex}
-\chapter{Proof of Concept}
-\label{ch:poc}
-\input{poc.tex}
 \chapter{Evaluation}
 \label{ch:evaluation}
 \input{evaluation.tex}
