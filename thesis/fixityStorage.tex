@@ -55,7 +55,7 @@ A fixity storage must persist any kind of fixity information, in my thesis SHA25
 \label{sec:implementation}
 The fixity storage presented in this thesis is implemented in Solidity, a programming language designed for the EVM, see Section \ref{sec:evm}.
 The basic functionality of the smart contract, as described in Section \ref{sec:approach} can be seen in the source code presented in Listing \ref{lst:fixity-storage}
-\begin{lstlisting}[language=Solidity,caption={MVP source code of the fixity storage deployed on the Ropsten test network \url{{https://Ropsten.etherscan.io/address/0x0243c7aa552730E8C6F7ED25A480a7C0c88a70f0}},label={lst:fixity-storage}]
+\begin{lstlisting}[language=Solidity,caption={MVP source code of the fixity storage deployed on the Ropsten test network \url{https://Ropsten.etherscan.io/address/0x0243c7aa552730E8C6F7ED25A480a7C0c88a70f0},label={lst:fixity-storage}}]
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
 
@@ -130,5 +130,51 @@ To explain the cost of the non-zero and zero bytes can be explained by looking t
 
 where zero and nonzero bytes are counted and multiplied by their respective gas cost, which in this example is $txdatazero+txdatanonzero = 4 * 70 + 16 * 68 = 1368 $. The amount of non-zero bytes can be interpreted as the amount of effort given to the network.
 
+\section{Dataset}\label{sec:dataset}\
+I analyzed the format-corpus\footnote{\url{https://github.com/openpreserve/format-corpus}} from Open Preserve Foundation\footnote{\url{ http://openpreservation.org/}} to get a better understanding of various file formats, mostly on how volatile they are. The latest commit for my analysis was \textit{commit 4e4b9a34540f72612ba6eab2d28bccceb7a848ae}\footnote{\url{https://github.com/openpreserve/format-corpus/commit/4e4b9a34540f72612ba6eab2d28bccceb7a848ae}} on the 16th of February. The format-corpus is well-structured in a public GitHub repo with a decent amount of reputation in form of GitHub stars, where other datasets did provide corrupt links;were not available or did expect a tedious amount of time to download and re-structure them. Convenience; diversity of file extensions; and reputation of the organization affected my decision to use the format-corpus for analysis.
+For the analysis I used the python package folderstats\footnote{\url{https://pypi.org/project/folderstats/}} which transforms a directory into a pandas\footnote{\url{https://pandas.pydata.org/}} dataframe. The repository contains 1560 files with 90 distinct file extensions, e.g. 986 \textit{.xml} files which are mostly PRONOM\footnote{\url{https://www.nationalarchives.gov.uk/PRONOM/}} registry files or \textit{pom.xml} files in case of java projects. In Figure \ref{fig:extension_distribution} you can see the distribution of file extensions where \textit{.xml} files make 62.2 percent of the portion and PDF with 6.79 percent as the second-largest portion.
+\begin{figure}[h]
+    \caption{Distribution of file extensions in the format-corpus of Open Preserve Foundation. \url{https://github.com/openpreserve/format-corpus}}
+    \label{fig:extension_distribution}
+    \centering
+    \includegraphics[width=0.5\textwidth]{extension_distribution.png}
+\end{figure}
+
+\subsection{Transformations}
+To get a baseline estimate on how volatile certain extensions are due to updates and alterations, I analyzed Git logs and count how many times a file extension was involved in a commit. The resulting column \textit{positives} was always higher or equal than the occurrence of a file extension, since each file was involved in at least one commit, the initial commit of the file. To count the commits I used the python package gitphyton\footnote{\url{https://gitpython.readthedocs.io/en/stable/}} and utilized the git command --log. For each file in the repository, I fired up the command \textit{git log --oneline filename} in python which resulted in one or multiple lines of logs. Latter I used the multiline log as an input for the \textit{.splitlines()} function which results in an array of log lines, the length of this array minus 1 (the initial commit) is used to determine the new column \textit{positives} in the dataframe which shows if and how often a certain file has changed over the lifetime of the git repository. 
+This method of determining the volatility of a certain file extension is by no means ideal, but there is no other method to look into how often a certain file has changed without monitoring them on a system for a certain time interval. Therefore, I have decided to use the amount of file alterations in the git repository as a rough estimate.
+The estimated prevalence rate $p$ of a file extension is calculated with $positives/N$, see Table \ref{tb:git-alterations}
+\begin{table}[ht]
+    \caption{Volatility of certain file extensions in the format-corpus dataset}
+    \centering
+    \begin{tabular}{ c c c c c}
+    \label{tb:git-alterations}
+     extension & N & positives\\ 
+     \hline
+     XML & 986 & 432 & 0.43  \\
+     \hline
+     PDF &106 &2 &0.01  \\
+     \hline
+     MD & 74 & 17 & 0.22  \\   
+     \hline
+     MOV&61 & 0 & 0.00 \\ 
+     \hline
+     JAVA &47 &39&0.82 \\ 
+     \hline
+     ZIP & 17 &0 &0.00 \\
+     \hline
+     TXT & 14 & 2 & 0.14 \\
+     \hline
+     DOC & 13 & 0 & 0.00 \\ 
+     \hline
+     JP2 & 12 & 0 & 0.00 \\  
+     \hline
+     HTML & 11 & 6 & 0.54 \\ 
+     \hline
+     CSS & 11 & 4 & 0.36 \\
+     \hline
+     JS & 10 & 3 & 0.3 \\
+    \end{tabular}
+\end{table}
 \section{Wrap Up}
 In this Chapter I have presented the various forms of fixity information with their respective advantages and disadvantages together with my reasoning on why I have decided to utilize SHA256 cryptographic hashes. I have also presented various storage-media for fixity information and why it is so important that these storages guarantee for immutability in regard to history forgery. The interactions with the fixity storage are tested in an experimental environment, presented in Chapter \ref{ch:experiment}, where the research questions regarding the cost and efficiency will be answered.
