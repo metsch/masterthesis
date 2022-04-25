@@ -1,34 +1,37 @@
 The proposed fixity storage is evaluated on a local installation of the Ethereum blockchain and on the online Ropsten test network, where ETH used for transactions are free of charge.
 The two key parameters for evaluation are the operation cost and efficiency. 
-\textit{Operation cost} is calculated by multiplying the number of relevant cost transactions with the average gas cost of a writing transaction on the blockchain, see Equation \ref{eq:expected_cost}
+\textit{Operation cost} \acrshort{op-cost} is calculated by multiplying the number of relevant cost transactions with the average gas cost of a writing transaction on the blockchain, see Equation \ref{eq:expected_cost}
 \begin{equation}\label{eq:expected_cost}
-    C = J * C_{setPoolHash} = \lceil N/k \rceil * gasAmount * gasPrice * ethPrice
+    T(S) = W(S) * gasAmount
 \end{equation}
-where $J$ is the number of pools on ingest; $C_{setPoolHash} $ is the cost for a transaction in gas, see Section \ref{sec:cost-interating}.
+where \acrshort{count_wr} is the number of write transactions on the blockchain; $gasAmount$ the amount of gas used for a transaction.
 I intend to present the operation cost in the form of gas, the unit that measures the amount of computation effort required to execute specific operations, instead of the cost in USD or EUR. This is because, the amount of gas used during the experiment should stay constant, whereas the price of the ETH token fluctuates heavily. Therefore, the amount of gas is a better indicator on how costly the fixity storage is.
-\textit{Efficiency} \acrshort{eff} is measured by the number operations needed utilizing pooled testing compared T(\acrshort{two-stage}) with the individual testing strategy T(\acrshort{individual}), where the efficiency of pooling strategy S is expressed by Equation \ref{eq:efficiency}
+\textit{Efficiency} \acrshort{eff} is measured by the number operations needed utilizing pooled testing compared O(\acrshort{two-stage}) with the individual testing strategy O(\acrshort{individual}), where the efficiency of pooling strategy S is expressed by Equation \ref{eq:efficiency}
 \begin{equation}\label{eq:efficiency}
-    E(S) = T(S_{i})/T(S)
+    E(S) = O(S_{i})/O(S)
 \end{equation}
-where, assuming the preservation process of 10,000 digital objects without pooling requires T(\acrshort{two-stage}) operations and the preservation of the same objects using strategy S requires \acrshort{count_op} operations. In the case of individual testing the efficiency is 1, whereas if strategy S requires two times fewer operations the efficiency \acrshort{eff} is 2 \cite[4]{vzilinskas2021pooled}.
+where, assuming the preservation process of 10,000 digital objects without pooling requires O(\acrshort{two-stage}) operations and the preservation of the same objects using strategy S requires \acrshort{count_op} operations. In the case of individual testing the efficiency is 1, whereas if strategy S requires two times fewer operations the efficiency \acrshort{eff} is 2 \cite[4]{vzilinskas2021pooled}.
 
 \textit{What is the optimal pool size based on the corruption rates of digital objects in the archive regarding cost and efficiency?}
 
 Corruption rate $p$ represents the prevalence of corruption, e.g., when I assume that 2000 of 10000 objects will be corrupted during the preservation process, $p = 2000/10000 = 0.2$. 
 
-\textit{Expected Operation Cost:} The optimal pool size, which will result in the lowest number of cost relevant transactions is the number of pools $J$, as seen in Equation \ref{fig:expected_cost}, because I only must write onto the blockchain during the ingest process where the root hashes of pools are persisted.
+\textit{Operation Cost:} The optimal pool size, which will result in the lowest number of cost relevant transactions is the number of pools $J$, as seen in Equation \ref{fig:expected_cost}, because I only must write onto the blockchain during the ingest process where the root hashes of pools are persisted.
+\begin{equation}\label{eq:expected_cost}
+    W(S) = J = \lceil N/k \rceil
+\end{equation}
 After the first Iteration of the experiment, the number of corrupt objects per positive pools were included in the first draft of Equation \ref{eq:expected_cost}, where I assumed that I had to re-calculate corrupt pool hashes and re-store them on the blockchain, but these "repairing" actions can be done locally through data scrubbing. I only need to know that the pool is corrupt, then I can to substitute each object in the pool with a correct copy in the archive. For this part of the research question, local operations are out of scope because they do not cause direct cost on the blockchain, therefore the optimal pool size calculated by Equation \ref{eq:expected_cost} is $N$, see Figure \ref{fig:expected_cost}. A pool size of $N$ results in exactly 1 cost relevant transaction since I have combined every object on ingest into a hash-list which's root will be stored on the blockchain. This solution does not scale well, e.g., picture the process of retrieving a single object from the archive. In order to guarantee that the object is unaltered, I would have to re-compute the hash list from every object in the archive (or the bulk ingest in question). Additionally, if the single pool is corrupted, I must replace the whole bulk with copies. 
 So, there must be an answer, which rewards smaller pool sizes to avoid too much data scrubbing. The number of data scrubbing operations is the number of objects in positive pools on retrieval and is calculated with Equation \ref{eq:expected_data-scrubbing},
 \begin{equation}\label{eq:expected_data-scrubbing}
-    T(S) = J_+ * k = ((1-(1-p)^k)* \lceil N/k \rceil) * k
+    R(S) = J_+ * k = ((1-(1-p)^k)* \lceil N/k \rceil) * k
 \end{equation}
 where $(1-p)^k$ is the probability of a pool of size k being negative at a prevalence of p and the probability of a pool being positive is $1-(1-p)^k$. To find the optimal pool size regarding the amount of data scrubbing operations, I had to minimize Equation \ref{eq:expected_data-scrubbing}, as seen in Figure \ref{fig:expected_scrubbing}.
 To find the optimal pool size in terms of operation cost and efficiency, operation cost and data scrubbing has to be accounted, which results in the final Equation \ref{eq:expected_operations}
 \begin{equation}\label{eq:expected_operations}
-    T(S) = J + J_+ * k = \lceil N/k \rceil + ((1-(1-p)^k)* \lceil N/k \rceil) * k
+    O(S) = J + J_+ * k = \lceil N/k \rceil + ((1-(1-p)^k)* \lceil N/k \rceil) * k
 \end{equation}
 where \textit{J} is the number of pools and \textit{$J_+ * k$} is the number of objects in corrupted pools. Therefore, the number of expected operations is the number of writing operations on ingest plus the number of data scrubbing operations on retrieval. By adding the amount of data scrubbing operations, the optimal pool size gets significantly lower, see Figure \ref{fig:expected_operations}. The optimal pool size \text{k} can be determined by finding the global minimum of Equation \ref{eq:expected_operations}, which results in the highest efficiency in Equation \ref{eq:efficiency}.
-In the experiment, I have utilized Equation \ref{eq:poolsize} presented by \cite[3]{regen2020simple} and round the pool size up in order to avoid non integer pool sizes.
+In the experiment, I have utilized Equation \ref{eq:poolsize} presented by \cite[3]{regen2020simple}, because it is more efficient than looking for the global minimum by force, and round the pool size up in order to avoid non integer pool sizes.
 \begin{equation}\label{eq:poolsize}
     k = \lceil 1.24*p^-0.466 \rceil
 \end{equation}
@@ -36,17 +39,17 @@ In the experiment, I have utilized Equation \ref{eq:poolsize} presented by \cite
     \centering
         \begin{subfigure}{6cm}
         \includegraphics[width=\linewidth]{graphics/expected_cost.png}
-        \caption{Optimal pool size regarding the writing transactions. $T(S_{writing})$}\label{fig:expected_cost}
+        \caption{Optimal pool size regarding the writing transactions \acrshort{count_wr}.}\label{fig:expected_cost}
     \end{subfigure}
     \qquad
     \begin{subfigure}{6cm}
         \includegraphics[width=\linewidth]{graphics/expected_scrubbing.png}
-        \caption{Optimal pool size regarding the data scrubbing operations $T(S_{scrubbing})$.}\label{fig:expected_scrubbing}
+        \caption{Optimal pool size regarding the data scrubbing operations \acrshort{count_re}.}\label{fig:expected_scrubbing}
     \end{subfigure}
     \qquad
     \begin{subfigure}{6cm}
         \includegraphics[width=\linewidth]{graphics/expected_operations.png}
-        \caption{Optimal pool size regarding the total operations $T(S) = T(S_{writing}) + T(S_{scrubbing})$.}\label{fig:expected_operations}
+        \caption{Optimal pool size regarding the total operations \acrshort{count_op} = \acrshort{count_re} + \acrshort{count_wr}.}\label{fig:expected_operations}
     \end{subfigure}
     \caption{Comparison of optimal pool sizes \url{https://github.com/metsch/masterthesis/blob/main/src/py/rq1.ipynb}}%
     \label{fig:optimal_pool_size}%
@@ -73,7 +76,7 @@ The highest efficiency \acrshort{eff} can be achieved when the prevalence rate i
      \hline
      10000 & 0.14 & 4 & 1.62 & 4 \\  
      \hline
-     10000 & 0.18 & 3 & 1.50 & 3  \\
+     10000 & 0.18 & 3 & 1.50 & 4  \\
      \hline
      10000 & 0.22 & 3 & 1.40 & 3  \\
      \hline
@@ -101,7 +104,7 @@ In Figure \ref{fig:p-distribution}, it is shown that the volatility in the repos
     \centering
     \begin{tabular}{ c c c c c c}
     \label{tb:efficiency}
-     extension & N & p & k & E(\acrshort{two-stage}) & C(\acrshort{two-stage}) \\
+     extension & N & p & k & E(\acrshort{two-stage}) & W(\acrshort{two-stage}) \\
      \hline
      XML & 986 & 0.43 & 2 & 1.21  & 2.00 \\  
      \hline
@@ -113,6 +116,8 @@ In Figure \ref{fig:p-distribution}, it is shown that the volatility in the repos
      \hline
      JAVA &47 &0.82 & 2  & 1.21 & 1.95 \\  
      \hline
+     None & 26 & 0.00 & 26.0 & 26.00 & 26.00	 \\
+     \hline
      ZIP & 17 &0.00 &  17 & 17.00 & 17.00 \\
      \hline
      TXT & 14 & 0.14 &  4 & 1.33 & 3.50 \\ 
@@ -123,27 +128,28 @@ In Figure \ref{fig:p-distribution}, it is shown that the volatility in the repos
      \hline
      CSS & 11 & 0.36 & 2  & 1.07 & 1.83 \\  
      \hline
-     HTML & 11 & 0.54 &  2 & 1.06 & 1.83 \\   
+     HTML & 11 & 0.54 &  2 & 1.06 & 1.83
+      \\   
      \hline
-     JS & 10 & 0.3 & 1.08 & 2.50 
+     JS & 10 & 0.3 & 3& 1.08 & 2.50
     \end{tabular}
 \end{table}
 
 To calculate the efficiency of the two stage hierarchical pooling strategy, I took the mean $p$ value of the data in Table \ref{tb:efficiency} as an estimator for the overall alteration rate which resulted in 0.06. The input for Equation \ref{eq:expected_operations} was therefore N=1560; p=0.06 and k=5.0.
-With context-sensitive pooling, another increase in efficiency can be made. In Table \ref{tb:context-sensitive} I compare the two strategies presented before, with respect to Equation \ref{eq:efficiency}, where the Two-Stage-hierarchical pooling algorithm has achieved an efficiency rate of 2.24 and context-sensitive pooling has achieved an efficiency rate of 3.03. 
+With context-sensitive pooling, another increase in efficiency can be made. In Table \ref{tb:context-sensitive} I compare the two strategies presented before, with respect to Equation \ref{eq:efficiency}, where the Two-Stage-hierarchical pooling algorithm has achieved an efficiency rate \acrshort{eff} of 2.25 and context-sensitive pooling 3.28. 
 \begin{table}[H]
     \caption{Efficiency of context-sensitive pooling vs. two stage hierarchical pooling \url{https://github.com/metsch/masterthesis/blob/main/src/py/rq2.ipynb}}
     \centering
     \begin{tabular}{c c c}
     \label{tb:context-sensitive}
-    Strategy & E(\acrshort{two-stage}) & C(\acrshort{two-stage}) \\
+    Strategy & \acrshort{eff} & \acrshort{cost-eff} \\
     Individual & 1.00 & 1.00 \\
-    Two stage hierarchical &  2.81 & 4.99\\
-    Context Sensitive & 3.03 & 3.25
+    Two stage hierarchical &  2.25 & 5.0\\
+    Context Sensitive & 3.28 & 3.48
     \end{tabular}
 \end{table}
 
-\textit{RQ 3 Given that metadata has a higher corruption rate, what effect has the split of metadata and objects on the operation cost?}
+\textit{Given that metadata has a higher corruption rate, what effect has the split of metadata and objects on the operation cost?}
 To know what effect the split off metadata has, I had to double the initial 1560 file extensions and assign the postfix .meta to the newly created rows resulting in Table \ref{tb:metadata},
 \begin{table}[H]
     \caption{Arbitrary prevalence rates $p$ and $p_{meta}$ in the format-corpus dataset}
@@ -153,31 +159,27 @@ To know what effect the split off metadata has, I had to double the initial 1560
     Extension & N & p\\
     METADATA & 1560 & 0.990 \\
     XML& 986 & 0.001 \\
-    PDF& 986 & 0.001 \\
-    MD& 986 & 0.001 \\
-    MOV& 986 & 0.001 
+    PDF& 106 & 0.001 \\
+    MD& 74 & 0.001 \\
+    MOV& 47 & 0.001 
     \end{tabular}
 \end{table}
 where $p=0.005$ for each file extension and $p_{meta}=0.800$. 
 I have calculated the efficiency for context-sensitive and two-stage hierarchical for various combinations of $p$ and $p_{meta}$ and the result is, that with split off metadata the context-sensitive strategy is much worse than the two-stage hierarchical algorithm.
 For instance in Table \ref{tb:split-off}, the context-sensitive strategy never even reaches a 1.00 efficiency, which would state that it performs worse as the individual testing in terms of efficiency, whereas the two-stage hierarchical strategy performs better with split off metadata when the $p$ value is low enough. This is because I can assign larger group sizes when the majority of file extensions (the objects) in the dataset do have a very low prevalence rate $p$. This is due to the fact, that the average $p$ value is calculated after grouping the file extensions, where we have only one file extension where the $p$ value is very vast, the metadata.
 \begin{table}[H]
-    \caption{Various prevalence rates $p$ and $p_{meta}$ in the format-corpus dataset compared with the individual testing strategy \acrshort{two-stage} where 2044 operations are needed \url{https://github.com/metsch/masterthesis/blob/main/src/py/rq3.ipynb}.}
+    \caption{Various prevalence rates $p$ and $p_{meta}$ in the format-corpus dataset compared with the individual testing strategy \acrshort{two-stage} where 1534 cost relevant transactions and 1629 operations are needed \url{https://github.com/metsch/masterthesis/blob/main/src/py/rq3.ipynb}.}
     \centering
     \begin{tabular}{c c c c c c}
     \label{tb:split-off}
     $p$ & $p_{meta}$ & E(\acrshort{cs}) & C(\acrshort{cs}) & E(\acrshort{two-stage}) & C(\acrshort{two-stage})\\
-	0.001 &	0.99 &	1.76 & 3.41 &	7.17&	9.98 \\
-	0.002 &	0.98 &	1.73 & 3.34 &	6.82&	9.98 \\
-	0.003 &	0.98 &	1.71 & 3.29 &	6.55&	8.99 \\
-	0.013 &	0.94 &	1.60 & 3.09 &	5.02&	7.99 \\
-	0.014 &	0.93 &	1.60 & 3.04 &	4.93&	7.00 \\
-	0.016 &	0.93 &	1.59 & 3.04 &	4.81&	7.00 \\
-	0.029 &	0.87 &	1.51 & 2.91 &	3.89&	5.99 \\
-	0.031 &	0.87 &	1.50 & 2.91 &	3.83&	5.99 \\
-	0.032 &	0.86 &	1.50 & 2.91 &	3.77&	5.99 \\
-    0.042 &	0.82 &	1.46 & 2.83 &	3.39&	4.99 \\
-	0.050 &	0.80 &	1.43 & 2.83 &	3.16&	4.99
+    0.001000 & 0.99 & 0.61 & 1.71 & 2.51 & 5.03 \\
+    0.002256 & 0.98 & 0.60 & 1.68 & 2.39 & 5.03 \\
+    0.003513 & 0.98 & 0.60 & 1.66 & 2.30 & 4.53 \\
+    0.008538 & 0.96 & 0.58 & 1.59 & 2.00 & 4.03 \\
+    0.021103 & 0.91 & 0.55 & 1.50 & 1.57 & 3.52 \\
+    0.034923 & 0.85 & 0.54 & 1.42 & 1.32 & 3.02 \\
+    0.050000 & 0.80 & 0.52 & 1.42 & 1.16 & 2.52 \\
     \end{tabular}
 \end{table}
 
@@ -194,38 +196,5 @@ For the analysis I used the python package folderstats\footnote{\url{https://pyp
 \subsection{Transformations}
 To get a baseline estimate on how volatile certain extensions are due to updates and alterations, I analyzed Git logs and count how many times a file extension was involved in a commit. The resulting column \textit{positives} was always higher or equal than the occurrence of a file extension, since each file was involved in at least one commit, the initial commit of the file. To count the commits I used the python package gitphyton\footnote{\url{https://gitpython.readthedocs.io/en/stable/}} and utilized the git command --log. For each file in the repository, I fired up the command \textit{git log --oneline filename} in python which resulted in one or multiple lines of logs. Latter I used the multiline log as an input for the \textit{.splitlines()} function which results in an array of log lines, the length of this array minus 1 (the initial commit) is used to determine the new column \textit{positives} in the dataframe which shows if and how often a certain file has changed over the lifetime of the git repository. 
 This method of determining the volatility of a certain file extension is by no means ideal, but there is no other method to look into how often a certain file has changed without monitoring them on a system for a certain time interval. Therefore, I have decided to use the amount of file alterations in the git repository as a rough estimate.
-The prevalence rate $p$ of a file extension is calculated with $positives/N$, see Table \ref{tb:git-alterations}
-\begin{table}[h]
-    \caption{Volatility of certain file extensions in the format-corpus dataset}
-    \centering
-    \begin{tabular}{ c c c c c}
-    \label{tb:git-alterations}
-     extension & N & positives\\ 
-     \hline
-     XML & 986 & 432 & 0.43  \\
-     \hline
-     PDF &106 &2 &0.01  \\
-     \hline
-     MD & 74 & 17 & 0.22  \\   
-     \hline
-     MOV&61 & 0 & 0.00 \\ 
-     \hline
-     JAVA &47 &39&0.82 \\ 
-     \hline
-     ZIP & 17 &0 &0.00 \\
-     \hline
-     TXT & 14 & 2 & 0.14 \\
-     \hline
-     DOC & 13 & 0 & 0.00 \\ 
-     \hline
-     JP2 & 12 & 0 & 0.00 \\  
-     \hline
-     HTML & 11 & 6 & 0.54 \\ 
-     \hline
-     CSS & 11 & 4 & 0.36 \\
-     \hline
-     JS & 10 & 3 & 0.3 \\
-    \end{tabular}
-\end{table}
-
+The prevalence rate $p$ of a file extension is calculated with $positives/N$.
 
