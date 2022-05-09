@@ -29,7 +29,7 @@ where, assuming the preservation process of 10,000 digital objects without pooli
 
 \textit{What is the optimal pool size based on the change rates of digital objects in the archive regarding cost and efficiency?}
 
-Change rate $p$ represents the change rate, e.g., when I assume that 2,000 of 10000 objects will be changed or corrupted during the preservation process, $p = 2,000/10,000 = 0.2$. 
+Change rate $p$ represents the chance that an object will be changed , e.g., when I assume that 2,000 of 10000 objects will be changed or corrupted during the preservation process, $p = 2,000/10,000 = 0.2$. 
 
 \textit{Operation Cost:} The optimal pool size, which will result in the lowest number of cost relevant transactions is the number of pools $J$, as seen in Equation \ref{eq:expected_writes}, because I only must write onto the blockchain during the ingest process where the root hashes of pools are persisted.
 \begin{equation}\label{eq:expected_writes}
@@ -66,14 +66,14 @@ In the experiment, I have utilized Equation \ref{eq:poolsize} presented by \cite
         \includegraphics[width=\linewidth]{graphics/expected_operations.png}
         \caption{Optimal pool size regarding the total operations \acrshort{count_op} = \acrshort{count_re} + \acrshort{count_wr}.}\label{fig:expected_operations}
     \end{subfigure}
-    \caption{Comparison of optimal pool sizes}
+    \caption{Comparison of optimal pool sizes.}
 \end{figure}
 In Table \ref{tb:expected costs} and Figure \ref{fig:poolsizes} it is shown that for ingest bulks with higher change rates smaller pool sizes are favorable\footnote{\url{https://github.com/metsch/masterthesis/blob/main/src/py/rq1.ipynb}}.
 The highest efficiency \acrshort{eff} can be achieved when the change rate is the lowest, where larger pool sizes are favorable, see Figure \ref{fig:poolsizes}.
 \begin{figure}[t]%
     \centering
     \includegraphics[width=0.5\textwidth]{graphics/poolsizes.png}
-    \caption{Optimal pool sizes $k$ with change rate $p$}
+    \caption{Optimal pool sizes $k$ with change rate $p$.}
     \label{fig:poolsizes}
 \end{figure}
 \begin{table}[t]
@@ -145,7 +145,7 @@ In Figure \ref{fig:p-distribution}, it is shown that the volatility in the repos
      \hline
      JS & 10 & 0.3 & 3& 1.08 & 2.50
     \end{tabular}
-    \caption{In group efficiencies of various file extensions}
+    \caption{In group efficiencies of various file extensions.}
     \label{tb:efficiency}
 \end{table}
 
@@ -175,7 +175,7 @@ To know what effect the split off metadata has, I had to double the initial 1560
         MD& 74  \\
         MOV& 47  
     \end{tabular}
-    \caption{Arbitrary change rates $p$ in the format-corpus dataset}
+    \caption{Arbitrary set change rates $p$ in the format-corpus dataset.}
     \label{tb:metadata}
 \end{table}
 I calculate the efficiency for context-sensitive and two-stage hierarchical for various combinations of $p$ and $p_{meta}$ and the result is resulting in Table \ref{tb:split-off}. The combinations for $p$ and $p_{meta}$ are set arbitrary, future work may include the estimation of change rates based on the file sizes.
@@ -198,15 +198,15 @@ The Context-sensitive strategy never even reaches a 1.00 efficiency, which would
 \end{table}
 
 The goal of this thesis was to reduce the cost of the fixity storage by at least 50\%, this goal can be met when the optimal pool size is at least two, which is guaranteed with a prevalence lower than 35.9\%, as seen in Figure \ref{fig:threshhold}.
-\begin{figure}[h]
-    \caption{For a prevalence of corruption of maximum 35.9\%, an optimal pool size of at least two is guaranteed}
+\begin{figure}[tb]
+    \caption{For a prevalence of corruption of maximum 35.9\%, an optimal pool size of at least two is guaranteed.}
     \label{fig:threshhold}
     \centering
     \includegraphics[width=0.5\textwidth]{threshhold.png}
 \end{figure}
 What happens if the prevalence is higher than 35.9\%, the optimal pool size would be between 1.0 and 2.0 which is not practical since a pool can not include 1.42 objects, therefore I have decided to round the result up from Equation \ref{eq:poolsize} which results in Figure \ref{fig:threshhold-ceil}.
-\begin{figure}[h]
-    \caption{For a prevalence of corruption of maximum 35.9\%, an optimal pool size of at least two is guaranteed}
+\begin{figure}[tb]
+    \caption{Round the resulting optimal pool size up to avoid non-integer pool sizes.}
     \label{fig:threshhold-ceil}
     \centering
     \includegraphics[width=0.5\textwidth]{threshhold-ceil.png}

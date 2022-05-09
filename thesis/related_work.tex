@@ -6,10 +6,10 @@ The proposed architecture of ARCHANGEL can be seen in Figure \ref{fig:archangel}
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.5\textwidth]{archangel.png}
-    \caption{Architecture of the ARCHANGEL platform \cite[2]{collomosse2018archangel}}
+    \caption{Architecture of the ARCHANGEL platform \cite[2]{collomosse2018archangel}.}
     \label{fig:archangel}
 \end{figure}
-I agree with their vision of publicly available fixity information, where everyone with an Ethereum client is able to validate the integrity of objects in archive, but there are two points which do not conform with my vision. First and foremost is the usage of a private fork of the Ethereum network that is operated by a private set of nodes, which is basically a proof-of-authority consensus mechanism and contradicts the vision of a decentralized application \cite[3]{collomosse2018archangel}. Second, their implementation can hardly be used on the public Ethereum blockchain instead of a private fork due to the high cost of persisting data on the Ethereum main net, which is about \$8 for a SHA256 word, see Section \ref{sec:tx-cost}. 
+I agree with their vision of publicly available fixity information, where everyone with an Ethereum client is able to validate the integrity of objects in archive, but there are two points which do not conform with my vision. First and foremost is the usage of a private fork of the Ethereum network that is operated by a private set of nodes, which is basically a proof-of-authority consensus mechanism and contradicts the vision of a decentralized application \cite[3]{collomosse2018archangel}. Second, their implementation can hardly be used on the public Ethereum blockchain instead of a private fork due to the high cost of persisting data on the Ethereum main net, which is about \$8 for a SHA256 value, see Section \ref{sec:tx-cost}. 
 
 \section{Provenance framework for the Internet of Things (IoT)}
 Sigwart et al. (2020) proposed a data provenance framework for the IoT. Their approach is to store provenance records as so-called non-fungible assets on the Ethereum blockchain. Their prototype implements the ERC721 standard, which defines an interface for non-fungible assets or tokens (NFTs) which can be transferred by any clients (e.g., sensors, wallets), leaving a trail of provenance records created by passing the data NFT from owner to owner \cite[7]{Sigwart2020}. 
@@ -21,7 +21,7 @@ Pooled Testing was first introduced by \cite{dorfman1943detection} as a strategy
 
 In this thesis, two strategies of pooled testing are implemented. 
 First, two stage hierarchical pooling strategy, where in the first stage of this protocol N pools get initialized and filled with samples of the population. If the combined result of the pool is negative than no second stage is needed, but when a pool is declared positive a second stage is needed and all individuals from this pool have to be retested in order to find the corrupted individual. The expected number of test is equal to the number of tests in the first stage added to the number of tests in the second stage \cite[3]{nianogo2021optimal}.
-Second, context-sensitive pooling, where homogeneous pool samples are grouped where it is assumed that the within-group alteration rate is smaller than the between-group alteration rate. Hence, if one member of a pooled group is corrupted, there is a high likelihood that other group members are also infected \cite[3]{deckert2020simulation}.
+Second, context-sensitive pooling, where homogeneous pool samples are grouped where it is assumed that the within-group change rate is smaller than the between-group change rate. Hence, if one member of a pooled group is corrupted, there is a high likelihood that other group members are also infected \cite[3]{deckert2020simulation}.
 
 \section{Summary}
 The blockchain related projects presented in this chapter have a common vision, which is a decentralized storage for metadata to validate the integrity and authenticity of data used in applications. The ability for the public to validate that an authority did not tamper with the data in their care is important and the removal of trust strengthens the trust in public institutions. More on the subject of trust can be seen in Chapter \ref{ch:diplomatics}

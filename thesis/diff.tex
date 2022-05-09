@@ -1,0 +1,1382 @@
+
+%DIF LATEXDIFF DIFFERENCE FILE
+%DIF DEL C:\Users\User\Uni\masterarbeit_first_draft\masterthesis\thesis\thesis_flat.tex   Mon May  9 10:25:30 2022
+%DIF ADD thesis_flat.tex                                                                  Mon May  9 10:25:26 2022
+
+\documentclass[final]{vutinfth} 
+
+\usepackage{lmodern}        \usepackage[T1]{fontenc}    \usepackage[utf8]{inputenc} 
+
+\usepackage{amsmath}    \usepackage{amssymb}    \usepackage{mathtools}  \usepackage{microtype}  \usepackage[inline]{enumitem} \usepackage{multirow}   \usepackage{booktabs}   \usepackage{subcaption} \usepackage[ruled,linesnumbered,algochapter]{algorithm2e} \usepackage[usenames,dvipsnames,table]{xcolor} \usepackage{nag}       \usepackage{todonotes} \usepackage{hyperref}  \usepackage{float}
+
+
+\usepackage{listings, xcolor}
+
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+
+\lstdefinelanguage{Solidity}{
+	keywords=[1]{anonymous, assembly, assert, balance, break, call, callcode, case, catch, class, constant, continue, constructor, contract, debugger, default, delegatecall, delete, do, else, emit, event, experimental, export, external, false, finally, for, function, gas, if, implements, import, in, indexed, instanceof, interface, internal, is, length, library, log0, log1, log2, log3, log4, memory, modifier, new, payable, pragma, private, protected, public, pure, push, require, return, returns, revert, selfdestruct, send, solidity, storage, struct, suicide, super, switch, then, this, throw, transfer, true, try, typeof, using, value, view, while, with, addmod, ecrecover, keccak256, mulmod, ripemd160, sha256, sha3}, keywordstyle=[1]\color{blue}\bfseries,
+	keywords=[2]{address, bool, byte, bytes, bytes1, bytes2, bytes3, bytes4, bytes5, bytes6, bytes7, bytes8, bytes9, bytes10, bytes11, bytes12, bytes13, bytes14, bytes15, bytes16, bytes17, bytes18, bytes19, bytes20, bytes21, bytes22, bytes23, bytes24, bytes25, bytes26, bytes27, bytes28, bytes29, bytes30, bytes31, bytes32, enum, int, int8, int16, int24, int32, int40, int48, int56, int64, int72, int80, int88, int96, int104, int112, int120, int128, int136, int144, int152, int160, int168, int176, int184, int192, int200, int208, int216, int224, int232, int240, int248, int256, mapping, string, uint, uint8, uint16, uint24, uint32, uint40, uint48, uint56, uint64, uint72, uint80, uint88, uint96, uint104, uint112, uint120, uint128, uint136, uint144, uint152, uint160, uint168, uint176, uint184, uint192, uint200, uint208, uint216, uint224, uint232, uint240, uint248, uint256, var, void, ether, finney, szabo, wei, days, hours, minutes, seconds, weeks, years},	keywordstyle=[2]\color{teal}\bfseries,
+	keywords=[3]{block, blockhash, coinbase, difficulty, gaslimit, number, timestamp, msg, data, gas, sender, sig, value, now, tx, gasprice, origin},	keywordstyle=[3]\color{violet}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{gray}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+\lstset{
+	language=Solidity,
+	backgroundcolor=\color{verylightgray},
+	extendedchars=true,
+	basicstyle=\footnotesize\ttfamily,
+	showstringspaces=false,
+	showspaces=false,
+	numbers=left,
+	numberstyle=\footnotesize,
+	numbersep=9pt,
+	tabsize=2,
+	breaklines=true,
+	showtabs=false,
+	captionpos=b
+%DIF 42c42-43
+%DIF < } \usepackage{seqsplit}
+%DIF -------
+} \usepackage{refcount} %DIF > 
+\usepackage{seqsplit} %DIF > 
+%DIF -------
+\usepackage[acronym,toc,nonumberlist]{glossaries} \newcommand{\hash}[1]{{\ttfamily\seqsplit{#1}}}
+%DIF 44c45
+%DIF < \newcommand{\authorname}{Michael Etschbacher} \newcommand{\thesistitle}{Reducing the operation cost of a file fixity storage service on the ethereum blockchain by utilizing pool testing strategies.} \hypersetup{
+%DIF -------
+\newcommand{\authorname}{Michael Etschbacher} \newcommand{\thesistitle}{Reducing the operation cost of a file fixity storage service on the Ethereum blockchain by utilizing pool testing strategies.} \hypersetup{ %DIF > 
+%DIF -------
+    pdfpagelayout   = TwoPageRight,           linkbordercolor = {Melon},                pdfauthor       = {\authorname},          pdftitle        = {\thesistitle},         pdfsubject      = {Subject},              pdfkeywords     = {a, list, of, keywords} }
+
+\setpnumwidth{2.5em}        \setsecnumdepth{subsection} 
+
+\nonzeroparskip             \setlength{\parindent}{0pt} 
+
+\makeindex      \makenoidxglossaries \newacronym{eth}{ETH}{Ether}
+%DIF 52a53
+\newacronym{gwei}{GWEI}{Gwei} %DIF > 
+%DIF -------
+\newacronym{p}{p}{Prevalence of corruption}
+\newacronym{k}{k}{Optimal Pool Size}
+\newacronym{oais}{OAIS}{Open Archival Information System}
+\newacronym{eff}{E(S)}{Efficiency of strategy S compared to individual testing}
+%DIF 56a58-59
+\newacronym{cost-eff}{C(S)}{Cost-Efficiency of strategy S compared to individual testing} %DIF > 
+\newacronym{op-cost}{T(S)}{Operation Cost of strategy S in gas} %DIF > 
+%DIF -------
+\newacronym{cost}{C(S)}{Cost Efficiency of strategy S compared to individual testing}
+%DIF 57-58c61-63
+%DIF < \newacronym{count_op}{T(S)}{Number of operations needed with strategy S}
+%DIF < \newacronym{count_wr}{TC(S)}{Number of cost relevant operations needed with strategy S}
+%DIF -------
+\newacronym{count_op}{O(S)}{Number of operations needed with strategy S} %DIF > 
+\newacronym{count_wr}{W(S)}{Number of cost relevant operations needed with strategy S} %DIF > 
+\newacronym{count_re}{R(S)}{Number of data scrubbing operations needed with strategy S} %DIF > 
+%DIF -------
+\newacronym{individual}{$S_{i}$}{Individual testing strategy}
+\newacronym{two-stage}{$S_{h}$}{Two-stage-hierarchical pooling strategy}
+\newacronym{cs}{$S_{cs}$}{context-sensitive pooling strategy}
+\newacronym{evm}{EVM}{Ethereum Virtual Machine}
+%DIF 63a68-69
+\newacronym{dlt}{DLT}{Distributed Ledger Technology} %DIF > 
+\newacronym{dapp}{DAPP}{Decentralized Application} %DIF > 
+%DIF -------
+
+\newglossaryentry{transaction}
+{
+  name={transaction},
+  description={An Ethereum transaction refers to an action initiated by an account managed from a human, changes the state of the blockchain.}
+}
+\newglossaryentry{call}
+{
+  name={call},
+  description={An Ethereum call refers to an interaction with a smart contract which does not change the state on the blockchain.}
+}
+\newglossaryentry{data-scrubbing}
+{
+  name={data-scrubbing},
+  description={Data-scrubbing is an error correction technique which replaces corrupted object with copies.}
+}
+\newglossaryentry{history-forgery}
+{
+  name={history-forgery},
+  description={The creation of false artifacts.}
+} 
+
+\setauthor{Bsc.}{\authorname}{}{male}
+\setadvisor{Ao.univ.Prof. Dr.}{Andreas Rauber}{}{male}
+
+\setregnumber{51828999}
+\setdate{19}{05}{2022} \settitle{\thesistitle}{\thesistitle} 
+
+\setthesis{master}
+\setmasterdegree{dipl.} \setcurriculum{Data Science}{Data Science} 
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1} %DIF PREAMBLE
+\providecommand{\DIFaddtex}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdeltex}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+\providecommand{\DIFmodbegin}{} %DIF PREAMBLE
+\providecommand{\DIFmodend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF HYPERREF PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{\texorpdfstring{\DIFaddtex{#1}}{#1}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{\texorpdfstring{\DIFdeltex{#1}}{}} %DIF PREAMBLE
+%DIF COLORLISTINGS PREAMBLE %DIF PREAMBLE
+\RequirePackage{listings} %DIF PREAMBLE
+\RequirePackage{color} %DIF PREAMBLE
+\lstdefinelanguage{DIFcode}{ %DIF PREAMBLE
+%DIF DIFCODE_UNDERLINE %DIF PREAMBLE
+  moredelim=[il][\color{red}\sout]{\%DIF\ <\ }, %DIF PREAMBLE
+  moredelim=[il][\color{blue}\uwave]{\%DIF\ >\ } %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstdefinestyle{DIFverbatimstyle}{ %DIF PREAMBLE
+	language=DIFcode, %DIF PREAMBLE
+	basicstyle=\ttfamily, %DIF PREAMBLE
+	columns=fullflexible, %DIF PREAMBLE
+	keepspaces=true %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim}{\lstset{style=DIFverbatimstyle}}{} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim*}{\lstset{style=DIFverbatimstyle,showspaces=true}}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
+
+\begin{document}
+
+\frontmatter 
+
+\addtitlepage{naustrian} \addtitlepage{english} \addstatementpage
+
+\begin{kurzfassung}
+\DIFdelbegin \DIFdel{Diese Masterarbeit gibt }\DIFdelend \DIFaddbegin \DIFadd{In dieser Arbeit geht es darum die Datenintegrität eines Digitales Archives, in welchem Kulturgüter wie Bilder oder Texte archiviert sind, mit Hilfe von blockchain Technologie zu sichern. Ich verschaffe }\DIFaddend einen Überblick über digitale Archive und das Konzept von Vertrauen, Authentizität und Integrität von Daten in Archiven und eine Methode, \DIFdelbegin \DIFdel{welche die Blockchain-Technologie nutzt, }\DIFdelend um diese Konzepte zu stärken. In \DIFdelbegin \DIFdel{einer }\DIFdelend \DIFaddbegin \DIFadd{der }\DIFaddend modernen Zeit, in der das Fälschen und Manipulieren von Daten einfacher denn je ist, ist es umso wichtiger, das Vertrauen in öffentliche Einrichtungen \DIFaddbegin \DIFadd{wie Archive }\DIFaddend zu stärken\DIFdelbegin \DIFdel{, in denen Kulturgüter aufbewahrt werden .
+In meiner Masterarbeit stelle ich einen dezentralen Fixitätsspeicher auf der Ethereum-Blockchain vor, }\DIFdelend \DIFaddbegin \DIFadd{.
+Um die Datenintegrität zu gewährleisten, werden üblicherweise Kryptografische Verfahren angewandt, um sogenannte Fixitäts Informationen zu erstellen. }\DIFaddend Fixität ist ein Attribut eines digitalen Objekts, mit welchem validiert werden kann, dass ein Objekt über einen gewissen Zeitraum nicht manipuliert wurde. \DIFdelbegin \DIFdel{Die Ethereum-Blockchain eignet sich so gut als Fixitätsspeicher, weil sie einen neutralen Dritten darstellt, der keinen Vorteil aus der Manipulation der in seiner Obhut befindlichen Daten hat; mit der Fähigkeit und den Mitteln hat, dies zu beweisen und somit eine eine Verschiebung vom Vertrauen in Behörden zum Vertrauen in die Technologie bewirkt.
+Duranti (1998, 36) sagte, dass in der Antike „Authentizität kein intrinsisches Merkmal von Dokumenten war, sondern die Tatsache, wo die Dokumente aufbewahrt wurden, in einem Archiv, einem Tempel oder einer respektierten öffentlichen Institution“.
+}\DIFdelend \DIFaddbegin \DIFadd{Auch wenn das Erstellen von Fixitäts Informationen (z.B. MD5, SHA256) relativ einfach ist, ist das Speichern von dessen umso schwerer, wenn Sie bedenken, dass jeder der diese ändern kann auch die zu Grunde liegenden Daten ändern kann.
+Als Speichermedium für die Fixität stelle Ich in dieser Arbeit die Ethereum blockchain vor. Es wurde bereits gezeigt, dass die Ethereum blockchain geeignet ist, um Metadaten unveränderbar zu persistieren, jedoch sind die Kosten für eine Individuelle Strategie, in welcher die Metadaten jedes Objektes einzeln in der Blockchain persistiert werden, immens.
+Um den Kosten entgegenzuwirken, werde Ich eine Pool-Testing-Strategie anwenden, in welcher mehrere digitale Objekte in einem Pool zusammengefasst werden. Somit wird die Anzahl an kostenpflichtigen Transaktionen auf der blockchain minimiert, wobei trotzdem die Effizienz gewahrt wird. Die Idee zu diesem Vorgehen stammt aus der derzeitigen Pandemie, in der die Testkapazitäten optimal genutzt werden müssen.
+In der Evaluation berücksichtige Ich die verursachten Kosten und die Effizienz einer Pooling-Strategie im Vergleich zur individuellen Strategie. Ich zeige, anhand des OpenPreserve Format Korpusses, dass die Anzahl an benötigten Fixitäts Tests um das 2.25-Fache und die Kosten um das 5-Fache durch eine Pooling-Strategie reduziert werden können. Ich zeige zudem eine Kontext sensitive Pooling-Strategie, welche die Volatilität einzelner Dateiformate berücksichtigt und dadurch angepasste Poolgrößen anwendet. Die Kontext sensitive Methode ist ausbalancierter mit einer Testreduzierung um das 3.28-Fache und einer Kostenreduzierung um das 3.48-Fache.
+Der Beitrag dieser Arbeit zu diesem Forschungsfeld ist die exakte Kostenberechnung eines dezentralen Fixitätsspeichers auf der Ethereum blockchain und zusätzlich eine Methode, um die Kosten eines solchen zu reduzieren.
+}
+
+ \DIFaddend \end{kurzfassung}
+
+\begin{abstract}
+This \DIFdelbegin \DIFdel{master's thesis gives }\DIFdelend \DIFaddbegin \DIFadd{work is about securing the data integrity of a digital archive, in which cultural assets such as images or text are stored, with the help of blockchain technology. I provide }\DIFaddend an overview of digital archives and the \DIFdelbegin \DIFdel{concept }\DIFdelend \DIFaddbegin \DIFadd{concepts }\DIFaddend of trust, authenticity\DIFaddbegin \DIFadd{, }\DIFaddend and integrity of data in archives and a method \DIFdelbegin \DIFdel{utilizing blockchain technology }\DIFdelend to strengthen these concepts. In a modern age\DIFaddbegin \DIFadd{, }\DIFaddend where falsifying and manipulating data is easier than ever, it is \DIFdelbegin \DIFdel{all the }\DIFdelend \DIFaddbegin \DIFadd{even }\DIFaddend more important to \DIFdelbegin \DIFdel{increase }\DIFdelend \DIFaddbegin \DIFadd{strengthen }\DIFaddend trust in public institutions\DIFdelbegin \DIFdel{where cultural assets are preserved. In my master's thesis I present a decentralized Fixity information store on the Ethereum blockchain, Fixity }\DIFdelend \DIFaddbegin \DIFadd{.
+To ensure data integrity, cryptographic methods are usually used to create so-called fixity information. Fixity }\DIFaddend is an attribute of a digital object that can be used to validate that an object has not been tampered with \DIFdelbegin \DIFdel{in }\DIFdelend \DIFaddbegin \DIFadd{for }\DIFaddend a certain time interval. \DIFdelbegin \DIFdel{The Ethereum blockchain is so well suited as a fixity store because it represents a neutral third party that gains no benefit from manipulating the data in its care; with the ability and means to prove it, causing a shift from trust in authorities to trust in technology.
+Duranti (1998, 36) said that in ancient times "authenticity was not an intrinsic attribute of documents, but the fact of where the documents were kept, in an archive, temple or a respected public institution". }\DIFdelend \DIFaddbegin \DIFadd{While generating fixity information (e.g., MD5, SHA256) is relatively easy, storing it is more difficult when you consider that anyone who can change it can also change the underlying data.
+In this work, I present the Ethereum blockchain as a storage medium for the fixity information. It has already been shown that the Ethereum blockchain is suitable for persisting metadata in an unchangeable manner, but the costs for an individual strategy in which the metadata of each object is persisted individually in the blockchain are immense.
+To counteract the costs, I utilize a pool testing strategy in which several digital objects are pooled. This minimizes the number of chargeable transactions on the blockchain while still maintaining efficiency. The idea for this approach stems from the ongoing pandemic, in which the test capacities must be used optimally.
+In the evaluation, I consider the costs incurred and the efficiency of a pooling strategy compared to an individual strategy. I show, using the OpenPreserve format corpus, that the number of required fixity tests can be reduced by a factor of 2.25 and the cost by a factor of 5 by utilizing a pooling strategy. I also show a context-sensitive pooling strategy that considers the volatility of individual file formats and thus applies adjusted pool sizes. The context-sensitive method is more balanced with a test reduction of 3.28x and a cost reduction of 3.48x.
+The contribution of this work to this research field is the exact cost computation of a decentralized fixity storage on the Ethereum blockchain and additionally a method to reduce the costs of such. }\DIFaddend \end{abstract}
+
+\selectlanguage{english}
+
+\tableofcontents 
+
+\mainmatter
+
+\chapter{Introduction}
+\section{About Data Integrity}
+Storing cultural heritage in digital archives offers malicious actors the possibility to manipulate the data and possibly forge history. Recent digital technologies make data manipulation more efficient, less costly, and more exact and there is a long history of forging history. 
+In 1920 a photography was taken of Vladimir Lenin atop a platform speaking to a crowd. In the original photo, see Figure \ref{fig:f1}, Lenin's comrade Leon Trotsky can be seen standing beside the platform on Lenin's left side. When power struggles within the revolution forced Trotsky out of the party 7 years later, he was retouched out of the picture, see Figure \ref{fig:f2}, using paint, razors and airbrushes. Soviet photo artists altered the historical record by literally removing Trotsky from the pictures \cite[3]{hofer2005digital}.
+
+\DIFdelbegin %DIFDELCMD < \begin{figure}[h]%%%
+\DIFdelendFL \DIFaddbeginFL \begin{figure}[t]\DIFaddendFL \centering
+    \begin{subfigure}{6cm}
+    \includegraphics[width=\linewidth]{graphics/trotzki1.jpg}
+    \caption{Original}\label{fig:f1}
+    \end{subfigure}
+    \qquad
+    \begin{subfigure}{6cm}
+    \includegraphics[width=\linewidth]{graphics/trotzki2.jpg}
+    \caption{Retouched}
+    \label{fig:f2}
+    \end{subfigure}
+    \caption{Catalog Images}
+\end{figure}
+
+Digital archives must earn the trust of current and future digital creators by developing a robust infrastructure and long-term preservation plans to demonstrate that the archive and its staff are trustworthy stewards of the digital materials in their care \cite[37]{kirschenbaum2010digital}. Digital objects can be corrupted easily, with or without fraudulent intent, and even without intent at all. Data corruption is usually detected by comparing cryptographic hashes, so-called fixity information, at different time intervals \cite[1]{de2014checking}. The object is seen as uncorrupted if the hash values are identical, since the smallest change to the object would alter the newly computed hash value immensely. 
+
+\section{Research Problem}
+Although generating fixity information (e.g., MD5, \DIFdelbegin \DIFdel{SHA-256}\DIFdelend \DIFaddbegin \DIFadd{SHA256}\DIFaddend ) is relatively easy, managing that information over time is harder\DIFdelbegin \DIFdel{considering that if a malicious actor can alter }\DIFdelend \DIFaddbegin \DIFadd{. Consider that if an actor can change }\DIFaddend the fixity information, the actor \DIFdelbegin \DIFdel{is also able to alter the underlying object illicit }\DIFdelend \DIFaddbegin \DIFadd{can also tamper the underlying data }\DIFaddend \cite[35]{kirschenbaum2010digital}. Fixity information is usually stored in databases; object metadata records or alongside content, whereas this thesis \DIFdelbegin \DIFdel{deals with }\DIFdelend \DIFaddbegin \DIFadd{utilizes the }\DIFaddend blockchain as a storage medium.
+\DIFaddbegin \DIFadd{It is shown, that the Ethereum blockchain is suited for storage of metadata, such as provenance data or fixity information \mbox{%DIFAUXCMD
+\cite[1]{collomosse2018archangel}}\hskip0pt%DIFAUXCMD
+.
+}
+
+\DIFaddend Collomosse et al. (2018) and Sigwart et. al (2020) have shown that the Ethereum blockchain, developed by Buterin et. al \DIFaddbegin \DIFadd{(}\DIFaddend 2013\DIFaddbegin \DIFadd{)}\DIFaddend , can indeed be utilized to ensure data integrity, but there is a problem with that: the operation cost. The cost of storing a SHA256 values on the Ethereum blockchain is about \$8, which means the operation cost for an ingest of 10,000 objects costs about \$80,000.
+
+\section{Research Goal}
+This thesis proposes a way to reduce the operational cost of a blockchain-based fixity information storage by applying a pool testing strategy in which several digital objects are combined in a pool to form a hash list. The idea for this approach stems from the ongoing pandemic, in which the test capacities also must be used optimally.
+\begin{quote}
+Pool testing strategies build on testing a pooled sample from several patients: if the results from the pool test are negative, all patients in the pooled sample are declared not to have COVID-19; if the results of the pool are positive, each patient sample is tested individually. The pooled testing strategy is appealing, particularly when test availability is limited \cite[1]{cherif2020simulation}.
+\end{quote}
+This paradigm will be utilized in this thesis where the test specimen are cryptographic hashes, and the pool is hash list. With pooled testing, the goal is to reduce the amount of transactions, and therefore the cost by at least 50\%.
+
+\section{Research Questions}
+Based on the problem described above, the following research questions arise:
+
+\textit{RQ1 What is the optimal pool size based on the \DIFdelbegin \DIFdel{corruption }\DIFdelend \DIFaddbegin \DIFadd{change }\DIFaddend rates of digital objects in the archive regarding cost and efficiency?}
+
+\textit{RQ2 To what extent can pooled testing increase the efficiency and reduce cost for a fixity information storage service on the Ethereum blockchain?}
+
+\textit{RQ3 Given that metadata has a higher \DIFdelbegin \DIFdel{corruption }\DIFdelend \DIFaddbegin \DIFadd{change }\DIFaddend rate, what effect has the split of metadata and objects on the operation cost?}
+
+\section{Research Approach}
+\label{sec:approach}
+This work will follow the principles of Design Science Research, from \cite{hevner2007three}. The artifact is designed based on a literature review of the following main topics\DIFaddbegin \DIFadd{: }\DIFaddend Diplomatics of Digital Records\DIFdelbegin \DIFdel{;Ethereum Blockchain ; }\DIFdelend \DIFaddbegin \DIFadd{, Ethereum Blockchain }\DIFaddend and Pooled testing.
+
+The \DIFdelbegin \DIFdel{Application }\DIFdelend \DIFaddbegin \DIFadd{application }\DIFaddend environment is a digital archive \DIFdelbegin \DIFdel{which }\DIFdelend \DIFaddbegin \DIFadd{that }\DIFaddend manages any kind of data, \DIFdelbegin \DIFdel{data will be referenced as information object }\DIFdelend \DIFaddbegin \DIFadd{such as images or text. Data is referred to }\DIFaddend in the archive \DIFaddbegin \DIFadd{as an Information Object (IO) }\DIFaddend and each object is provided with \DIFdelbegin \DIFdel{necessary metadata }\DIFdelend \DIFaddbegin \DIFadd{metadata to guarantee readability in the future}\DIFaddend , as described in the OAIS reference model. I assume that the data integrity \DIFdelbegin \DIFdel{is }\DIFdelend \DIFaddbegin \DIFadd{must be }\DIFaddend ensured on ingest where a cryptographic hash value of the information object is computed and stored on the blockchain. The "location" of the fixity information on the blockchain is stored in the \DIFdelbegin \DIFdel{preservation description information }\DIFdelend \DIFaddbegin \DIFadd{Preservation Description Information (PDI) }\DIFaddend in the form of a unique transaction hash, see Figure \ref{fig:oais-fixity}. 
+
+\DIFdelbegin %DIFDELCMD < \begin{figure}[h]
+%DIFDELCMD <   %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{The transaction hash, used to retrieve data from the blockchain, is stored in the fixity information of the PDI of an information object \mbox{%DIFAUXCMD
+\cite[7]{lee2010open}}\hskip0pt%DIFAUXCMD
+}}
+  %DIFAUXCMD
+%DIFDELCMD < \label{fig:oais-fixity}
+%DIFDELCMD <   %%%
+\DIFdelendFL \DIFaddbeginFL \begin{figure}[t]
+  \DIFaddendFL \centering
+  \includegraphics[width=0.7\textwidth]{oais.png}
+  \DIFaddbeginFL \caption{\DIFaddFL{The transaction hash, used to retrieve data from the blockchain, is stored in the fixity information of the PDI of an information object \mbox{%DIFAUXCMD
+\cite[7]{lee2010open}}\hskip0pt%DIFAUXCMD
+.}}
+  \label{fig:oais-fixity}
+\DIFaddendFL \end{figure}
+
+The \textit{Artifact} is a combination of decentralized application on the Ethereum blockchain and a local pool structure in the archive. The smart contract exposes functions for managing cryptographic hashes of pools.
+The artifact must provide the following functionalities:
+\begin{itemize}
+  \item Create, Read, Update SHA256 values of pools.
+  \item Must hold a reference (ID) for the respective pool in the archive.
+  \item Must be tamperproof for unauthorized calls.
+\end{itemize}
+The smart contract complements the local pool structure in the archive where fixity information of certain object pools may be requested on any given time. The artifact should reduce the amount of operations needed to ensure the integrity of 10,000 objects from ingest to retrieval process by at least 50\%.
+\DIFaddbegin 
+
+\section{\DIFadd{Structure of the work}}
+\DIFadd{The remainder of this work is structured as follows:
+}\begin{enumerate}[label=\textbf{\arabic*})]
+  \setcounter{enumi}{1}
+  \item \textbf{\DIFadd{Related Work}} \DIFadd{presents the state of the art of projects that utilize the Ethereum blockchain as a storage medium for metadata
+  }\item \textbf{\DIFadd{Diplomatics of Digital Records}} \DIFadd{gives an overview of the abstract concept of trust in digital archives
+  }\item \textbf{\DIFadd{Ethereum Blockchain}} \DIFadd{gives an overview of the concepts and functions of the Ethereum ecosystem
+  }\item \textbf{\DIFadd{Fixity Storage}} \DIFadd{contains an introduction to fixity information and how to handle it, this chapter also contains the implementation and deployment of the fixity storage utilized in this work
+  }\item \DIFadd{The }\textbf{\DIFadd{Evaluation}} \DIFadd{chapter contains the answers to the research questions 
+  }\item \DIFadd{I interpret and explain the results in the }\textbf{\DIFadd{Discussion}} \DIFadd{chapter
+  }\item \textbf{\DIFadd{Conclusion}} \DIFadd{suggests future work and my contribution to the digital preservation research field
+}\end{enumerate} \DIFaddend \chapter{Related Work}
+\section{Project Archangel}
+Project ARCHANGEL \DIFdelbegin \DIFdel{was }\DIFdelend \DIFaddbegin \DIFadd{is }\DIFaddend a decentralized fixity information developed in the UK with the participation of three other countries, Australia, Estonia and Norway. Their approach is to store a cryptographic hash of every incoming object of the archive on a proof-of-authority blockchain. The project started in 2017 and ended in August \DIFdelbegin \DIFdel{2018, the }\DIFdelend \DIFaddbegin \DIFadd{2018. The }\DIFaddend goal of the project was to ensure the integrity and authenticity of digital objects in archives with the usage a private fork of the Ethereum network. Their design philosophy of operating a private blockchain has the flaw of giving a few entities the power to alter data on the blockchain. Currently, their implementation uses smart contracts as a gateway for writing to the Blockchain \cite[4]{collomosse2018archangel}.
+
+The \DIFdelbegin \DIFdel{authors of the project ARCHANGEL stated that the trust conferred by the publicto the }\DIFdelend \DIFaddbegin \DIFadd{public's trust in }\DIFaddend Archives and Memory Institutions (AMIs) \DIFdelbegin \DIFdel{had eroded}\DIFdelend \DIFaddbegin \DIFadd{has eroded, according to the authors of the project ARCHANGEL, }\DIFaddend due to the ease \DIFdelbegin \DIFdel{by }\DIFdelend \DIFaddbegin \DIFadd{with }\DIFaddend which forgery and unauthorized modifications to electronic records \DIFdelbegin \DIFdel{were conducted owing }\DIFdelend \DIFaddbegin \DIFadd{can be carried out due }\DIFaddend to advances in technology and the \DIFdelbegin \DIFdel{generation }\DIFdelend \DIFaddbegin \DIFadd{creation }\DIFaddend of numerous types of composited content. \DIFdelbegin \DIFdel{To recover public trust in AMIs and guarantee the integrity of the records, a method utilizing the existing databases as well as a method to utilize a merkle tree or  durable storage provided by private corporations have been taken into consideration; however, it was concluded that they are difficult to apply owning to several limitations. }\DIFdelend Unlike in the past, when archives \DIFdelbegin \DIFdel{have relied on the }\DIFdelend \DIFaddbegin \DIFadd{relied on specific firms' }\DIFaddend products and technologies\DIFdelbegin \DIFdel{of certain companies, blockchain presents a completely different paradigm from }\DIFdelend \DIFaddbegin \DIFadd{, blockchain introduces a whole new paradigm of }\DIFaddend openness and expandability. The blockchain \DIFdelbegin \DIFdel{awards }\DIFdelend \DIFaddbegin \DIFadd{grants }\DIFaddend permission to write records in a distributed ledger to only authorized institutions, whereas permission to view the recorded content \DIFdelbegin \DIFdel{after accessing the distributed ledger }\DIFdelend is granted to every node participating in the blockchain. \DIFdelbegin \DIFdel{Moreover, scalability allows the utilization of various tools provided by }\DIFdelend \DIFaddbegin \DIFadd{Furthermore, scalability permits the use of diverse }\DIFaddend open-source \DIFdelbegin \DIFdel{codes and enables the integrity of records to be assured by multiple }\DIFdelend \DIFaddbegin \DIFadd{tools and the assurance of record integrity by several }\DIFaddend parties through a consensus mechanism rather than by a single centralized \DIFdelbegin \DIFdel{institution \mbox{%DIFAUXCMD
+\cite[4]{wang2021research}}\hskip0pt%DIFAUXCMD
+.
+}%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \DIFadd{organization. \mbox{%DIFAUXCMD
+\cite[4]{wang2021research}}\hskip0pt%DIFAUXCMD
+.
+}\DIFaddend The proposed architecture of ARCHANGEL can be seen in Figure \ref{fig:archangel} where the cryptographic hash of an incoming object is computed and then persisted onto the private blockchain. After a certain time interval, the object can be retrieved from the archived and a hash will be recomputed with the same cryptographic hash function\DIFdelbegin \DIFdel{, the }\DIFdelend \DIFaddbegin \DIFadd{. The }\DIFaddend object is guaranteed to be unaltered if the local and online hash value are the same.
+\DIFdelbegin %DIFDELCMD < \begin{figure}[h]
+%DIFDELCMD <     %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Architecture of the ARCHANGEL platform \mbox{%DIFAUXCMD
+\cite[2]{collomosse2018archangel}}\hskip0pt%DIFAUXCMD
+}}
+    %DIFAUXCMD
+\DIFdelendFL \DIFaddbeginFL \begin{figure}[t]
+    \DIFaddendFL \centering
+    \includegraphics[width=0.5\textwidth]{archangel.png}
+    \DIFaddbeginFL \caption{\DIFaddFL{Architecture of the ARCHANGEL platform \mbox{%DIFAUXCMD
+\cite[2]{collomosse2018archangel}}\hskip0pt%DIFAUXCMD
+.}}
+    \DIFaddendFL \label{fig:archangel}
+\end{figure}
+I agree with their vision of publicly available fixity information, where everyone with an Ethereum client is able to validate the integrity of objects in archive, but there are two points which do not conform with my vision. First and foremost is the usage of a private fork of the Ethereum network that is operated by a private set of nodes, which is basically a proof-of-authority consensus mechanism and contradicts the vision of a decentralized application \cite[3]{collomosse2018archangel}. Second, \DIFdelbegin \DIFdel{they have not implemented some form of transaction reduction, therefore they have to upload a SHA256 word for each object in the archive}\DIFdelend \DIFaddbegin \DIFadd{their implementation can hardly be used on the public Ethereum blockchain instead of a private fork due to the high cost of persisting data on the Ethereum main net}\DIFaddend , which is \DIFdelbegin \DIFdel{not feasible since a single upload costs }\DIFdelend about \$8 \DIFaddbegin \DIFadd{for a SHA256 value}\DIFaddend , see Section \ref{sec:tx-cost}. 
+
+\section{Provenance framework for the \DIFdelbegin \DIFdel{IOT}\DIFdelend \DIFaddbegin \DIFadd{Internet of Things (IoT)}\DIFaddend }
+Sigwart et al. \DIFaddbegin \DIFadd{(}\DIFaddend 2020\DIFdelbegin \DIFdel{proposed a generic }\DIFdelend \DIFaddbegin \DIFadd{) proposed a }\DIFaddend data provenance framework for the IoT. Their approach is to store provenance records \DIFaddbegin \DIFadd{as so-called non-fungible assets }\DIFaddend on the Ethereum blockchain\DIFdelbegin \DIFdel{with the goal of immutable provenance records for supply chains or sensor data \mbox{%DIFAUXCMD
+\cite[4]{Sigwart2020}}\hskip0pt%DIFAUXCMD
+. 
+It is implemented as a framework, therefore it can be adapted to suit other forms of data, }\DIFdelend \DIFaddbegin \DIFadd{. Their prototype implements the ERC721 standard, which defines an interface for non-fungible assets or tokens (NFTs) which can be transferred by any clients (e.g., sensors, wallets), leaving a trail of provenance records created by passing the data NFT from owner to owner \mbox{%DIFAUXCMD
+\cite[7]{Sigwart2020}}\hskip0pt%DIFAUXCMD
+. 
+This project is important for my thesis, because it shows that the Ethereum blockchain can be utilized as a secure storage for immutable metadata which complements processes outside the blockchain.
+Contrary to their implementation, I decided to not utilize the ERC721 standard since the data }\DIFaddend in my case\DIFdelbegin \DIFdel{fixity information. Their implementation utilized the ERC727 token standard for Ethereum which is beneficial for }\DIFdelend \DIFaddbegin \DIFadd{, fixity information, does not need to be transferred from owner to owner. In order to use their implementation for fixity information instead of }\DIFaddend provenance data, \DIFdelbegin \DIFdel{where each object is a non-fungible-token(NFT) \mbox{%DIFAUXCMD
+\cite[7]{Sigwart2020}}\hskip0pt%DIFAUXCMD
+. NFTs require a large amount of metadata, which is costly and for my use-case certainly overhead . 
+}\DIFdelend \DIFaddbegin \DIFadd{you would have to deploy or "mint" an NFT for each digital object in the archive. That means, massive overhead in operation cost since "minting" is basically a deployment of a smart contract, which is one of the most expensive operations on the Ethereum blockchain, see Table \ref{table:gas-costs}.
+}\DIFaddend 
+
+\DIFdelbegin \section{\DIFdel{Remote Data Integrity Checking Scheme}}
+%DIFAUXCMD
+\addtocounter{section}{-1}%DIFAUXCMD
+\DIFdel{Zhao et al. 2020 proposed a blockchain based remote data integrity checking scheme. Their scheme consists of three phases, including setup, storage and verification phase, this scheme may be of great importance for my work because it integrates well with the work of Sigwart et al. 2020 in terms of design goals. The detail of each phase in their scheme is described as follows: (1) Setup phase, where the public parameter of the elliptic curve group is uploaded to the blockchain. (2) Storage phase, where the data owner signs the data blocks and uploads them to a cloud storage.
+(3) Verification phase, where the data owner downloads the data or desires to check the integrity of the individual data. The auditing process is done by verifying the signature of the data blocks by the data owner \mbox{%DIFAUXCMD
+\cite[1]{zhao2020blockchain}}\hskip0pt%DIFAUXCMD
+.
+}%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend \section{Pooled testing}\label{sec:pooled}
+Pooled Testing was first introduced by \cite{dorfman1943detection} as a strategy to screen numerous military recruits for syphilis during World War 2. Dorfman envisioned that instead of testing each recruit's blood specimen separately, multiple specimens could be pooled together and tested at once. Positive pools' specimens would be retested individually to determine which recruits had contracted the disease, whereas negative pools' specimens would be declared negative. Dorfman wanted to save money on testing while still identifying all syphilitic-positive candidates, so he used group testing. Because the goal is to identify all positive persons among all individuals tested, this is now known as the "case identification problem." Dorfman's case identification method can be thought of as a two-stage hierarchical algorithm. Individuals from positive pools are tested in the second stage after non-overlapping pools have been screened in the first.
+\DIFaddbegin 
+
+\DIFaddend In this thesis, two strategies of pooled testing are implemented. 
+First, two stage hierarchical pooling strategy, where in the first stage of this protocol N pools get initialized and filled with samples of the population. If the combined result of the pool is negative than no second stage is needed, but when a pool is declared positive a second stage is needed and all individuals from this pool have to be retested in order to find the corrupted individual. The expected number of test is equal to the number of tests in the first stage added to the number of tests in the second stage \cite[3]{nianogo2021optimal}.
+Second, context-sensitive pooling, where homogeneous pool samples are grouped where it is assumed that the within-group \DIFdelbegin \DIFdel{variation in any characteristic }\DIFdelend \DIFaddbegin \DIFadd{change rate }\DIFaddend is smaller than the between-group \DIFdelbegin \DIFdel{variation}\DIFdelend \DIFaddbegin \DIFadd{change rate}\DIFaddend . Hence, if one member of a pooled group is corrupted, there is a high likelihood that other group members are also infected \cite[3]{deckert2020simulation}.
+
+\section{\DIFdelbegin \DIFdel{Wrap up}\DIFdelend \DIFaddbegin \DIFadd{Summary}\DIFaddend }
+The blockchain related projects presented in this \DIFdelbegin \DIFdel{Chapter }\DIFdelend \DIFaddbegin \DIFadd{chapter }\DIFaddend have a common vision, which is a decentralized storage for metadata to validate the integrity and authenticity of data used in applications. The ability for the public to validate that an authority did not tamper with the data in their care is important and the removal of trust strengthens the trust in public institutions. More on the subject of trust can be seen in Chapter \ref{ch:diplomatics}
+Decentralization and trust aside, the cost of the fixity storage presented in this thesis is also more than relevant as later seen in Chapter \ref{ch:ethereum}, where the cost and computational effort of interacting with the Ethereum network is presented.
+ \chapter{Diplomatics of Digital Records}
+\label{ch:diplomatics}
+\section{About Diplomatics}
+Diplomatics is a science founded in France in the seventeenth century by Benedictine monk Dom Jean Mabillon in his dissertation De Re Diplomatica Libri VI (1681) to determine the provenance and authenticity of evidence attesting to patrimonial rights. It was then utilized by attorneys to settle disputes, historians to interpret documents, and editors to publish medieval deeds and charters, and it evolved into a legal, historical, and philological specialty.
+Classic diplomatics and modern/digital diplomatics should be distinguished since these two areas of the field do not represent a natural evolution of the latter from the former, but rather operate in parallel and focus on separate topics. Modern diplomatics encompasses all documents produced in the course of any kind of business, and is defined as "the discipline that studies the genesis, forms, and transmission" of records, as well as "their relationship with the facts represented in them and with their creator, in order to identify, evaluate, and communicate their true nature."
+
+Both classic and modern diplomatics are concerned with determining the trustworthiness of records; however, the former does so retrospectively, examining records from several centuries ago, whereas the latter is concerned not only with establishing the trustworthiness of historical information but also with ensuring the trustworthiness of records yet to be created \cite[10]{kirschenbaum2010digital}. 
+
+A digital record is a digital component, or group of digital components, that is saved, treated, and managed as a record, or, more specifically, a record whose content and form are encoded using discrete numeric values, such as the binary values 0 and 1, rather than a continuous spectrum of values, as defined by modern diplomatics. A digital record differs from analogue and electronic records in that it is digital. The representation of an item or physical process using continuously varying electronic signals or mechanical patterns is referred to as analogue by InterPARES\DIFaddbegin \footnote{\DIFadd{InterPARES 2, Terminology Database, }\url{http://www.interpares.org/ip2/ip2_terminology_db.cfm} \DIFadd{(accessed on 25 April 2022)}}\DIFaddend .
+An analogue depiction of an object or physical process, in contrast to a digitally recorded representation, closely mimics the original. Any analogue or digital record conveyed by an electrical conductor and requiring the use of electronic equipment to be comprehensible by a person is defined as an electronic record by InterPARES. Using the classic archive idea, InterPARES defines a record as a document created or received as an instrument or by-product of a practical activity and set aside for action or reference \DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\cite[52]{duranti2009digital}}\hskip0pt%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite[44]{duranti2009digital}}\hskip0pt%DIFAUXCMD
+}\DIFaddend .
+
+The integrity of a record is determined not only by its appearance – which can be deceiving in the case of good forgeries – but also by the circumstances of its maintenance and preservation: until proof to the contrary, an unbroken chain of responsible and legitimate custody is considered an insurance of integrity, and integrity metadata are required to attest to that. The duty for a record's authenticity changes from the creator's trusted record keeper, who must guarantee it for the duration of the record's custody, to the trusted custodian, who must guarantee it for the duration of the record's existence \cite[53]{duranti2009digital}. In this thesis the Ethereum network acts as a trusted custodian which guarantees that no one is able to tamper with the fixity information of digital records.
+
+\DIFaddbegin \DIFadd{There are no originals in the diplomatic sense in the digital environment since there are no records that are the first instance of an item. When a digital record is closed for the first time, the original is destroyed and every time it opens a copy is created. However, it can be stated that each digital record is a copy in the latest version utilized by the creator, and that any version retained by the preserver is a genuine copy of the creators record.
+}
+
+\DIFaddend \section{Trustworthiness}
+Whether it \DIFdelbegin \DIFdel{'s }\DIFdelend \DIFaddbegin \DIFadd{is }\DIFaddend a stack of paper or a digital file, trustworthiness is a concept and an obligation that lasts the life of the document. As files go through the stages of the preservation process, from initial capture and metadata extraction to longer-term strategies like migration and rights management, the needs of born-digital objects change. Born-digital \DIFdelbegin \DIFdel{fonds }\DIFdelend \DIFaddbegin \DIFadd{objects }\DIFaddend follow a similar path from creator to intermediary, such as a dealer or other (human or technology) agent, to archival repository staff, and eventually to storage and, possibly, ingest into a digital repository. The phases of that journey make up a digital \DIFdelbegin \DIFdel{object's }\DIFdelend \DIFaddbegin \DIFadd{objects }\DIFaddend chain of custody, and each one has a significant impact on the trustworthiness of the born-digital elements in a given accession.\newline The fundamental parts of creating and maintaining trust are the provenance of both analog and digital resources, as well as documentation concerning their storage environment, what has been done to them, and by whom. In the collection and preservation of born-digital resources, the trustworthiness of an institution, a custodian, or a document is critical \cite[27]{kirschenbaum2010digital}. 
+
+Modern diplomatics concerns itself with \DIFdelbegin \DIFdel{five }\DIFdelend \DIFaddbegin \DIFadd{four }\DIFaddend aspects of trustworthiness: reliability, authenticity, accuracy \DIFdelbegin \DIFdel{, integrity }\DIFdelend and authentication \cite[10]{kirschenbaum2010digital}.
+
+\subsection{Reliability}
+The content of a record's trustworthiness as a statement of fact. It is evaluated on the basis of 1) the completeness of the record, that is, the presence of all formal elements required by the legal-administrative system for that specific record to be capable of achieving the purposes for which it was created; and 2) the controls exercised on the process of creating the record, among which are those exercised on the author of the record, who must be the person competent, that is, having the authority and capacity to create the record.
+The creator and trustworthy record keeper, that is, the person or organization who made or received the record and kept it with its other records, are solely responsible for its reliability \cite[52]{duranti2009digital}.
+
+\DIFaddbegin \DIFadd{Archivist' expectations reliable sources have evolved over time, from the belief that librarians and archivists would provide researchers with verifiable evidence, to more modern understandings that reject the ideal of the reliable source and regard all texts as potentially deceptive and richly ambiguous. Data-stewards should be able to offer researchers with documentation about the provenance and acquisition of the data in their care using the methods of operation and processes created by the community and professionals, such as a provenance chain or the fixity information created on ingest of the object in question \mbox{%DIFAUXCMD
+\cite[32]{kirschenbaum2010digital}}\hskip0pt%DIFAUXCMD
+.
+}
+
+\DIFaddend Open source software is \DIFdelbegin \DIFdel{asked }\DIFdelend \DIFaddbegin \DIFadd{favorable in terms of reliability }\DIFaddend because community members can look into the code and verify that no unwanted actions will be executed. \DIFdelbegin \DIFdel{The blockchain, in regard to reliability , }\DIFdelend \DIFaddbegin \DIFadd{From a technical perspective, the blockchain suits as a source of reliability since it }\DIFaddend is well accepted by the public and every transaction ever made is publicly viewable \DIFaddbegin \DIFadd{and therefore fulfills the first point of reliability: completeness of the record}\DIFaddend . Also, the source code of the Ethereum network and each update (fork) gets peer reviewed and is available on GitHub\footnote{\url{https://github.com/ethereum/go-ethereum}}.
+
+
+\subsection{Authenticity}
+Authenticity refers to a record's ability to be trusted as a record, and is defined as the fact that a record has not been tampered with or corrupted, either accidentally or with malicious intend. An authentic record keeps the same identity it had when it was created and can be presumed or demonstrated to have kept its integrity across time. The identity of a record is made up of all the features that set it apart from other records, and it is determined by the formal components on the record's face and/or its attributes, as stated in a register entry or as metadata \cite[52]{duranti2009digital}.
+\DIFdelbegin %DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdel{Archivist' expectations of source reliability have evolved over time, from the belief that librarians and archivists would provide researchers with verifiable evidence, to more modern understandings that reject the ideal of the reliable source and regard all texts as potentially deceptive and richly ambiguous. Data-stewards should be able to offer researchers withdocumentation about the provenance and acquisition of the data in their care using the methods of operation and processes created by the community and professionals, such as a provenance chain or the fixity information created on ingest of the object in question \mbox{%DIFAUXCMD
+\cite[32]{kirschenbaum2010digital}}\hskip0pt%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{With the fixity information stored on the blockchain, it can be proven that a record in the archive has not been tampered with. The simple comparison of the hash values generated in different points in time can prove the authenticity of a record}\DIFaddend .
+
+\subsection{Accuracy}
+Because record correctness was subsumed under both trustworthiness and authenticity as a notion, it was never a consideration in general diplomatics. Accuracy is defined as the truthfulness, exactness, \DIFdelbegin \DIFdel{accuracy, }\DIFdelend or completeness of the data (i.e., the smallest, meaningful, indivisible pieces of information) within a record. Because of the ease with which data can be damaged during transmission over space (between humans and/or systems) and time in the digital environment, accuracy must be considered and assessed as a separate quality of a record (when digital systems are upgraded or records are migrated to a new system). As a result, the responsibility for accuracy shifts over time from the creator's trusted record-keeper to the trusted custodian \DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\cite[14]{kirschenbaum2010digital}}\hskip0pt%DIFAUXCMD
+.
+}%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\subsection{\DIFdel{Integrity}}
+%DIFAUXCMD
+\addtocounter{subsection}{-1}%DIFAUXCMD
+\DIFdel{There are no originals in the diplomatic sense in the digital environment, that is, there are no records that are the first instance of each item under consideration, in addition to being complete and capable of reaching the purposes for which they were generated, because when we close a digital record for the first time, we destroy the original and every time we open it , we create a copy. However, we can state that each digital record is a copy in the form of original in the latest version utilized by the creator in the usual and ordinary course of business, and that any version retained by the preserver is a genuine copy of the creator's record.
+If their identity is intact and their integrity can be presumed or demonstrated, they are both authoritative and authentic. When extracting digital evidence, digital forensics must first avoid modifying the data and must be repeatable in order to be considered reliable. The accurate documenting of each and every operation performed on the evidence supports repeatability, which is one of the key axioms of digital forensics practice \mbox{%DIFAUXCMD
+\cite[58]{duranti2009digital}}\hskip0pt%DIFAUXCMD
+. 
+}%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdel{Such a chain of alteration is possible on the Ethereum network, since each update on an object hash is natively documented on the blockchain.
+Duplication integrity is ensured when given a data set, the processof creating a duplicate of the data does not modify the data (either intentionally or accidentally) and the duplicate is an exact bit copy of the original data set. It is possible to preserve data integrity over the duplicate, with respect to the original, by using a trusted third party. At the time the image is created, a copy of the hash can be given to a trusted third party to hold in escrow. Now changes to the duplicate can be detected even if the original is modified.}%DIFDELCMD < \newline
+%DIFDELCMD < %%%
+\DIFdel{Experts in digital forensics have also linked duplication integrity to time, and have investigated using time stamps to achieve this. A distinction between the integrity of a record as a whole and the integrity of its duplicate may be useful in resolving the conflict between diplomats' and information technology experts' views on integrity, which tend to support the need for the extreme authentication provided by a digital signature. Indeed, by accepting the digital forensics specialists' proposed link between integrity and time, and defining record integrity differently in each step of the record life cycle and/or custodial history, one could further enrich the concept of integrity \mbox{%DIFAUXCMD
+\cite[60]{duranti2009digital}}\hskip0pt%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite[52]{duranti2009digital}}\hskip0pt%DIFAUXCMD
+.
+Whether it is a bit-rot or any other unintended error during the preservation process, a cryptographic hash value will be different if any bit of the object in the archive has changed and therefore the system presented in this thesis fulfills the requirements of accuracy}\DIFaddend .
+
+\DIFdelbegin \DIFdel{Both diplomatics and forensics were created as methods for examining existing material evidence, determining its transmission status, legitimacy, and ability to offer confirmation of the circumstances at hand \mbox{%DIFAUXCMD
+\cite[64]{duranti2009digital}}\hskip0pt%DIFAUXCMD
+.
+}%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend \subsection{Authentication}
+Authentication is defined as a statement or an element, such as a seal, a stamp, or a symbol, attached to a record after it has been completed by a competent \DIFdelbegin \DIFdel{officer}\DIFdelend \DIFaddbegin \DIFadd{employee}\DIFaddend . Authentication simply assures that a record is authentic at one precise point in time, when the declaration is made or the authenticating element or entity is affixed, whereas authenticity is a quality of the record that accompanies it for as long as it remains as is. A digital signature is frequently used in the digital environment to give ultimate authenticity. Because it is tied to a full record, the digital signature serves as a seal, allowing verification of the record's origin and integrity, as well as making the record unassailable and incontestable by performing a non-repudiation function. \cite[53]{duranti2009digital}.
+\DIFdelbegin %DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdel{With regard to authentication, the method presented in this thesis guarantees that the fixity information of an object is never altered unnoticed by an unauthorized actor, since every transaction can be viewed attached with a timestamp on the blockchain}\DIFdelend \DIFaddbegin \DIFadd{Authentication in this process is not intended, since I do not use any form of digital signature to prove that a record is indeed authentic on ingest. In this thesis, I assume that every object is authentic and reviewed by a competent employee}\DIFaddend .
+
+\section{\DIFdelbegin \DIFdel{Wrap up}\DIFdelend \DIFaddbegin \DIFadd{Summary}\DIFaddend }
+The concept of trust in a public authority is presented in this \DIFdelbegin \DIFdel{Chapter }\DIFdelend \DIFaddbegin \DIFadd{chapter }\DIFaddend and acts as a foundation for designing the fixity storage. \DIFdelbegin \DIFdel{Concepts, such as integrity and accuracy are implemented in the form }\DIFdelend \DIFaddbegin \DIFadd{The concept of authenticity is implemented through the usage }\DIFaddend of SHA256 \DIFdelbegin \DIFdel{hashes, with which the integrity of an object can be validated at bit level }\DIFdelend \DIFaddbegin \DIFadd{values in this thesis, where the collision resistance of the SHA256 algorithm guarantees that no object in the archive can be tampered with. Accuracy is also guaranteed through the usage of a cryptographic hash function, since the hash is completely different if a bit level error happens over the course of the preservation}\DIFaddend .
+Reliability is enforced by the nature of the blockchain, where every state changing action is documented immutable as long as the blockchain exists, as later presented in Chapter \ref{ch:ethereum}. Each of the core concepts of trust is needed in the modern digital world, where it is easier than ever to manipulate data and opinions. 
+\chapter{Ethereum Blockchain}
+\label{ch:ethereum}
+\section{Introduction to Ethereum}
+\label{sec:eth-blockchain}
+Open source blockchain networks like Ethereum and Bitcoin are software kits that allow you to create an economic system in software, replete with account management and a native unit of exchange that can be used to transfer funds between accounts. These native units of exchange are referred to as coins, tokens, or cryptocurrencies, but they are the same as tokens in any other system: they are a type of money that can only be used within that system to pay peers or run programs on the Ethereum network.
+When you want to make one of these peer-to-peer networks accessible through a web browser, you need to use special software libraries such as \DIFaddbegin \DIFadd{Python's }\DIFaddend Web3\footnote{\url{https://github.com/ethereum/web3.py}} which is utilized in this thesis to connect to the Ethereum network \cite[2]{dannen2017introducing}.
+
+The fact that everyone in the world can interact with the \DIFdelbegin \DIFdel{same distributed database}\DIFdelend \DIFaddbegin \DIFadd{blockchain}\DIFaddend , given you have internet access and \DIFdelbegin \DIFdel{a decent deviceis favorable }\DIFdelend \DIFaddbegin \DIFadd{an according device, such as a PC or mobile phone, is advantageous }\DIFaddend for a fixity storage such as presented in Chapter \ref{ch:fixity-storage}\DIFdelbegin \DIFdel{, since anyone will be able to confirm if an object has changed over time if given }\DIFdelend \DIFaddbegin \DIFadd{. Anyone is able to validate the integrity of an object with }\DIFaddend the right resources, \DIFdelbegin \DIFdel{such as the transaction hash in which the fixity information of an objectwas stored on the blockchain}\DIFdelend \DIFaddbegin \DIFadd{e.g., the transaction in which an object's fixity information was originally stored}\DIFaddend . Picture a digital archive which releases multiple objects to the public and their respective fixity information on the blockchain, the community could then validate if the object in question is authentic. Pure trust, that an archive or its stewards did not tamper with the data in their care is therefore not needed anymore.
+\section{About the \DIFaddbegin \DIFadd{Ethereum }\DIFaddend blockchain}
+A block is a time unit that contains a specific amount of transactions. Transaction data is captured throughout that time period, and when the unit of time expires, the next block begins. The blockchain is a representation of the history of state changes in the \DIFdelbegin \DIFdel{EVM's network database }\DIFdelend \DIFaddbegin \DIFadd{Ethereum network }\DIFaddend \cite[43]{dannen2017introducing}.
+The Ethereum network divides transactions and state changes into blocks, which are then hashed. Before the following canonical block may be added on top of it, each block is inspected and validated. Nodes on the network will no longer need to evaluate the trustworthiness of every single block in the Ethereum network's history\DIFdelbegin \DIFdel{; instead, they will only need to compute the current balances of the accounts on the network. They only check to see if its "parent block" is the most recent canonical block }\DIFdelend \DIFaddbegin \DIFadd{, but only validate the most recent block in the chain. Therefore, it gets harder to tamper with past transactions with each block set on top of the blockchain}\DIFaddend . \DIFdelbegin \DIFdel{They do it rapidly by checking to verify if the new block has the right hash of its parents' transactions and state.
+}\DIFdelend The blockchain is made up of all the blocks strung together, including the genesis block, which is \DIFdelbegin \DIFdel{an honorific designating }\DIFdelend the first block \DIFdelbegin \DIFdel{mined by the network after it went live}\DIFdelend \DIFaddbegin \DIFadd{in the blockchain}\DIFaddend . The blockchain is also known as a distributed ledger or \DIFdelbegin \DIFdel{distributed ledger technology in some sectors (DLT}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\acrlong{dlt} }\hskip0pt%DIFAUXCMD
+(\acrshort{dlt}}\DIFaddend ). The term \DIFdelbegin \DIFdel{"ledger " }\DIFdelend \DIFaddbegin \DIFadd{ledger }\DIFaddend is correct since the chain contains every transaction in the network's history, thereby turning it into a massive, well-balanced ledger \cite[55]{dannen2017introducing}. 
+\section{Ethereum Virtual Machine \DIFaddbegin \DIFadd{(EVM)}\DIFaddend }
+\label{sec:evm}
+The physical manifestation of the \DIFdelbegin \DIFdel{EVM cannot be compared to that of a cloud or an ocean wave, but it does }\DIFdelend \DIFaddbegin \DIFadd{\acrshort{evm} }\DIFaddend exist as a single entity sustained by thousands of connected computers running an Ethereum client\footnote{\url{https://ethereum.org/en/developers/docs/evm/}}.
+In the Ethereum context, a virtual machine \DIFdelbegin \DIFdel{(VM) }\DIFdelend is a massive global computer made up of constituent nodes, which are themselves computers. In general, a virtual machine is a computer system that is emulated by another computer system. These emulations are based on the same computer architectures as the target of their emulation, but they usually reproduce that architecture on hardware other than that for which it was designed. Virtual machines can be built using hardware, software, or a combination of the two. It is both in the case of Ethereum. Rather than securing thousands of individual machines, Ethereum takes the approach of securing one massive state machine that can span the entire globe \cite[48]{dannen2017introducing}.
+
+The \DIFdelbegin \DIFdel{EVM }\DIFdelend \DIFaddbegin \DIFadd{\acrshort{evm} }\DIFaddend can run any computer program written in Solidity\footnote{\url{https://github.com/ethereum/solidity}}, the native programming language of the \DIFdelbegin \DIFdel{EVM}\DIFdelend \DIFaddbegin \DIFadd{\acrshort{evm}}\DIFaddend . These programs will always create the same output, with the same underlying state changes, when given a specific input. As a result, Solidity programs are entirely deterministic and guaranteed to execute, as long as you pay enough for the transaction. Solidity programs are Turing complete in the sense that they can express all tasks that can be performed by computers. This means that every application executed on the platform is run by the entire dispersed network, every node \cite[50]{dannen2017introducing}.
+
+The \DIFdelbegin \DIFdel{EVM }\DIFdelend \DIFaddbegin \DIFadd{\acrshort{evm} }\DIFaddend is also a runtime environment for small programs that can be executed via a network, from the perspective of a software developer. Smart contracts are compiled into the \DIFdelbegin \DIFdel{EVM}\DIFdelend \DIFaddbegin \DIFadd{\acrshort{evm}}\DIFaddend 's native language, the \DIFdelbegin \DIFdel{EVM }\DIFdelend \DIFaddbegin \DIFadd{\acrshort{evm} }\DIFaddend bytecode. By using a client application like Truffle\footnote{\url{https://trufflesuite.com/}} or Geth\footnote{\url{https://geth.ethereum.org/}}, Solidity, a high-level language, is compiled into bytecode and posted onto the Ethereum network \cite[51]{dannen2017introducing}. I have decided to utilize Truffle for this thesis because of its fast and easy way to interact with the Ethereum network and its subnetworks.
+\section{Smart Contracts}
+Smart contracts, similar to the concept of classes in traditional object-oriented programming, are the building blocks of decentralized apps operating on the \DIFdelbegin \DIFdel{EVM}\DIFdelend \DIFaddbegin \DIFadd{\acrshort{evm}}\DIFaddend . When developers talk about developing smart contracts, they \DIFdelbegin \DIFdel{'re usually talking to writing code }\DIFdelend \DIFaddbegin \DIFadd{usually mean writing applications }\DIFaddend in the Solidity programming language for execution on the Ethereum network \DIFdelbegin \DIFdel{. Units of value can be exchanged as readily as data when the code is run }\DIFdelend \cite[10]{dannen2017introducing}.
+In my thesis, the fixity storage is often referred to as \DIFdelbegin \DIFdel{decentralized application (DAPP)which is }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\acrlong{dapp} }\hskip0pt%DIFAUXCMD
+(\acrshort{dapp}), which is an application }\DIFaddend built with several smart contracts. The smart contract \DIFdelbegin \DIFdel{implement }\DIFdelend \DIFaddbegin \DIFadd{implemented }\DIFaddend in this thesis is further described in Section \ref{sec:implementation}. 
+
+\section{Persistence}\label{sec:persistence}
+Decentralized storage systems, unlike centralized servers managed by a single corporation or organization, are made up of a peer-to-peer network of users that each hold a share \DIFdelbegin \DIFdel{of the overall }\DIFdelend \DIFaddbegin \DIFadd{or the full amount of the }\DIFaddend data, resulting in a resilient file storage sharing system. \DIFdelbegin \DIFdel{These can be found in any peer-to-peer network or in a blockchain-based application. Ethereum is a decentralized storage system in and of itself, and it is when it comes to code storage in all smart contracts. When it comes to massive amounts of data, however, Ethereum was not intended for that}\DIFdelend \DIFaddbegin \DIFadd{All transactions in Ethereum are stored on the blockchain, a canonical history of state changes stored on every single Ethereum node \mbox{%DIFAUXCMD
+\cite[12]{dannen2017introducing}}\hskip0pt%DIFAUXCMD
+}\DIFaddend . 
+The chain is steadily growing and on March 19, 2022, the Ethereum chain is at 602.95 GB\footnote{\url{https://ycharts.com/indicators/ethereum_chain_full_sync_data_size}}, which every node on the network needs to be able to store. If the chain were to expand to large amounts of data (say 5TBs) it \DIFdelbegin \DIFdel{wouldn't }\DIFdelend \DIFaddbegin \DIFadd{would not }\DIFaddend be feasible for all nodes to continue to run. Also, the cost of deploying this much data to \DIFdelbegin \DIFdel{Mainnet }\DIFdelend \DIFaddbegin \DIFadd{the mainnet }\DIFaddend would be prohibitively expensive due to \DIFdelbegin \DIFdel{gas }\DIFdelend fees\footnote{\url{https://ethereum.org/en/developers/docs/storage/}}.
+My proposed solution utilizing is pooled testing in order to mitigate the ever-increasing chain size of the Ethereum network by reducing the amount of transactions needed to operate the fixity storage. 
+\DIFdelbegin \DIFdel{All transactions in Ethereum are stored on the blockchain, a canonical history of state changes stored on every single Ethereum node \mbox{%DIFAUXCMD
+\cite[12]{dannen2017introducing}}\hskip0pt%DIFAUXCMD
+.
+}\DIFdelend 
+
+\DIFdelbegin \DIFdel{A blockchainhas a schema, much like any other database: rulesestablish, constrain }\DIFdelend \DIFaddbegin \DIFadd{The blockchain}\DIFaddend , \DIFaddbegin \DIFadd{as a decentralized storage system also follows some rules, constrain }\DIFaddend and enforce relationships between entities. Motives to break or alter these relationships can be found in a wide range of industries, leading to bribery and corruption and making blockchain's trustless properties even more appealing to businesses than previous generations of software and networking. Shared read/write access generates considerable complexity\DIFdelbegin \DIFdel{in all databases}\DIFdelend . Depending on where the \DIFdelbegin \DIFdel{database is physically situated}\DIFdelend \DIFaddbegin \DIFadd{client's machine is located and regarding its internet speed}\DIFaddend , machines all over the world may experience variable latency, resulting in certain write operations arriving out of order. This becomes even more challenging when numerous parties are expected to share \DIFdelbegin \DIFdel{a database }\DIFdelend \DIFaddbegin \DIFadd{the blockchain }\DIFaddend equally \cite[20]{dannen2017introducing}. \DIFdelbegin %DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdel{The nodes process the block in question and execute }\DIFdelend \DIFaddbegin \DIFadd{The Ethereum network solves this problem by nodes executing }\DIFaddend any code included within \DIFdelbegin \DIFdel{the transactions. This is done independently by each node; it is }\DIFdelend \DIFaddbegin \DIFadd{a block independently, this is possible due to the deterministic characteristic of the Solidity programming language. This method is }\DIFaddend not only highly parallelized, but also very redundant. Despite the significant redundancy, this is a reliable and efficient technique to balance a worldwide ledger \cite[50]{dannen2017introducing}.
+\DIFdelbegin \subsection{\DIFdel{Blockchain-based persistence}}
+%DIFAUXCMD
+\addtocounter{subsection}{-1}%DIFAUXCMD
+\DIFdel{This type of persistence is utilized in my thesis, since the fixity information of the archived objects are meant to be persisted for long term.
+}\DIFdelend \DIFaddbegin 
+
+\DIFaddend Ethereum requires a persistence mechanism in order for a piece of data to last indefinitely. When executing a node, for example, the persistence method requires that the entire chain be considered. The chain continues to grow as new pieces of data are added to the end, requiring each node to reproduce all the embedded data. The term for this is "blockchain-based persistence." The problem with blockchain-based persistence is that the chain could grow to be far too large to maintain and retain all the data in a reasonable amount of time (e.g.\DIFaddbegin \DIFadd{, }\DIFaddend many sources estimate the Internet to require over 40 Zetabytes of storage capacity). 
+\DIFaddbegin 
+
+\DIFaddend In addition, the blockchain must have some sort of incentive system \DIFdelbegin \DIFdel{.
+For blockchain-based persistence, the incentive system includes a payment made to the miner, where they are paid to include data into the next block of the chain}\footnote{%DIFDELCMD < \url{https://ethereum.org/en/developers/docs/storage/}%%%
+}%DIFAUXCMD
+\addtocounter{footnote}{-1}%DIFAUXCMD
+\DIFdel{. }\subsection{\DIFdel{Contract-based persistence}}
+%DIFAUXCMD
+\addtocounter{subsection}{-1}%DIFAUXCMD
+\DIFdel{Data used in smart contracts cannot be duplicated by every node and preserved indefinitely, hence contract-based persistence assumes that data must be kept using contract agreements. These are agreements reached between numerous nodes to hold a piece of data for a set amount of time. They must be refunded or renewed after they expire }\DIFdelend \DIFaddbegin \DIFadd{for the participating nodes in the network to validate new blocks in the blockchain. Validating a block is a computational hard task which requires nodes to have a vast computing power which is used in a consensus mechanism called proof-of-work. In this consensus mechanism a cryptographic puzzle has to be solved, by the node which aims to validate a block, }\DIFaddend in order for \DIFdelbegin \DIFdel{the data to be preserved. Instead of storing all data on-chain, the hash of where the data is situated on the chain is often stored. This eliminates the requirement for the entire chain to scale in order to keep all the data}\DIFdelend \DIFaddbegin \DIFadd{a block to be seen as valid. The node which solves the puzzle and therefore presents the proof-of-work is rewarded with the so-called block-reward in form of \mbox{%DIFAUXCMD
+\acrlong{eth} }\hskip0pt%DIFAUXCMD
+tokens. Ether is the name of the token, or cryptocurrency which is mainly used in the Ethereum ecosystem to pay for transactions or to fuel smart contracts. Ether can be publicly traded into other currencies such as EUR or USD.
+}
+
+\DIFadd{For blockchain-based persistence, the incentive system includes a payment made to the miner, the payment varies with the amount of data which has to be included in a block}\DIFaddend \footnote{\url{https://ethereum.org/en/developers/docs/storage/}}.
+\DIFaddbegin 
+
+\DIFaddend \section{Test Networks}\label{sec:test-nets}
+\DIFdelbegin \DIFdel{These networks are not really free of charge, but the ETH token on the respective network is free to get. Although the queue of the free ETH token can be very vast in some cases, e. g. }%DIFDELCMD < \url{https://faucet.dimensions.network/} %%%
+\DIFdel{this faucet has a waiting queue for over three days until you receive one ETH }\DIFdelend \DIFaddbegin \DIFadd{There are multiple independent networks implementing the Ethereum protocols, since the Ethereum source code is openly available everyone is able to set up an Ethereum network, which is often called a private fork. Networks can also be utilized as different Ethereum environments for development, testing or production use cases. The private key for an Ethereum account works across various Ethereum networks, but the transaction history or account balance is independent for each network, meaning you can not transfer funds from a test network to the mainnet and vice-versa. For testing purposes, I have utilized the Ropsten test network to deploy and interact with the fixity storage presented in Section \ref{ch:fixity-storage}. Interactions on the test network also requires you to have some funds in your wallet to pay for transactions, although the funds on the test network does not require you to gather them from exchanges for money. The \mbox{%DIFAUXCMD
+\acrlong{eth} }\hskip0pt%DIFAUXCMD
+}\DIFaddend token for the Ropsten \DIFdelbegin \DIFdel{network. Other faucets, a distributor of free ETH test tokens , require social network accounts to verify that you are not a bot }\DIFdelend \DIFaddbegin \DIFadd{test network can be acquired through public faucets, where you receive some tokens after you have input your wallet address. Some faucets require you to have a Twitter account (}\DIFaddend e.g.\DIFaddbegin \DIFadd{, }\DIFaddend \url{https://faucet.paradigm.xyz/}\DIFdelbegin \DIFdel{requires a Twitter account with at least one tweet and at least 15 retweets before you can request one ETH token. The faucet request are almost all }\DIFdelend \DIFaddbegin \DIFadd{), with a certain amount of tweets and follower for bot protection and some faucets do have a large waiting queue for Ether tokens, in the case of }\url{https://faucet.dimensions.network/} \DIFadd{the waiting time can reach up to three days. Faucet are usually }\DIFaddend time gated, meaning that you could request \DIFdelbegin \DIFdel{ETH }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\acrlong{eth} }\hskip0pt%DIFAUXCMD
+tokens }\DIFaddend only once per day. At small scale, this limitation is no problem for this thesis because persisting around \DIFdelbegin \DIFdel{10 }\DIFdelend \DIFaddbegin \DIFadd{ten }\DIFaddend pools on the blockchains require at max 0.002 \DIFdelbegin \DIFdel{ETH }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\acrlong{eth} }\hskip0pt%DIFAUXCMD
+}\DIFaddend tokens. The one per day paradigm gets problematic for the experiment \DIFdelbegin \DIFdel{for the }\DIFdelend \DIFaddbegin \DIFadd{including }\DIFaddend 10,000 objects, which costs about 20 \DIFdelbegin \DIFdel{ETH }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\acrlong{eth} }\hskip0pt%DIFAUXCMD
+}\DIFaddend tokens, which means I would have to request tokens for 20 days straight to perform one experiment on a real live environment such as the Ropsten \DIFdelbegin \DIFdel{testnet. }\DIFdelend \DIFaddbegin \DIFadd{test network. I have utilized each before presented faucet to gather funds for the experiment, my suggestion for future work is to use the following Ropsten test network faucet: }\url{https://faucet.egorfine.com/}\DIFadd{. This faucet does require you to either have an active social media account, neither does it implement a waiting queue.
+}\DIFaddend There are multiple options to choose from for a testnet, from the most prominent networks presented at the official Ethereum documentation\footnote{\url{https://ethereum.org/en/developers/docs/networks/}} only the Ropsten \DIFaddbegin \DIFadd{test }\DIFaddend network implements the proof-of-work algorithm, which means it is the best representation of Ethereum to date, and for that reason I decided to utilize the Ropsten \DIFaddbegin \DIFadd{test }\DIFaddend network in my thesis.
+\DIFaddbegin 
+
+\DIFaddend \section{Gas and Fees}
+\label{sec:costs}
+Gas refers to the unit that measures the amount of computational effort required to execute specific operations on the Ethereum network, this property allows \DIFdelbegin \DIFdel{me }\DIFdelend \DIFaddbegin \DIFadd{you }\DIFaddend to calculate the operation cost for the fixity storage without taking the price fluctuation of ETH into account. Since each Ethereum transaction requires computational resources to execute, each transaction requires a fee.
+Gas fees are paid in \DIFdelbegin \DIFdel{Ethereum's native currency, ETH (ETH)}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\acrlong{eth} }\hskip0pt%DIFAUXCMD
+tokens}\DIFaddend . Gas prices are denoted in \DIFdelbegin \DIFdel{gwei}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\acrlong{gwei}}\hskip0pt%DIFAUXCMD
+}\DIFaddend , which itself is a denomination of \DIFdelbegin \DIFdel{ETH }\DIFdelend \DIFaddbegin \DIFadd{\acrshort{eth} }\DIFaddend - each \DIFdelbegin \DIFdel{gwei }\DIFdelend \DIFaddbegin \DIFadd{\acrshort{gwei} }\DIFaddend is equal to 0.000000001 ETH. For example, instead of saying that your gas costs 0.000000001 \DIFdelbegin \DIFdel{ether}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\acrlong{eth}}\hskip0pt%DIFAUXCMD
+}\DIFaddend , you can say your gas costs 1 \DIFdelbegin \DIFdel{gwei}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\acrlong{gwei}}\hskip0pt%DIFAUXCMD
+}\DIFaddend . The word \DIFdelbegin \DIFdel{'gwei' itself means '}\DIFdelend \DIFaddbegin \DIFadd{"\mbox{%DIFAUXCMD
+\acrlong{gwei}}\hskip0pt%DIFAUXCMD
+" itself means "}\DIFaddend giga-wei\DIFdelbegin \DIFdel{'}\DIFdelend \DIFaddbegin \DIFadd{"}\DIFaddend , and it is equal to 1,000,000,000 wei. Wei itself is the smallest unit of \DIFdelbegin \DIFdel{ETH}\DIFdelend \DIFaddbegin \DIFadd{the \mbox{%DIFAUXCMD
+\acrlong{eth} }\hskip0pt%DIFAUXCMD
+token}\DIFaddend \footnote{\DIFdelbegin %DIFDELCMD < \url{https://ethereum.org/en/developers/docs/gas/}%%%
+\DIFdelend \DIFaddbegin \url{https://ethdocs.org/en/latest/ether.html}\DIFaddend }.
+\DIFaddbegin 
+
+\DIFaddend Miners are paid in \DIFdelbegin \DIFdel{ETH for mining}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\acrlong{eth} }\hskip0pt%DIFAUXCMD
+tokens for validating blocks}\DIFaddend , and also for running scripts on the network. The cost associated with electricity \DIFdelbegin \DIFdel{expenditure of servers running on }\DIFdelend \DIFaddbegin \DIFadd{consumption of nodes running }\DIFaddend the Ethereum network is one of the factors that gives \DIFdelbegin \DIFdel{ETH}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\acrlong{eth}}\hskip0pt%DIFAUXCMD
+}\DIFaddend , as a cryptocommodity, its intrinsic value—that is, someone paid real money to their electricity company to run their mining machine. Specialized mining rigs, which use arrays of graphics cards to increase their odds of \DIFaddbegin \DIFadd{solving the cryptographic puzzle in the proof-of-work mechanism, and therefore }\DIFaddend completing a block and \DIFdelbegin \DIFdel{getting paid }\DIFdelend \DIFaddbegin \DIFadd{collect the block-reward }\DIFaddend \cite[12]{dannen2017introducing}. 
+Mining creates the consensus needed to make legitimate state changes \DIFaddbegin \DIFadd{in the distributed ledger}\DIFaddend , and miners are compensated for their contributions. This is how \DIFdelbegin \DIFdel{Ethereum (ETH) and Bitcoin (BTC) }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\acrlong{eth} }\hskip0pt%DIFAUXCMD
+tokens and Bitcoins }\DIFaddend are created \cite[57]{dannen2017introducing}. 
+To ensure that the system is not clogged by meaningless spam contracts, there must be a fee associated with each instruction the \DIFdelbegin \DIFdel{EVM }\DIFdelend \DIFaddbegin \DIFadd{\acrshort{evm} }\DIFaddend executes. An internal counter maintains \DIFdelbegin \DIFdel{account }\DIFdelend \DIFaddbegin \DIFadd{the amount }\DIFaddend of the fees incurred each time an instruction is executed, which are then charged to the user. When a user initiates a \gls{transaction}, a tiny percentage of the user's \DIFdelbegin \DIFdel{wallet }\DIFdelend \DIFaddbegin \DIFadd{fund }\DIFaddend is set aside to pay these fees \cite[58]{dannen2017introducing}. 
+\DIFaddbegin 
+
+\DIFaddend The costs are the driving factor of my thesis where I try to make as \DIFdelbegin \DIFdel{fewer }\DIFdelend \DIFaddbegin \DIFadd{few }\DIFaddend transactions as possible to run a fixity storage on the Ethereum network. 
+The fees are determined by the transaction's gas cost; gas is a unit of effort, not a subcurrency, therefore it cannot be held or hoarded. In computer words, it simply assesses how much work each step of a transaction will take. You \DIFdelbegin \DIFdel{only need to add \acrshort{eth} to }\DIFdelend \DIFaddbegin \DIFadd{need enough \mbox{%DIFAUXCMD
+\acrlong{eth} }\hskip0pt%DIFAUXCMD
+tokens in }\DIFaddend your account to be able to pay for \DIFdelbegin \DIFdel{gas}\DIFdelend \DIFaddbegin \DIFadd{the transaction, or else it will get reverted}\DIFaddend . There is no need to buy \DIFdelbegin \DIFdel{it }\DIFdelend \DIFaddbegin \DIFadd{gas }\DIFaddend individually because there is no gas token. \DIFdelbegin \DIFdel{Every operation on the EVM has a gas cost attached with it. }\DIFdelend Gas prices ensure that network computing time is adequately priced \DIFaddbegin \DIFadd{and varies with the time of the day, meaning the more traffic there is on the network the higher are the gas prices for transactions or smart contract calls }\DIFaddend \cite[59]{dannen2017introducing}.
+The only person who suffers if you transmit a set of computationally difficult commands to the \DIFdelbegin \DIFdel{EVM is you. When the amount of ETH you allocated to the transaction runs out, the work will halt. It }\DIFdelend \DIFaddbegin \DIFadd{\acrshort{evm} is you, it }\DIFaddend has no bearing on the transactions of others. There is no method to jam the \DIFdelbegin \DIFdel{EVM }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\acrlong{evm} }\hskip0pt%DIFAUXCMD
+}\DIFaddend without spending a significant amount of money in transaction fees. The gas price system serves as a de facto means of scalability. Miners have complete control over which transactions \DIFdelbegin \DIFdel{pay }\DIFdelend \DIFaddbegin \DIFadd{they will include in a block, depending on which transaction pays }\DIFaddend the highest fee rates, as well as the block gas limit. The \DIFaddbegin \DIFadd{block }\DIFaddend gas limit sets the maximum amount of processing and storage that can be done per block \cite[60]{dannen2017introducing}. 
+\DIFaddbegin 
+
+\DIFaddend \section{Transactions}\label{sec:tx-cost}
+An Ethereum transaction refers to an action initiated by an externally-owned account, in other words an account managed by a human, not a contract. For example, if Bob sends Alice 1 \DIFdelbegin \DIFdel{ETH}\DIFdelend \DIFaddbegin \DIFadd{\acrshort{evm}}\DIFaddend , Bob's account must be debited and Alice's must be credited. This state-changing action takes place within a transaction. \DIFdelbegin \DIFdel{Transactions come from external accounts, which are usually controlled by human users. It 's }\DIFdelend \DIFaddbegin \DIFadd{It is }\DIFaddend a mechanism for an external account to provide the \DIFdelbegin \DIFdel{EVM }\DIFdelend \DIFaddbegin \DIFadd{\acrshort{evm} }\DIFaddend instructions to do a task. To put it another way, it \DIFdelbegin \DIFdel{'s }\DIFdelend \DIFaddbegin \DIFadd{is }\DIFaddend a method for an external account to send a message to the system. A transaction in the \DIFdelbegin \DIFdel{EVM }\DIFdelend \DIFaddbegin \DIFadd{\acrshort{evm} }\DIFaddend is a cryptographically signed data package storing a message, which tells the \DIFdelbegin \DIFdel{EVM to transfer ether}\DIFdelend \DIFaddbegin \DIFadd{\acrshort{evm} to transfer tokens}\DIFaddend , create a new \DIFdelbegin \DIFdel{contract, trigger }\DIFdelend \DIFaddbegin \DIFadd{smart contract, interact with }\DIFaddend an existing one, or perform some calculation. Contract addresses, like users with external accounts, can be transaction recipients \cite[60]{dannen2017introducing}. 
+\DIFdelbegin %DIFDELCMD < \begin{figure}[h]
+%DIFDELCMD <     %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Illustration of an Ethereum transaction }%DIFDELCMD < \url{https://ethereum.org/en/developers/docs/transactions/}%%%
+}
+    %DIFAUXCMD
+\DIFdelendFL \DIFaddbeginFL \begin{figure}[t]
+    \DIFaddendFL \centering
+    \includegraphics[width=0.5\textwidth]{eth_transaction.png}
+    \DIFaddbeginFL \caption{\DIFaddFL{Illustration of an Ethereum transaction }\url{https://ethereum.org/en/developers/docs/transactions/}}
+\DIFaddendFL \end{figure}
+Transactions that affect the \DIFdelbegin \DIFdel{EVM'}\DIFdelend \DIFaddbegin \DIFadd{\acrshort{evm}}\DIFaddend s state must be broadcast to the entire network. A miner will execute the transaction and propagate the resulting state change to the rest of the network once any node broadcasts a request for a transaction to be conducted on the \DIFdelbegin \DIFdel{EVM}\DIFdelend \DIFaddbegin \DIFadd{\acrshort{evm}}\DIFaddend \footnote{\url{https://ethereum.org/en/developers/docs/transactions/}}.
+Transactions, which do not alter the global state are free of charged and are referred to as Calls. \DIFdelbegin \DIFdel{In the source code, as }\DIFdelend \DIFaddbegin \DIFadd{As }\DIFaddend seen in the source code in \DIFaddbegin \DIFadd{Listing }\DIFaddend \ref{lst:fixity-storage}, \textit{getPoolHash(uint32 poolId)} is marked with the keyword \DIFdelbegin \DIFdel{view}\DIFdelend \DIFaddbegin \textbf{\DIFadd{view}}\DIFaddend , which means the function itself does not alter the state of the network. Contrary to the function \textit{setPoolHash(uin32 poolId, bytes32 poolHash)} which does alter the networks state and therefore generates cost for the fixity storage. In this thesis, writing actions on the blockchain are often referred to as \DIFdelbegin \DIFdel{transactions}\DIFdelend \DIFaddbegin \DIFadd{Transactions}\DIFaddend ; and reading actions are referred to as \DIFdelbegin \DIFdel{calls}\DIFdelend \DIFaddbegin \DIFadd{Calls}\DIFaddend .
+Table \ref{table:gas-costs} presents the gas cost of the most relevant network operations used in this thesis according to the Ethereum yellow paper \cite[27]{wood2014ethereum}.
+\begin{center}
+    \begin{tabular}{ l l l }\label{table:gas-costs}
+        Operation Name & Gas Cost & Description \\ 
+        $codedeposit$ & 200 & gas cost per byte the compiled smart contract \\  
+        $txcreate$ & 32000 & create a new smart contract  \\   
+        $transaction$ & 21000 & \DIFdelbegin \DIFdel{retrieve the current balance of an account }\DIFdelend \DIFaddbegin \DIFadd{base cost for a transaction }\DIFaddend \\
+        $txdatazero$ & 4 & gas cost for every zero byte of the transaction data  \\   
+        $txdatanonzero$ & 16 & gas cost for every non-zero byte of the transaction data  \\   
+        $sset$ & 20000 & set a persistent variable for the first time in the contract \\
+        $sreset$ & 2900 & the cost for updating a persistent variable 
+    \end{tabular}
+\end{center}
+
+\section{\DIFdelbegin \DIFdel{Wrap Up}\DIFdelend \DIFaddbegin \DIFadd{Summary}\DIFaddend }
+The learnings in this \DIFdelbegin \DIFdel{Chapter }\DIFdelend \DIFaddbegin \DIFadd{chapter }\DIFaddend is on how to interact with the Ethereum network, which tools to use and how the computational cost comes about. I have presented that it is important to prune all unnecessary transaction and storage data to mitigate the ever-increasing chain size of the Ethereum blockchain and reduce the cost for the \DIFdelbegin \DIFdel{operator }\DIFdelend \DIFaddbegin \DIFadd{user }\DIFaddend of the fixity storage presented in Chapter \ref{ch:fixity-storage}.  \chapter{Fixity Storage}
+\label{ch:fixity-storage}
+\section{Fixity Information}
+Fixity Information provides the \DIFdelbegin \DIFdel{Data }\DIFdelend \DIFaddbegin \DIFadd{data }\DIFaddend integrity checks or validation/verification keys used to ensure that the particular Content Information object has not been altered in an undocumented manner\cite[8]{lee2010open}. In this thesis, fixity information will be a transaction hash, with which the fixity information can be retrieved from the Ethereum blockchain.
+With fixity information you are able to answer questions regarding the authenticity and integrity of an object, which supports assertions about the authenticity and trustworthiness of digital objects \cite[3]{ndsa2017fixity}.
+\newline \textit{Have you received the files you expected?} When fixity information is provided with objects upfront, it can be used to validate that you have received what was intended for the collection.
+\newline \textit{Is the data corrupted or altered from what you expected?}  Once you have generated baseline fixity information for files or objects, comparing that information with future fixity check information will tell you if a file has changed or been corrupted.
+\newline \textit{Can you prove you have the data/files you expected, and they are not corrupt or altered?} By providing fixity information alongside content, you enable your users to verify that what they have is identical to what you say it should be. 
+
+Fixity is a key concept for the long-term preservation and management of digital material for many reasons. Previous scholarship on fixity has shown its vital importance in discovering changes to data and all that this error-checking can imply: authenticity and renderability of files, trustworthiness of institutions, and system monitoring/maintenance. Despite the centrality of fixity to the field of digital preservation, there is little prescriptive guidance on when and how to create fixity information, where to store it, and how often to check it. This absence is not without reason, however: the incredible variety of organizational structures, priorities, staffing levels, funding, resources, and size of collections held by institutions that do digital preservation make it difficult to establish a single set of one-size-fits-all best practices \cite[38]{ndsa2017fixity}.
+\subsection{Generating Fixity Information on Ingest}
+ It is important to check the fixity
+of content transferred to you when you bring it under your stewardship. Whenever possible, it is ideal to encourage content providers or producers to submit fixity information along with content objects. You can only provide assurance about the fixity of content overtime once you have initial fixity values, thus it is imperative to document fixity information as soon as possible. If fixity information is not provided as part of the transfer, you should create fixity information once you have received the materials \cite[4]{ndsa2014fixity}.
+
+\subsection{Fixity Checks}
+\DIFaddbegin \DIFadd{Most fixity procedures involve a computational method that takes a digital file as input and outputs an alphanumeric value; this output value is used as a baseline comparison each time the fixity check is rerun \mbox{%DIFAUXCMD
+\cite[5]{ndsa2017fixity}
+}\hskip0pt%DIFAUXCMD
+}\DIFaddend In addition to checking fixity before and after transfer, collections of digital files and objects should be checked on a regular basis. There are a range of systems and approaches focused on checking the fixity values of all objects at regular intervals. This could be monthly, quarterly, or yearly for example. The more often you check, the more likely you are to detect and repair errors \cite[4]{ndsa2014fixity}.
+The information must be put to use, in the form of scheduled audits of the objects against the fixity information. Additionally, replacement or repair processes must be in place. Ideally these will have been tested before being needed. All of this is critical for bit-level preservation, but ensuring fixity does not mean that the object is or will be understandable. Long term access is also contingent on ones ability to make sense of and use the contents of the file in the future \cite[2]{ndsa2014fixity}.
+\DIFdelbegin %DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdel{Most fixity procedures involve a computational method that takes a digital file as input and outputs an alphanumeric value; this output value is used as a baseline comparison each time the fixity check is rerun \mbox{%DIFAUXCMD
+\cite[5]{ndsa2017fixity}}\hskip0pt%DIFAUXCMD
+. 
+For example, fixity checks may occur at different times depending on the institution's environment: during initial deposit only; during any file transmission; during scheduled backup routines; or periodically at specified times or when manually triggered \mbox{%DIFAUXCMD
+\cite[7]{ndsa2017fixity}}\hskip0pt%DIFAUXCMD
+.}%DIFDELCMD < \newline %%%
+\DIFdelend The rate of fixity checking is going to be dependent on how quickly you can run the checks, the complexity of your chosen fixity instrument, and how much of your resources (e.g., CPU, memory, bandwidth) can be used for this operation. This can become a choke point as the amount of digital content increases but the infrastructure to perform the checks stays the same. In a situation like this, the fixity checking activities can adversely affect other important functions like delivery of the content to users.
+\subsection{Fixity Instruments}
+\begin{table}[p]
+    \centering
+    \DIFdelbeginFL %DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Various Fixity Instruments \mbox{%DIFAUXCMD
+\cite[6]{ndsa2017fixity}}\hskip0pt%DIFAUXCMD
+}}
+    %DIFAUXCMD
+%DIFDELCMD < \label{tb:fixity-instruments}
+%DIFDELCMD <     %%%
+\DIFdelendFL \begin{tabular}{c|p{0.4\textwidth}|p{0.4\textwidth}}
+      Fixity Instrument & Definition & Level of Effort and Return of Investment\\
+      \hline
+      Expected File Size & File size that differs from the expected can be an indicator of problems, for example by highlighting zero byte files & Low level of effort and low level detail. File size is auto-generated technical metadata that can be viewed in Windows Explorer or other common tools. \\  
+      \hline
+      Expected File Count & File count that differs from the expected can be an indicator that files are either added or dropped from the package. & Low level of effort and low level detail. File count is auto-generated technical metadata that can be viewed in Windows Explorer or other common tools.  \\
+     \hline
+     CRC & Error detection code, typically used during network transfers. & Low level of effort and moderate level of detail. CRC function values, which are variable but typically 32 or 64 bit, are relatively easy to implement and analyze.  \\
+     \hline
+     MD5 & Cryptographic hash function & Moderate level of effort and high level of detail. CPU and processing requirements to compute the hash values are low to moderate depending on the size of the file. The output size of this hash value is the lowest of the cryptographic hash values at 128 bits.  \\
+     \hline
+     SHA1 & Cryptographic hash function & Moderate level of effort, high level of detail, and added security assurance. Due to its higher 160-bit output hash value, SHA-1 requires more relative time to compute for a given number of processing cycles CPU and processing time than MD5.  \\
+     \hline
+     SHA256 & More secure cryptographic hash function & High level of effort, very high level of detail, and added security assurance. With an output hash value of 256 bits, SHA-256 requires more relative time to compute for a given number of processing cycles CPU and processing time than SHA-1. 
+    \end{tabular}
+    \DIFaddbeginFL \caption{\DIFaddFL{Various Fixity Instruments \mbox{%DIFAUXCMD
+\cite[6]{ndsa2017fixity}}\hskip0pt%DIFAUXCMD
+.}}
+    \label{tb:fixity-instruments}
+\DIFaddendFL \end{table}
+For a given fixity instrument, see Table \ref{tb:fixity-instruments}, the harder it is to find two objects that result in the same fixity information, the more “collision resistant” that instrument is. This is important mostly for preventing the concealment of intentional changes to objects. For example, expected file size and expected file count are extremely vulnerable to collision: it is very easy for someone to replace an object with one that matches in file size. It is also possible (although unlikely) for an unintentional change (such as corruption or human error) to result in an object with the same fixity information for instruments that have low collision resistance. Of the fixity instruments described above, the cryptographic hash functions (MD-5, SHA-1, and SHA-256) are the most collision resistant; SHA-256 is recommended for applications where security is important. However, performing fixity checking and replacing damaged objects is critical for any preservation system, and using any fixity instrument is much better than none at all. Note that as the level of security of the hash function increases, so do the time and resources needed to compute \cite[7]{ndsa2014fixity}.
+\DIFaddbegin 
+
+\DIFaddend \subsection{Storage Medium}
+\label{sec:storage-medium}
+There are various storages to store fixity information, each of them has some advantages and disadvantages in terms of \DIFdelbegin \DIFdel{conveniency}\DIFdelend \DIFaddbegin \DIFadd{convenience}\DIFaddend , security and throughput.
+\newline \textit{In object metadata records:} In many cases, you will want to record some file or object fixity information wherever you store and manage the metadata records. These metadata records are actually stored as discrete files or in databases. This is particularly useful for maintaining originally submitted or generated fixity information as part of the long-term object metadata. 
+\newline \textit{In databases and logs:} For checks you run at given intervals you may not want to be constantly adding to your object metadata records. In this case, it makes sense to keep \DIFdelbegin \DIFdel{running fixity information }\DIFdelend \DIFaddbegin \DIFadd{fixity information apart from the object }\DIFaddend in databases and logs that you can return to when needed.
+\newline \textit{Alongside content:} Its often ideal to have fixity information right alongside the content itself. That way, if you have problems with other layers in your system, or want to transfer some set of objects, you still have a record of previous fixity values alongside your content. For example, the BagIt specification includes a requirement for a hash value for the bagged content alongside the content. Similarly, some workflows involve creating *.md5 files, which are simply text files with the md5 hash, named identically to the file it refers to, but with an additional .md5 extension.
+\newline \textit{In the files themselves:} When a checksum is for a portion of a file, it may make sense to store the information directly in the file. Note that this only makes sense when storing sub-file fixity information within a file. Adding fixity information for an entire file to the file itself changes the file and therefore changes its fixity value \cite[7]{ndsa2014fixity}.
+\newline \textit{Ethereum Blockchain:} In this thesis I have chosen the blockchain to be the storage-medium for the fixity information. Its immutable state and availability in addition to its novel use-case in digital archives have influenced my decision.
+\section{Example of a fixity storage}
+A fixity storage must persist any kind of fixity information, in my thesis SHA256 values, for long term and guarantee that the persisted content is unaltered until retrieval of the content. I have chosen the Ethereum network as a medium for persisting file fixity information, see Section \ref{sec:storage-medium} for my reasoning. In Figure \ref{fig:lifecycle} the lifecycle of fixity information is presented, where at some point in time the information is ingested into the storage and after a certain time interval the information is fetched and compared to the retrieved SHA256 value from the digital object of the archive. If both cryptographic hashes match, the object is guaranteed to be unaltered. 
+\DIFdelbegin %DIFDELCMD < \begin{figure}[b]
+%DIFDELCMD <   %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Example of a fixity storage}}
+  %DIFAUXCMD
+%DIFDELCMD < \label{fig:lifecycle}
+%DIFDELCMD <   %%%
+\DIFdelendFL \DIFaddbeginFL \begin{figure}[t]
+  \DIFaddendFL \centering
+  \includegraphics[width=0.75\textwidth]{lifecycle.png}
+  \DIFaddbeginFL \caption{\DIFaddFL{Example of a fixity storage}}
+  \label{fig:lifecycle}
+\DIFaddendFL \end{figure}
+\section{Implementation}
+\label{sec:implementation}
+The fixity storage presented in this thesis is implemented in Solidity, a programming language designed for the EVM, see Section \ref{sec:evm}.
+The basic functionality of the smart contract, as described in Section \ref{sec:approach} can be seen in the source code presented in Listing \ref{lst:fixity-storage}
+\begin{lstlisting}[language=Solidity,caption={MVP source code of the fixity storage deployed on the Ropsten test network \url{https://Ropsten.etherscan.io/address/0x0243c7aa552730E8C6F7ED25A480a7C0c88a70f0}},label=lst:fixity-storage]
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.4.22 <0.9.0;
+
+contract FixityStorage {
+  mapping(uint32=>bytes32) pools;
+  address creator;
+
+  constructor()public{
+    creator = msg.sender;
+  }
+
+  function getPoolHash(uint32 poolId) public view returns(bytes32) {
+      return pools[poolId];
+  }
+
+  function setPoolHash(uint32 poolId, bytes32 poolHash) public {
+    require(msg.sender==creator);
+    pools[poolId]=poolHash;
+  }
+}
+\end{lstlisting}
+where \textit{getPoolHash(uint32 poolId)} implements a read function; \textit{setPoolHash(uint32 poolId,bytes32 poolHash)} implements create and update function. The mapping type is native in \DIFdelbegin \DIFdel{solidity }\DIFdelend \DIFaddbegin \DIFadd{Solidity }\DIFaddend which implements a hash map consisting of a key and a value, where in this case the key is an integer representing the \textit{poolId} and the value is a \textit{bytes32} object representing the SHA256 root hash of the pool. The \textit{poolId} is the reference to the local pool in the digital archive, with which fixity information can be retrieved for a certain pool from the contract. The \DIFdelbegin \DIFdel{solidity }\DIFdelend \DIFaddbegin \DIFadd{Solidity }\DIFaddend language presents a convenient  method to prevent unauthorized calls to the setPoolHash() method, which is \textit{require(msg.sender==creator)}. The native method \textit{require} is a "guard" function which improves the readability of the smart contract code \DIFdelbegin \DIFdel{which fires a REVERT }\DIFdelend \DIFaddbegin \DIFadd{and reverts the }\DIFaddend instruction if the condition is not met. The condition in this case is, that only the creator, which is set in the constructor, of the fixity storage is able to create and alter the information stored on the blockchain.
+
+\section{Deployment}
+I utilized truffle\footnote{\url{https://trufflesuite.com/index.html}} to run my deployment of the smart contract, it brings built-in smart contract compilation, linking, deployment and binary management with automated contract testing. The reasoning behind my decision is that, truffle has all the tools needed to implement a smart contract in one package and therefore reduced complexity in the development process. In the first iteration of the development process, I used the graphical user-interface Ganache\footnote{\url{https://trufflesuite.com/ganache/index.html}} to get a better feeling for the Ethereum blockchain, see Figure \ref{fig:ganache}.
+\DIFdelbegin %DIFDELCMD < \begin{figure}[h]
+%DIFDELCMD <   %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Ganache, an interactive user interface for the Ethereum blockchain.}}
+  %DIFAUXCMD
+%DIFDELCMD < \label{fig:ganache}
+%DIFDELCMD <     %%%
+\DIFdelendFL \DIFaddbeginFL \begin{figure}[t]
+  \DIFaddendFL \centering
+  \includegraphics[width=0.7\textwidth]{ganache.png}
+  \DIFaddbeginFL \caption{\DIFaddFL{Ganache, an interactive user interface for the Ethereum blockchain.}}
+  \label{fig:ganache}
+\DIFaddendFL \end{figure}
+It allows you to \DIFdelbegin \DIFdel{click }\DIFdelend \DIFaddbegin \DIFadd{navigate }\DIFaddend through your smart contract \DIFaddbegin \DIFadd{in a graphical user interface (GUI) }\DIFaddend and look at the state variables or functions to validate that your smart contract was successfully deployed. Ganache has a massive disadvantage when doing high throughput computing\DIFdelbegin \DIFdel{, }\DIFdelend \DIFaddbegin \DIFadd{: }\DIFaddend it seems that it is not suited to withstand 10000 transactions built in a python for loop. Therefore, I only \DIFdelbegin \DIFdel{used }\DIFdelend \DIFaddbegin \DIFadd{use }\DIFaddend the GUI it in the beginning of the experiment where I only persisted about 10 objects at a time without problems. For high throughput computing, truffle offers a command line tool to interact with the blockchain. The command line tool \DIFdelbegin \DIFdel{was resistant and showed }\DIFdelend \DIFaddbegin \DIFadd{is resistant and shows }\DIFaddend no weakness when persisting \DIFdelbegin \DIFdel{10000 }\DIFdelend \DIFaddbegin \DIFadd{10,000 }\DIFaddend objects.
+Truffle also allows to config other networks, e.g. the Ropsten test network, which can be defined as a parameter in the deployment process. The deployment requires to have some \DIFdelbegin \DIFdel{ETH token }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\acrlong{eth} }\hskip0pt%DIFAUXCMD
+tokens }\DIFaddend in your account to pay the miner to integrate your smart contract in a block. 
+Truffle offers some utility regarding automated deployment, \DIFdelbegin \DIFdel{which are migrations. Migrations are JavaScript files, which are responsible for staging the deployment tasks and running deployment scripts. I used the migrations feature in order to interact with various Ethereum networks, in my case the Ropsten test network and a local test environment}\DIFdelend \DIFaddbegin \DIFadd{through the usage of deployment configurations where you can set the gas limit and the network configurations. Truffle offers a migrations feature, which is responsible for staging and versioning deployments}\DIFaddend . The migrations feature requires to have a smart contract deployed on the blockchain, which causes additional cost (191943 gas) to the fixity storage, therefore I have decided not to use the migrations feature, as it is controversial in the community and seen as unnecessary traffic and cost\footnote{\url{https://github.com/trufflesuite/truffle/issues/503}}.
+The deployment cost of the smart contract can be calculated as follows:
+\begin{equation}\label{eq:create-cost}
+  \DIFdelbegin %DIFDELCMD < \begin{split}
+%DIFDELCMD <       C_{deployment} & = transaction + txcreate + codedeposit + txdatanonzero + txdatazero \\
+%DIFDELCMD <       & = 21000 + 32000 + 200 * 832 + 226 * 4 + 800 * 16 \\
+%DIFDELCMD <       & = 233104
+%DIFDELCMD <   \end{split}%%%
+\DIFdelend \DIFaddbegin \begin{split}
+      C_{deployment} & = transaction + txcreate + codedeposit + txdatanonzero + txdatazero \\
+      & = 21,000 + 32,000 + 200 \cdot 832 + 226 \cdot 4 + 800 \cdot 16 \\
+      & = 233,104
+  \end{split}\DIFaddend 
+\end{equation}
+where $transaction$ is the base cost for a transaction; $txcreate$ is the operation used to create a smart contract; $codedeposit$ is the gas cost for each byte of the runtime bytecode of the smart contract, which is 832 bytes and can be seen in the Input Data field of the transaction on \DIFdelbegin \DIFdel{Etherscan}\footnote{%DIFDELCMD < \url{https://ropsten.etherscan.io/tx/0x844f76cfff6e00f29487f6fe3c99d8a69eab576e7c190e5b392745b48924a1f6}%%%
+}
+%DIFAUXCMD
+\addtocounter{footnote}{-1}%DIFAUXCMD
+\DIFdelend \DIFaddbegin \url{https://ropsten.etherscan.io/} \DIFadd{with the following hash: }\textit{\DIFadd{0x844f76cfff6e00f29487f6fe3c99d8a69eab576e7c190e5b392745b48924a1f6}}\DIFadd{.
+}\DIFaddend \textit{$G_{txdatanonzero}$} is 16 gas for each non-zero byte in the compiled bytecode of a transaction;\textit{$G_{txdatazero}$} is 4 gas for each non-zero byte in the compiled bytecode of a transaction; and \textit{$Contract_{bytesize}$} is the size of the compiled bytecode of the contract, see Section \ref{sec:costs} for the exact gas amount for each transaction.
+The amount of gas consumed by the deployment of the decentralized fixity storage is \DIFdelbegin \DIFdel{166079 }\DIFdelend \DIFaddbegin \DIFadd{166,079 }\DIFaddend gas on the Ropsten testnet\DIFdelbegin \DIFdel{, the }\DIFdelend \DIFaddbegin \DIFadd{. The }\DIFaddend transaction used to deploy the contract can be found on \DIFdelbegin \DIFdel{Etherscan}\footnote{%DIFDELCMD < \url{https://ropsten.etherscan.io/tx/0xf383c4bf0a5c32dd3369b02f68fd4e4400ef59343ad472bc96a28827f32c9abb}%%%
+}%DIFAUXCMD
+\addtocounter{footnote}{-1}%DIFAUXCMD
+\DIFdelend \DIFaddbegin \url{https://ropsten.etherscan.io/} \DIFadd{with the following hash: }\textit{\DIFadd{0xf383c4bf0a5c32dd3369b02f68fd4e4400ef59343ad472bc96a28827f32c9abb}}\DIFaddend , where additional information\DIFaddbegin \DIFadd{, such as deployment date or the blocknumber, }\DIFaddend can be read. The address of the \DIFdelbegin \DIFdel{smart contract }\DIFdelend \DIFaddbegin \DIFadd{fixity storage, presented in Listing \ref{lst:fixity-storage} }\DIFaddend is \textit{0x0243c7aa552730E8C6F7ED25A480a7C0c88a70f0}.
+\section{Authorized Access}
+In \DIFdelbegin \DIFdel{solidity }\DIFdelend \DIFaddbegin \DIFadd{Solidity }\DIFaddend one can require a certain address to access a function, the keyword \DIFdelbegin \DIFdel{requires }\DIFdelend \DIFaddbegin \textit{\DIFadd{requires}} \DIFaddend can be used so that a transaction from an unknown address can be reverted and only the owner of the creator address can update the mapped SHA256 values in the smart contract. An interesting topic is also how the private key in the archive may be managed, which is not part of this thesis, \DIFdelbegin \DIFdel{but something like }\DIFdelend \DIFaddbegin \DIFadd{my suggestion for future work is }\DIFaddend a  multisignature wallet \DIFdelbegin \DIFdel{may }\DIFdelend \DIFaddbegin \DIFadd{which can }\DIFaddend be used to split the responsibility of the \DIFdelbegin \DIFdel{owner address in the contract }\DIFdelend \DIFaddbegin \DIFadd{contract owning Ethereum account, the creator account}\DIFaddend . Since the entity which controls the private key of the \DIFdelbegin \DIFdel{smart contract }\DIFdelend \DIFaddbegin \DIFadd{creator account }\DIFaddend is able to \DIFdelbegin \DIFdel{perform update operations which can lead to unwanted actions}\DIFdelend \DIFaddbegin \DIFadd{create and update fixity information on the blockchain}\DIFaddend . In the \DIFdelbegin \DIFdel{worst case , an unwanted action may be ignored, since the older value is not deleted on }\DIFdelend \DIFaddbegin \DIFadd{case of a compromised creator account, each entry of fixity information may be invalidated by the archive and new fixity information have to be uploaded to }\DIFaddend the blockchain. \DIFdelbegin \DIFdel{Therefore, the }\DIFdelend \DIFaddbegin \DIFadd{The }\DIFaddend key user management of the \DIFdelbegin \DIFdel{smart contract can be used as a next step }\DIFdelend \DIFaddbegin \DIFadd{creators address may be investigated }\DIFaddend in further research. For this thesis I assume that the private key \DIFaddbegin \DIFadd{of the creator account }\DIFaddend is well managed and each transaction coming from the \DIFdelbegin \DIFdel{master }\DIFdelend \DIFaddbegin \DIFadd{creator's }\DIFaddend address is legit.
+\section{Cost of interacting with the fixity storage}\label{sec:cost-interating}
+The cost of interacting with the fixity storage depends on the desired action. There are three different \DIFdelbegin \DIFdel{way }\DIFdelend \DIFaddbegin \DIFadd{ways }\DIFaddend to interact with the contract: (1) create a new entry (2) update an existing entry and (3) read an entry.
+The cost of a transaction, which invokes the \DIFdelbegin \DIFdel{setPoolHash }\DIFdelend \DIFaddbegin \textit{\DIFadd{setPoolHash}} \DIFaddend function and ultimately stores 256 bit on the blockchain can be calculated with Equation \ref{eq:tx-cost}
+\begin{equation}\label{eq:tx-cost}
+    \DIFdelbegin %DIFDELCMD < \begin{split}
+%DIFDELCMD <         C_{setPoolHash} & = gasAmount * gasPrice * ethPrice \\ 
+%DIFDELCMD <         & = 42368 * 0.00000005 * 4000
+%DIFDELCMD <     \end{split}%%%
+\DIFdelend \DIFaddbegin \begin{split}
+        C_{setPoolHash} & = gasAmount \cdot gasPrice \cdot ethPrice \\ 
+        & = 42,368 \cdot 0.00000005 \cdot 4,000
+    \end{split}\DIFaddend 
+\end{equation}
+which results in \$8.47 on average for an ETH price of \$4000.
+The $gasAmount$ in Equation \ref{eq:tx-cost} can be calculated as follows:
+\begin{equation}\label{eq:tx-data}
+  \DIFdelbegin %DIFDELCMD < \begin{split}
+%DIFDELCMD <     gasAmount & = transaction + sset + txdatazero + txdatanonzero \\
+%DIFDELCMD <      & = 21000 + 20000 + 16 * 68 + 4 * 70  \\
+%DIFDELCMD <      & = 42368
+%DIFDELCMD <   \end{split}%%%
+\DIFdelend \DIFaddbegin \begin{split}
+    gasAmount & = transaction + sset + txdatazero + txdatanonzero \\
+     & = 21,000 + 20,000 + 16 \cdot 68 + 4 \cdot 70  \\
+     & = 42,368
+  \end{split}\DIFaddend 
+\end{equation}
+where $txdatazero$ is the number of zeros in the transaction data and $txdatanonzero$ is the amount of non-zero bytes in the transaction data. The transaction data for Equation \ref{eq:tx-data} can be found \DIFdelbegin \DIFdel{here in the Input Data }\DIFdelend \DIFaddbegin \DIFadd{in the }\textit{\DIFadd{Input Data}} \DIFaddend field of the transaction on Etherscan\footnote{\url{https://ropsten.etherscan.io/tx/0x8839e03f0143bad34060fa909c35d30f2edb22dd4fdac0264de8ae84176eb1ea}}. \DIFaddbegin \DIFadd{This field contains the binary data that formed the input to the transaction, the structure is depending on which type of transaction is executed. Whether the transaction is contract call, contract deployment or message call the input data holds instructions in form of bytecodes to properly execute the desired interaction. The hexadecimal form of the input data is used for the calculation of $txdatazero$ and $txdatanonzero$.
+}
+
+\DIFaddend The cost for updating an existing entry can be calculated in the same way as for creating ones, with the difference that the costly $sset$ operation can be spared and therefore updates costs \DIFdelbegin \DIFdel{20000 }\DIFdelend \DIFaddbegin \DIFadd{20,000 }\DIFaddend gas less than creates.
+Reading an entry is free of charge, since no state changes has to be forwarded to the blockchain.
+To explain the cost of the non-zero and zero bytes can be explained by looking the following \DIFdelbegin \DIFdel{Input Data
+}\DIFdelend \DIFaddbegin \textit{\DIFadd{Input Data}} \DIFadd{as a hexadecimal value:
+}\DIFaddend 
+
+\hash{0x178d292900000000000000000000000000000000000000000000000000000000000000001760d27083f6e2d1c46a65938c03a0c52dccf55cb4eb68a720e6efe3a8851f78}
+
+where zero and nonzero bytes are counted and multiplied by their respective gas cost, which in this example is \DIFdelbegin \DIFdel{$txdatazero+txdatanonzero = 4 * 70 + 16 * 68 = 1368 $}\DIFdelend \DIFaddbegin \DIFadd{$txdatazero+txdatanonzero = 4 \cdot 70 + 16 \cdot 68 = 1368 $}\DIFaddend . The amount of non-zero bytes can be interpreted as the amount of effort given to the network.
+
+\section{Proof of Concept}\label{sec:poc}
+The proof of concept is written in Python in form of a Jupyter Notebook. It can be found on GitHub\DIFdelbegin %DIFDELCMD < \url{https://github.com/metsch/masterthesis/blob/main/src/py/poc_ropsten.ipynb}%%%
+\DIFdelend \DIFaddbegin \footnote{\url{https://github.com/metsch/masterthesis/blob/main/src/py/poc_ropsten.ipynb}}\DIFaddend . With Python's Web3.py I get the contract from the blockchain and extract its functions \DIFdelbegin \DIFdel{setPoolHash and getPoolHash}\DIFdelend \DIFaddbegin \textit{\DIFadd{setPoolHash}} \DIFadd{and }\textit{\DIFadd{getPoolHash}}\DIFaddend . For the live experiment on the Ropsten test network I have initialized 100 digital objects, in form of SHA256 values, with a \DIFdelbegin \DIFdel{prevalence }\DIFdelend \DIFaddbegin \DIFadd{change }\DIFaddend rate of 0.1\DIFdelbegin \DIFdel{(or 10\%). The less }\DIFdelend \DIFaddbegin \DIFadd{, meaning that \%10 of the ingested objects will be changed during the storage in the archive. The low }\DIFaddend amount of objects in the live experiment is due to the fact, that the Ropsten \DIFdelbegin \DIFdel{ETH }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\acrlong{eth} }\hskip0pt%DIFAUXCMD
+}\DIFaddend token is hard to get, since the most relevant publicly available faucets are drained out and the ones available have a rate of only 0.1 \DIFdelbegin \DIFdel{ETH }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\acrlong{eth} }\hskip0pt%DIFAUXCMD
+}\DIFaddend per day, as I explained in Section \ref{sec:test-nets}. I \DIFdelbegin \DIFdel{computed }\DIFdelend \DIFaddbegin \DIFadd{compute }\DIFaddend the optimal pool size k for N=100 and p=0.1 with Equation \ref{eq:poolsize} and created $\lceil N/k \rceil$ pools. Each pool is assigned \DIFdelbegin \DIFdel{an ID and has }\DIFdelend \DIFaddbegin \DIFadd{a unique identifier and holds }\DIFaddend an array of objects, from which a hash list is formed, and the resulting root hash is \DIFdelbegin \DIFdel{stored. 
+Before uploading the pools on to the blockchain, I estimated }\DIFdelend \DIFaddbegin \DIFadd{later persisted on }\DIFaddend the \DIFaddbegin \DIFadd{blockchain. 
+Before persisting the root hashes, I estimate the }\DIFaddend gas cost for a single transaction in order to set the gas limit\DIFdelbegin \DIFdel{to avoid overpaid transactions}\DIFdelend \DIFaddbegin \DIFadd{, a transaction will revert if the cost exceeds the manually set gas limit}\DIFaddend . I utilized Equation \ref{eq:tx-data} and added 20\% in order guarantee that the transaction is not underpaid, \DIFdelbegin \DIFdel{since the result of Equation \ref{eq:tx-data} is the exact gas amount and may be reverted}\DIFdelend \DIFaddbegin \DIFadd{which may happen if the network is congested at the time of firing the transaction}\DIFaddend .
+At the time of the experiment, the gas price was 86.11 gwei which is 0,0000000896\DIFdelbegin \DIFdel{ETH}\DIFdelend \DIFaddbegin \DIFadd{\acrshort{eth}}\DIFaddend , resulting in \$15.18 for a \DIFdelbegin \DIFdel{setPoolHash }\DIFdelend \DIFaddbegin \textit{\DIFadd{setPoolHash}} \DIFaddend transaction calculated with Equation \ref{eq:tx-cost} with an \DIFdelbegin \DIFdel{ETH }\DIFdelend \DIFaddbegin \DIFadd{\acrshort{eth} }\DIFaddend price of \$4000. Admitted, this gas price is really high, usually the gas price is about 40 gwei. 
+For each pool, 25 in total, I uploaded each root hash on to the blockchain and waited for the transaction to finish and run some tests to see if the transactions were successful.
+After uploading the root hashes, I artificially corrupted the objects in the archive with a Bernoulli trial where an object gets corrupted if a random number between 0 and 1 is below p=0.1. At last, I repaired the archive by checking the local pools with the ones on the blockchain, and if the pool hashes did match the pool is seen as uncorrupted. Where the pools with non-matching hashes got replaced by copies of the objects.
+To sum it up, the cost for the live experiment was for 25 writing transactions 0.11204969029 ETH (\$448) and 8 data-scrubbing operations resulting in 33 total operations. \DIFaddbegin \DIFadd{Data-scrubbing is an operation, where a corrupted object in the archive gets replaced with a fresh copy. The copy is assumed to be uncorrupted with the original hash value, therefore no further writing transaction is needed when you replace an object in the archive. }\DIFaddend Whereas, with an individual testing strategy the amount of writing transactions would have been 100 and estimated 10 data-scrubbing operations.
+\DIFdelbegin \DIFdel{The experiment showed no weakness in throughput, where 25 transactions were uploaded in an instant and mined in less than 2 minutes
+}\DIFdelend 
+
+\section{\DIFdelbegin \DIFdel{Wrap Up}\DIFdelend \DIFaddbegin \DIFadd{Summary}\DIFaddend }
+In this \DIFdelbegin \DIFdel{Chapter }\DIFdelend \DIFaddbegin \DIFadd{chapter }\DIFaddend I have presented the various forms of fixity information with their respective advantages and disadvantages together with my reasoning on why I have decided to utilize SHA256 cryptographic hashes. I have also presented various storage-media for fixity information and why it is so important that these storages guarantee for immutability in regard to history forgery. The interactions with the fixity storage are tested in an experimental environment, presented in the \DIFdelbegin \DIFdel{following }\DIFdelend \DIFaddbegin \DIFadd{preceding }\DIFaddend section \ref{sec:poc}. \chapter{Evaluation}
+\label{ch:evaluation}
+The proposed fixity storage is evaluated on a local installation of the Ethereum blockchain and on the online Ropsten test network, where \DIFdelbegin \DIFdel{ETH }\DIFdelend \DIFaddbegin \DIFadd{\acrshort{eth} tokens }\DIFaddend used for transactions are free of charge. The \DIFaddbegin \DIFadd{dataset used for evaluation is the format-corpus}\footnote{\url{https://github.com/openpreserve/format-corpus}} \DIFadd{from Open Preserve Foundation}\footnote{\url{ http://openpreservation.org/}} \DIFadd{on commit }\textit{\DIFadd{4e4b9a34540f72612ba6eab2d28bccceb7a848ae}}\footnote{\url{https://github.com/openpreserve/format-corpus/commit/4e4b9a34540f72612ba6eab2d28bccceb7a848ae}} \DIFadd{on the 16th of February.
+}
+
+\DIFadd{I analyzed it to get a better understanding of various file formats, mostly on how volatile they are. The format-corpus is well-structured in a public GitHub repo with a decent amount of reputation in form of GitHub stars, where other datasets did provide corrupt links;were not available or did expect a lot of work to download them because they only allow single file downloads instead of bulks. Convenience; diversity of file extensions; and reputation of the organization affected my decision to use the format-corpus for analysis.
+For the analysis I used the python package folderstats}\footnote{\url{https://pypi.org/project/folderstats/}} \DIFadd{which transforms a directory into a pandas}\footnote{\url{https://pandas.pydata.org/}} \DIFadd{dataframe. The repository contains 1560 files with 90 distinct file extensions, e.g. 986 }\textit{\DIFadd{.xml}} \DIFadd{files which are mostly PRONOM}\footnote{\url{https://www.nationalarchives.gov.uk/PRONOM/}} \DIFadd{registry files or }\textit{\DIFadd{pom.xml}} \DIFadd{files in case of java projects. 
+}
+
+\DIFadd{In Figure \ref{fig:extension_distribution} you can see the distribution of file extensions where }\textit{\DIFadd{.xml}} \DIFadd{files make 62.2 percent of the portion and PDF with 6.79 percent as the second-largest portion.
+}\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.5\textwidth]{extension_distribution.png}
+    \caption{\DIFaddFL{Distribution of file extensions in the format-corpus of Open Preserve Foundation. }\url{https://github.com/openpreserve/format-corpus}}
+    \label{fig:extension_distribution}
+\end{figure}
+\DIFadd{To get a baseline estimate on how volatile certain extensions are due to updates and changes, I analyzed Git logs and count how many times a file extension was involved in a commit. The resulting column }\textit{\DIFadd{positives}} \DIFadd{was always higher or equal than the occurrence of a file extension, since each file was involved in at least one commit, the initial commit of the file. To count the commits I used the python package gitphyton}\footnote{\url{https://gitpython.readthedocs.io/en/stable/}} \DIFadd{and utilized the git command --log. For each file in the repository, I fired up the command }\textit{\DIFadd{git log --oneline filename}} \DIFadd{in python which resulted in one or multiple lines of logs. Later I used the multiline log as an input for the }\textit{\DIFadd{.splitlines()}} \DIFadd{function which results in an array of log lines, the length of this array minus 1 (the initial commit) is used to determine the new column }\textit{\DIFadd{positives}} \DIFadd{in the dataframe which shows if and how often a certain file has changed over the lifetime of the git repository. 
+This method of determining the volatility of a certain file extension is by no means ideal, but there is no other method to check how often a certain file has changed without monitoring them on a system for a certain time interval. Therefore, I have decided to use the amount of file changes in the git repository as a rough estimate.
+The change rate $p$ of a file extension is calculated with $positives/N$.
+}
+
+\DIFadd{The }\DIFaddend two key parameters for evaluation are the operation cost and efficiency. 
+\textit{Operation cost} \DIFaddbegin \DIFadd{\acrshort{op-cost} }\DIFaddend is calculated by multiplying the number of relevant cost transactions with the average gas cost \DIFdelbegin \DIFdel{of a writing }\DIFdelend \DIFaddbegin \DIFadd{for a }\textit{\DIFadd{setPoolHash}} \DIFaddend transaction on the blockchain, see Equation \ref{eq:expected_cost}
+\begin{equation}\label{eq:expected_cost}
+    \DIFdelbegin \DIFdel{C }\DIFdelend \DIFaddbegin \DIFadd{\acrshort{op-cost} }\DIFaddend = \DIFdelbegin \DIFdel{J * C_{setPoolHash} = }%DIFDELCMD < \lceil %%%
+\DIFdel{N/k }%DIFDELCMD < \rceil %%%
+\DIFdel{* }\DIFdelend \DIFaddbegin \DIFadd{\acrshort{count_wr} \cdot }\DIFaddend gasAmount
+\DIFdelbegin \DIFdel{* gasPrice * ethPrice
+}\DIFdelend \end{equation}
+where \DIFdelbegin \DIFdel{$J$ }\DIFdelend \DIFaddbegin \DIFadd{\acrshort{count_wr} }\DIFaddend is the number of \DIFdelbegin \DIFdel{pools on ingest; $C_{setPoolHash} $ is the cost for a transaction in gas, see Section \ref{sec:cost-interating}}\DIFdelend \DIFaddbegin \DIFadd{write transactions on the blockchain; $gasAmount$ the amount of gas used for a writing operation, see Equation \ref{eq:tx-data}}\DIFaddend .
+I intend to present the operation cost in the form of gas, the unit that measures the amount of computation effort required to execute specific operations, instead of the cost in USD or EUR. This is because, the amount of gas used during the experiment \DIFdelbegin \DIFdel{should stay }\DIFdelend \DIFaddbegin \DIFadd{stays }\DIFaddend constant, whereas the price of the ETH token fluctuates heavily. Therefore, the amount of gas is a better indicator on how costly the fixity storage is.
+\textit{Efficiency} \acrshort{eff} is measured by the number operations needed utilizing pooled testing compared \DIFdelbegin \DIFdel{T}\DIFdelend \DIFaddbegin \DIFadd{O}\DIFaddend (\acrshort{two-stage}) with the individual testing strategy \DIFdelbegin \DIFdel{T}\DIFdelend \DIFaddbegin \DIFadd{O}\DIFaddend (\acrshort{individual}), where the efficiency of pooling strategy S is expressed by Equation \ref{eq:efficiency}
+\begin{equation}\label{eq:efficiency}
+    \DIFdelbegin \DIFdel{E(S) }\DIFdelend \DIFaddbegin \DIFadd{\acrshort{eff} }\DIFaddend = \DIFdelbegin \DIFdel{T}\DIFdelend \DIFaddbegin \DIFadd{O}\DIFaddend (S_{i})/\DIFdelbegin \DIFdel{T(S)
+}\DIFdelend \DIFaddbegin \DIFadd{\acrshort{count_op}
+}\DIFaddend \end{equation}
+where, assuming the preservation process of 10,000 digital objects without pooling requires \DIFdelbegin \DIFdel{T}\DIFdelend \DIFaddbegin \DIFadd{O}\DIFaddend (\acrshort{two-stage}) operations and the preservation of the same objects using strategy S requires \acrshort{count_op} operations. In the case of individual testing the efficiency is 1, whereas if strategy S requires two times fewer operations the efficiency \acrshort{eff} is 2 \cite[4]{vzilinskas2021pooled}.
+
+\textit{What is the optimal pool size based on the \DIFdelbegin \DIFdel{corruption }\DIFdelend \DIFaddbegin \DIFadd{change }\DIFaddend rates of digital objects in the archive regarding cost and efficiency?}
+
+\DIFdelbegin \DIFdel{Corruption }\DIFdelend \DIFaddbegin \DIFadd{Change }\DIFaddend rate $p$ represents the \DIFdelbegin \DIFdel{prevalence of corruption}\DIFdelend \DIFaddbegin \DIFadd{chance that an object will be changed }\DIFaddend , e.g., when I assume that \DIFdelbegin \DIFdel{2000 }\DIFdelend \DIFaddbegin \DIFadd{2,000 }\DIFaddend of 10000 objects will be \DIFaddbegin \DIFadd{changed or }\DIFaddend corrupted during the preservation process, \DIFdelbegin \DIFdel{$p = 2000/10000 = 0.2$}\DIFdelend \DIFaddbegin \DIFadd{$p = 2,000/10,000 = 0.2$}\DIFaddend . 
+
+\textit{\DIFdelbegin \DIFdel{Expected }\DIFdelend Operation Cost:} The optimal pool size, which will result in the lowest number of cost relevant transactions is the number of pools $J$, as seen in Equation \DIFdelbegin \DIFdel{\ref{fig:expected_cost}}\DIFdelend \DIFaddbegin \DIFadd{\ref{eq:expected_writes}}\DIFaddend , because I only must write onto the blockchain during the ingest process where the root hashes of pools are persisted.
+\DIFaddbegin \begin{equation}\DIFadd{\label{eq:expected_writes}
+    \acrshort{count_wr} = J = \lceil N/k \rceil
+}\end{equation}
+\DIFaddend After the first \DIFdelbegin \DIFdel{Iteration }\DIFdelend \DIFaddbegin \DIFadd{iteration }\DIFaddend of the experiment, the number of corrupt objects per positive pools were included in the first draft of Equation \ref{eq:expected_cost}, where I assumed that I had to re-calculate corrupt pool hashes and re-store them on the blockchain, but these "repairing" actions can be done locally through data scrubbing. I only need to know that the pool is corrupt \DIFdelbegin \DIFdel{, then I can }\DIFdelend to substitute each object in the pool with a correct copy in the archive. For this part of the research question, local operations are out of scope because they do not cause direct cost on the blockchain, therefore the optimal pool size calculated by Equation \ref{eq:expected_cost} is $N$, see Figure \ref{fig:expected_cost}. A pool size of $N$ results in exactly 1 cost relevant transaction since I have combined every object on ingest into a hash-list which's root will be stored on the blockchain. This solution does not scale well, e.g., picture the process of retrieving a single object from the archive. In order to guarantee that the object is unaltered, I would have to re-compute the hash list from every object in the archive (or the bulk ingest in question). Additionally, if the single pool is corrupted, I must replace the whole bulk with copies. 
+So, there must be an answer, which rewards smaller pool sizes to avoid too much data scrubbing. The number of data scrubbing operations is the number of objects in positive pools on retrieval and is calculated with Equation \ref{eq:expected_data-scrubbing},
+\begin{equation}\label{eq:expected_data-scrubbing}
+    \DIFdelbegin \DIFdel{T}\DIFdelend \DIFaddbegin \DIFadd{R}\DIFaddend (S) = J_+ \DIFdelbegin \DIFdel{* }\DIFdelend \DIFaddbegin \DIFadd{\cdot }\DIFaddend k = ((1-(1-p)^k)\DIFdelbegin \DIFdel{* }\DIFdelend \DIFaddbegin \DIFadd{\cdot }\DIFaddend \lceil N/k \rceil) \DIFdelbegin \DIFdel{* }\DIFdelend \DIFaddbegin \DIFadd{\cdot }\DIFaddend k
+\end{equation}
+where $(1-p)^k$ is the probability of a pool of size k being \DIFdelbegin \DIFdel{negative at a prevalence of p }\DIFdelend \DIFaddbegin \DIFadd{unchanged at a change rate of $p$ }\DIFaddend and the probability of a pool being \DIFdelbegin \DIFdel{positive }\DIFdelend \DIFaddbegin \DIFadd{changed }\DIFaddend is $1-(1-p)^k$. To find the optimal pool size regarding the amount of data scrubbing operations, I had to minimize Equation \ref{eq:expected_data-scrubbing}, as seen in Figure \ref{fig:expected_scrubbing}.
+To find the optimal pool size in terms of operation cost and efficiency, operation cost and data scrubbing has to be accounted, which results in the final Equation \ref{eq:expected_operations}
+\begin{equation}\label{eq:expected_operations}
+    \DIFdelbegin \DIFdel{T(S) }\DIFdelend \DIFaddbegin \DIFadd{\acrshort{count_op} }\DIFaddend = J + J_+ \DIFdelbegin \DIFdel{* }\DIFdelend \DIFaddbegin \DIFadd{\cdot }\DIFaddend k = \lceil N/k \rceil + ((1-(1-p)^k)\DIFdelbegin \DIFdel{* }\DIFdelend \DIFaddbegin \DIFadd{\cdot }\DIFaddend \lceil N/k \rceil) \DIFdelbegin \DIFdel{* }\DIFdelend \DIFaddbegin \DIFadd{\cdot }\DIFaddend k
+\end{equation}
+where \textit{J} is the number of pools and \textit{\DIFdelbegin \DIFdel{$J_+ * k$}\DIFdelend \DIFaddbegin \DIFadd{$J_+ \cdot k$}\DIFaddend } is the number of objects in corrupted pools. Therefore, the number of expected operations is the number of writing operations on ingest plus the number of data scrubbing operations on retrieval. By adding the amount of data scrubbing operations, the optimal pool size gets significantly lower, see Figure \ref{fig:expected_operations}. The optimal pool size \text{k} can be determined by finding the global minimum of Equation \ref{eq:expected_operations}, which results in the highest efficiency in Equation \ref{eq:efficiency}.
+In the experiment, I have utilized Equation \ref{eq:poolsize} presented by \cite[3]{regen2020simple}\DIFaddbegin \DIFadd{, because it is more efficient than looking for the global minimum by force, }\DIFaddend and round the pool size up in order to avoid non integer pool sizes.
+\begin{equation}\label{eq:poolsize}
+    k = \lceil 1.24\DIFdelbegin \DIFdel{*p}\DIFdelend \DIFaddbegin \DIFadd{\cdot p}\DIFaddend ^-0.466 \rceil
+\end{equation}
+\DIFdelbegin %DIFDELCMD < \begin{figure}[H]%%%
+\DIFdelendFL \DIFaddbeginFL \begin{figure}[t]\DIFaddendFL \centering
+    \begin{subfigure}{6cm}
+        \includegraphics[width=\linewidth]{graphics/expected_cost.png}
+        \caption{Optimal pool size regarding the writing transactions \DIFaddbeginFL \DIFaddFL{\acrshort{count_wr}}\DIFaddendFL .\DIFdelbeginFL \DIFdelFL{$T(S_{writing})$}\DIFdelendFL }\label{fig:expected_cost}
+    \end{subfigure}
+    \qquad
+    \begin{subfigure}{6cm}
+        \includegraphics[width=\linewidth]{graphics/expected_scrubbing.png}
+        \caption{Optimal pool size regarding the data scrubbing operations \DIFdelbeginFL \DIFdelFL{$T(S_{scrubbing})$}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{\acrshort{count_re}}\DIFaddendFL .}\label{fig:expected_scrubbing}
+    \end{subfigure}
+    \qquad
+    \begin{subfigure}{6cm}
+        \includegraphics[width=\linewidth]{graphics/expected_operations.png}
+        \caption{Optimal pool size regarding the total operations \DIFdelbeginFL \DIFdelFL{$T(S) = T(S_{writing}) + T(S_{scrubbing})$}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{\acrshort{count_op} = \acrshort{count_re} + \acrshort{count_wr}}\DIFaddendFL .}\label{fig:expected_operations}
+    \end{subfigure}
+    \caption{Comparison of optimal pool sizes\DIFdelbeginFL %DIFDELCMD < \url{https://github.com/metsch/masterthesis/blob/main/src/py/rq1.ipynb}%%%
+\DIFdelendFL \DIFaddbeginFL \DIFaddFL{.}\DIFaddendFL }
+\DIFdelbeginFL %DIFDELCMD < \label{fig:optimal_pool_size}%%%
+\DIFdelendFL \end{figure}
+In Table \ref{tb:expected costs} and Figure \ref{fig:poolsizes} it is shown that for ingest bulks with higher \DIFdelbegin \DIFdel{prevalence of corruption }\DIFdelend \DIFaddbegin \DIFadd{change rates }\DIFaddend smaller pool sizes are favorable\DIFaddbegin \footnote{\url{https://github.com/metsch/masterthesis/blob/main/src/py/rq1.ipynb}}\DIFaddend .
+The highest efficiency \acrshort{eff} can be achieved when the \DIFdelbegin \DIFdel{prevalence }\DIFdelend \DIFaddbegin \DIFadd{change }\DIFaddend rate is the lowest, where larger pool sizes are favorable, see Figure \ref{fig:poolsizes}.
+\DIFdelbegin %DIFDELCMD < \begin{figure}[H]%%%
+\DIFdelendFL \DIFaddbeginFL \begin{figure}[t]\DIFaddendFL \centering
+    \DIFdelbeginFL %DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Optimal pool sizes $k$ with prevalence $p$ }%DIFDELCMD < \url{https://github.com/metsch/masterthesis/blob/main/src/py/rq1.ipynb}%%%
+}%DIFAUXCMD
+%DIFDELCMD < \label{fig:pool-sizes}
+%DIFDELCMD <     \label{fig:poolsizes}
+%DIFDELCMD <     %%%
+\DIFdelendFL \includegraphics[width=0.5\textwidth]{graphics/poolsizes.png}
+    \DIFaddbeginFL \caption{\DIFaddFL{Optimal pool sizes $k$ with change rate $p$.}}
+    \label{fig:poolsizes}
+\DIFaddendFL \end{figure}
+\DIFdelbegin %DIFDELCMD < \begin{table}[H]
+%DIFDELCMD <     %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Efficiency \acrshort{eff} and Cost Efficiency \acrshort{cost} of two-stage-hierarchical pooling compared to individual testing }%DIFDELCMD < \url{https://github.com/metsch/masterthesis/blob/main/src/py/rq1.ipynb}%%%
+}
+    %DIFAUXCMD
+\DIFdelendFL \DIFaddbeginFL \begin{table}[t]
+    \DIFaddendFL \centering
+    \begin{tabular}{ c c c c c}
+        \DIFdelbeginFL %DIFDELCMD < \label{tb:expected costs}
+%DIFDELCMD <      %%%
+\DIFdelendFL N & p & k & E(\acrshort{two-stage}) & C(\acrshort{two-stage}) \\
+        10000 & 0.010 & 11 & 5.16 & 11 \\ 
+        \hline
+        10000 & 0.05 & 5 & 2.39 & 5 \\  
+        \hline
+        10000 & 0.09 & 4 & 1.87 & 4 \\  
+        \hline
+        10000 & 0.14 & 4 & 1.62 & 4 \\  
+        \hline
+        10000 & 0.18 & 3 & 1.50 & \DIFdelbeginFL \DIFdelFL{3  }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{4  }\DIFaddendFL \\
+        \hline
+        10000 & 0.22 & 3 & 1.40 & 3  \\
+        \hline
+        10000 & 0.27 & 3 & 1.34 & 3  \\
+        \hline
+        10000 & 0.31 & 3 & 1.30 & 3  \\
+        \hline
+        10000 & 0.35 & 3 & 1.27 & 3  \\
+        \hline
+        10000 & 0.400 & 2 & 1.22 & 2  
+    \end{tabular}
+    \DIFaddbeginFL \caption{\DIFaddFL{Efficiency \acrshort{eff} and Cost Efficiency \acrshort{cost} of two-stage-hierarchical pooling compared to individual testing.}}
+    \label{tb:expected costs}
+\DIFaddendFL \end{table}
+
+\textit{To what extent can pooled testing increase the efficiency and reduce cost for a fixity information storage service on the Ethereum blockchain?}
+
+A context-sensitive approach in the medical field was proposed in 2020 were members of homogeneous groups were pooled, e.g. families, office colleagues or neighbors, and is proven to be more effective than individual testing \cite[4]{deckert2020simulation}. In this thesis, the idea of grouping similar files to increase efficiency of the pooling strategy\DIFdelbegin \DIFdel{is implemented by grouping various file extensions}\DIFdelend , estimating their \DIFdelbegin \DIFdel{prevalence in form of alterations }\DIFdelend \DIFaddbegin \DIFadd{change rate }\DIFaddend and calculating the \DIFdelbegin \DIFdel{efficiency per file extension }\DIFdelend \DIFaddbegin \DIFadd{in-group efficiency }\DIFaddend as presented in Equation \ref{eq:efficiency}.
+\DIFdelbegin \DIFdel{The dataset used is presented in Section \ref{sec:dataset}.
+}%DIFDELCMD < \begin{figure}[H]%%%
+\DIFdelendFL \DIFaddbeginFL \begin{figure}[t]\DIFaddendFL \centering
+    \DIFdelbeginFL %DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Distribution of prevalence rates $p$ }%DIFDELCMD < \url{https://github.com/metsch/masterthesis/blob/main/src/py/rq2.ipynb}%%%
+}%DIFAUXCMD
+%DIFDELCMD < \label{fig:p-distribution}
+%DIFDELCMD <     %%%
+\DIFdelendFL \includegraphics[width=0.5\textwidth]{graphics/p-distribution.png}
+    \DIFaddbeginFL \caption{\DIFaddFL{Distribution of change rates $p$.}}\label{fig:p-distribution}
+\DIFaddendFL \end{figure}
+In Figure \ref{fig:p-distribution}, it is shown that the volatility in the repository only affects a few file extensions, where 77 out of 90 file extension where never altered and have therefore a $p$ value of 0.00. These unaltered file extensions are grouped with a group size of $Group_N$, which results in large bulks in the ingest process that have no impact on the retrieval since I assume that no object in this particular group will be altered during the preservation process. For instance, in Table \ref{tb:efficiency}, the file extension MOV has a \DIFdelbegin \DIFdel{prevalence }\DIFdelend \DIFaddbegin \DIFadd{change }\DIFaddend rate of 0.00 \DIFdelbegin \DIFdel{, and therefore I can assign a group size of $N$ to reach the maximum overall efficiency.
+}%DIFDELCMD < \begin{table}[H]
+%DIFDELCMD <     %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{In group efficiencies of various file extensions}}
+    %DIFAUXCMD
+\DIFdelendFL \DIFaddbeginFL \DIFaddFL{since no MOV was involved in a git commit. A change rate of 0.00 is not realistic, since a bit level error always may happen.
+}\begin{table}[t]
+    \DIFaddendFL \centering
+    \begin{tabular}{ c c c c c c}
+        \DIFdelbeginFL %DIFDELCMD < \label{tb:efficiency}
+%DIFDELCMD <      %%%
+\DIFdelendFL extension & N & p & k & E(\acrshort{two-stage}) & \DIFdelbeginFL \DIFdelFL{C}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{W}\DIFaddendFL (\acrshort{two-stage}) \\
+        \hline
+        XML & 986 & 0.43 & 2 & 1.21  & 2.00 \\  
+        \hline
+        PDF &106 &0.01 & 8 &  3.60 & 7.57 \\
+        \hline
+        MD & 74 & 0.22  & 3 & 1.37 & 2.96 \\    
+        \hline
+        MOV&61 & 0.00 &  61 & 61.00 & 61.00 \\  
+     \hline
+     JAVA &47 &0.82 & 2  & 1.21 & 1.95 \\  
+     \hline
+     \DIFaddbeginFL \DIFaddFL{None }& \DIFaddFL{26 }& \DIFaddFL{0.00 }& \DIFaddFL{26.0 }& \DIFaddFL{26.00 }& \DIFaddFL{26.00	 }\\
+     \hline
+     \DIFaddendFL ZIP & 17 &0.00 &  17 & 17.00 & 17.00 \\
+     \hline
+     TXT & 14 & 0.14 &  4 & 1.33 & 3.50 \\ 
+     \hline
+     DOC & 13 & 0.00 &  13 & 13.00 & 13.00 \\   
+     \hline
+     JP2 & 12 & 0.00 &  12 & 12.00 & 12.00 \\   
+     \hline
+     CSS & 11 & 0.36 & 2  & 1.07 & 1.83 \\  
+     \hline
+     HTML & 11 & 0.54 &  2 & 1.06 & 1.83
+     \\   
+     \hline
+     JS & 10 & 0.3 & \DIFaddbeginFL \DIFaddFL{3}& \DIFaddendFL 1.08 & 2.50
+    \end{tabular}
+    \DIFaddbeginFL \caption{\DIFaddFL{In group efficiencies of various file extensions.}}
+    \label{tb:efficiency}
+\DIFaddendFL \end{table}
+
+To calculate the efficiency of the \DIFdelbegin \DIFdel{two stage hierarchical pooling }\DIFdelend \DIFaddbegin \DIFadd{two-stage-hierarchical }\DIFaddend strategy, I \DIFdelbegin \DIFdel{took the mean $p$ value of the data in Table \ref{tb:efficiency} as an estimator for the overall alteration rate which resulted in 0.06}\DIFdelend \DIFaddbegin \DIFadd{have to sum up every changed file in the dataset which results in 510 changed files in the dataset. The change rate of the dataset is $510/1560$, which results in $0.32$}\DIFaddend . The input for Equation \ref{eq:expected_operations} \DIFdelbegin \DIFdel{was }\DIFdelend \DIFaddbegin \DIFadd{is }\DIFaddend therefore N=1560; p=\DIFdelbegin \DIFdel{0.06 }\DIFdelend \DIFaddbegin \DIFadd{0.32 }\DIFaddend and k=\DIFdelbegin \DIFdel{5.0}\DIFdelend \DIFaddbegin \DIFadd{3.0}\DIFaddend .
+With context-sensitive pooling, another increase in efficiency can be made. In Table \ref{tb:context-sensitive} I compare the two strategies presented before, with respect to Equation \ref{eq:efficiency}, where the Two-Stage-hierarchical pooling algorithm has achieved an efficiency rate of \DIFdelbegin \DIFdel{2.24 }\DIFdelend \DIFaddbegin \DIFadd{1.28 }\DIFaddend and context-sensitive pooling \DIFdelbegin \DIFdel{has achieved an efficiency rate of 3.03. 
+}%DIFDELCMD < \begin{table}[H]
+%DIFDELCMD <     %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Efficiency of context-sensitive pooling vs. two stage hierarchical pooling }%DIFDELCMD < \url{https://github.com/metsch/masterthesis/blob/main/src/py/rq2.ipynb}%%%
+}
+    %DIFAUXCMD
+\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.38}\footnote{\url{https://github.com/metsch/masterthesis/blob/main/src/py/rq2.ipynb}}\DIFaddFL{. 
+}\begin{table}[t]
+    \DIFaddendFL \centering
+    \begin{tabular}{c c c}
+        \DIFdelbeginFL %DIFDELCMD < \label{tb:context-sensitive}
+%DIFDELCMD <     %%%
+\DIFdelendFL Strategy & \DIFdelbeginFL \DIFdelFL{E(\acrshort{two-stage}) }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{\acrshort{eff} }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{C(\acrshort{two-stage}) }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{\acrshort{cost-eff} }\DIFaddendFL \\
+        Individual & 1.00 & 1.00 \\
+        Two stage hierarchical &  \DIFdelbeginFL \DIFdelFL{2.81 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.28 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{4.99}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{3.0}\DIFaddendFL \\
+        Context Sensitive & \DIFdelbeginFL \DIFdelFL{3.03 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.38 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{3.25
+    }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{2.35
+    }\DIFaddendFL \end{tabular}
+    \DIFaddbeginFL \caption{\DIFaddFL{Efficiency of context-sensitive pooling vs. two stage hierarchical pooling.}}
+    \label{tb:context-sensitive}
+\DIFaddendFL \end{table}
+
+\textit{\DIFdelbegin \DIFdel{RQ 3 }\DIFdelend Given that metadata has a higher \DIFdelbegin \DIFdel{corruption }\DIFdelend \DIFaddbegin \DIFadd{change }\DIFaddend rate, what effect has the split of metadata and objects on the operation cost?}
+To know what effect the split off metadata has, I had to double the initial 1560 file extensions and assign the postfix .meta to the newly created rows resulting in Table \ref{tb:metadata},
+\DIFdelbegin %DIFDELCMD < \begin{table}[H]
+%DIFDELCMD <     %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Arbitrary prevalence rates $p$ and $p_{meta}$ in the format-corpus dataset}}
+    %DIFAUXCMD
+\DIFdelendFL \DIFaddbeginFL \begin{table}[t]
+    \DIFaddendFL \centering
+    \DIFdelbeginFL %DIFDELCMD < \begin{tabular}{c c c}
+%DIFDELCMD <     \label{tb:metadata}
+%DIFDELCMD <     %%%
+\DIFdelendFL \DIFaddbeginFL \begin{tabular}{c c}
+        \DIFaddendFL Extension & N \DIFdelbeginFL %DIFDELCMD < & %%%
+\DIFdelFL{p}\DIFdelendFL \\
+        METADATA & 1560 \DIFdelbeginFL %DIFDELCMD < & %%%
+\DIFdelFL{0.990 }\DIFdelendFL \\
+        XML& 986 \DIFdelbeginFL %DIFDELCMD < & %%%
+\DIFdelFL{0.001 }\DIFdelendFL \\
+        PDF& \DIFdelbeginFL \DIFdelFL{986 }%DIFDELCMD < & %%%
+\DIFdelFL{0.001 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{106  }\DIFaddendFL \\
+        MD& \DIFdelbeginFL \DIFdelFL{986 }%DIFDELCMD < & %%%
+\DIFdelFL{0.001 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{74  }\DIFaddendFL \\
+        MOV& \DIFdelbeginFL \DIFdelFL{986 }%DIFDELCMD < & %%%
+\DIFdelFL{0.001 
+    }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{47  
+    }\DIFaddendFL \end{tabular}
+    \DIFaddbeginFL \caption{\DIFaddFL{Arbitrary set change rates $p$ in the format-corpus dataset.}}
+    \label{tb:metadata}
+\DIFaddendFL \end{table}
+\DIFdelbegin \DIFdel{where $p=0.005$ for each file extension and $p_{meta}=0.800$. 
+I have calculated }\DIFdelend \DIFaddbegin \DIFadd{I calculate }\DIFaddend the efficiency for context-sensitive and two-stage hierarchical for various combinations of $p$ and $p_{meta}$ and the result is \DIFdelbegin \DIFdel{, that with split off metadata the context-sensitive strategy is much worse than the two-stage hierarchical algorithm.
+For instance }\DIFdelend \DIFaddbegin \DIFadd{resulting }\DIFaddend in Table \ref{tb:split-off}\DIFdelbegin \DIFdel{, the context-sensitive }\DIFdelend \DIFaddbegin \DIFadd{. The combinations for $p$ and $p_{meta}$ are set arbitrary, future work may include the estimation of change rates based on the file sizes.
+The Context-sensitive }\DIFaddend strategy never even reaches a 1.00 efficiency, which would state that it performs worse as the individual testing in terms of efficiency, \DIFdelbegin \DIFdel{whereas the two-stage hierarchical strategy performs better with split off metadata when the $p$ value is low enough. This is because I can assign larger group sizes when the majority of file extensions (the objects) in the dataset do have a very low prevalence rate$p$. This is due to the fact, that the average $p$ value is calculated after grouping the file extensions, where we have only one file extension where the $p$ value is very vast, the metadata.
+}%DIFDELCMD < \begin{table}[H]
+%DIFDELCMD <     %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Various prevalence rates $p$ and $p_{meta}$ in the format-corpus dataset compared with the individual testing strategy \acrshort{two-stage} where 2044 operations are needed }%DIFDELCMD < \url{https://github.com/metsch/masterthesis/blob/main/src/py/rq3.ipynb}%%%
+\DIFdelFL{.}}
+    %DIFAUXCMD
+\DIFdelendFL \DIFaddbeginFL \DIFaddFL{this is due to the implementation of the context-sensitive strategy where the pool sizes cannot exceed the group size cannot exceed and loose the advantage of low change rates. In the two-stage-hierarchical I can group the metadata independently of the objects, resulting in 1560 objects with high change rate and 1560 objects with very low change rate. Although the performance is better than individual testing in terms of cost, the split off-metadata does have a worse effect on the overall performance due to the double amount of objects that have to be preserved}\footnote{\url{https://github.com/metsch/masterthesis/blob/main/src/py/rq3.ipynb}}\DIFaddFL{.
+}\begin{table}[t]
+    \DIFaddendFL \centering
+    \begin{tabular}{c c c c c c}
+        \DIFdelbeginFL %DIFDELCMD < \label{tb:split-off}
+%DIFDELCMD <     %%%
+\DIFdelendFL $p$ & $p_{meta}$ & E(\acrshort{cs}) & C(\acrshort{cs}) & E(\acrshort{two-stage}) & C(\acrshort{two-stage})\\
+        0.001 &	0.99 & \DIFdelbeginFL \DIFdelFL{1.76 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.77 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{3.41 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.71 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{7.17}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.86 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{9.98 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.91 }\DIFaddendFL \\
+        \DIFdelbeginFL \DIFdelFL{0.002 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.007 }\DIFaddendFL &	\DIFdelbeginFL \DIFdelFL{0.98 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.96 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{1.73 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.73 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{3.34 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.60 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{6.82}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.80 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{9.98 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.76 }\DIFaddendFL \\
+        \DIFdelbeginFL \DIFdelFL{0.003 }%DIFDELCMD < &	%%%
+\DIFdelFL{0.98 }%DIFDELCMD < &	%%%
+\DIFdelFL{1.71 }%DIFDELCMD < & %%%
+\DIFdelFL{3.29 }%DIFDELCMD < &	%%%
+\DIFdelFL{6.55}%DIFDELCMD < &	%%%
+\DIFdelFL{8.99 }%DIFDELCMD < \\
+%DIFDELCMD < 	%%%
+\DIFdelendFL 0.013 &	0.94 & \DIFdelbeginFL \DIFdelFL{1.60 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.71 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{3.09 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.55 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{5.02}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.78 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{7.99 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.69 }\DIFaddendFL \\
+        \DIFdelbeginFL \DIFdelFL{0.014 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.019 }\DIFaddendFL &	\DIFdelbeginFL \DIFdelFL{0.93 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.91 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{1.60 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.69 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{3.04 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.49 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{4.93}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.76 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{7.00 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.62 }\DIFaddendFL \\
+        \DIFdelbeginFL \DIFdelFL{0.016 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.026 }\DIFaddendFL &	\DIFdelbeginFL \DIFdelFL{0.93 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.89 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{1.59 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.68 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{3.04 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.46 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{4.81}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.74 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{7.00 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.58 }\DIFaddendFL \\
+        \DIFdelbeginFL \DIFdelFL{0.029 }%DIFDELCMD < &	%%%
+\DIFdelFL{0.87 }%DIFDELCMD < &	%%%
+\DIFdelFL{1.51 }%DIFDELCMD < & %%%
+\DIFdelFL{2.91 }%DIFDELCMD < &	%%%
+\DIFdelFL{3.89}%DIFDELCMD < &	%%%
+\DIFdelFL{5.99 }%DIFDELCMD < \\
+%DIFDELCMD < 	%%%
+\DIFdelFL{0.031 }%DIFDELCMD < &	%%%
+\DIFdelFL{0.87 }%DIFDELCMD < &	%%%
+\DIFdelFL{1.50 }%DIFDELCMD < & %%%
+\DIFdelFL{2.91 }%DIFDELCMD < &	%%%
+\DIFdelFL{3.83}%DIFDELCMD < &	%%%
+\DIFdelFL{5.99 }%DIFDELCMD < \\
+%DIFDELCMD < 	%%%
+\DIFdelendFL 0.032 &	0.86 & \DIFdelbeginFL \DIFdelFL{1.50 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.67 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{2.91 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.46 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{3.77}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.73 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{5.99 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.58 }\DIFaddendFL \\
+        \DIFdelbeginFL \DIFdelFL{0.042 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.038 }\DIFaddendFL &	\DIFdelbeginFL \DIFdelFL{0.82 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.84 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{1.46 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.67 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{2.83 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.42 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{3.39}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.72 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{4.99 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.52 }\DIFaddendFL \\
+        \DIFdelbeginFL \DIFdelFL{0.050 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.044 }\DIFaddendFL &	\DIFdelbeginFL \DIFdelFL{0.80 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.81 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{1.43 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.66 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{2.83 }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.42 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{3.16}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{0.71 }\DIFaddendFL & \DIFdelbeginFL \DIFdelFL{4.99
+    }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{1.52 
+    }\DIFaddendFL \end{tabular}
+    \DIFaddbeginFL \caption{\DIFaddFL{Various change rates $p$ and $p_{meta}$ in the format-corpus dataset compared with the individual testing strategy \acrshort{two-stage} where 1560 cost relevant transactions and 2070 operations are needed.}}
+    \label{tb:split-off}
+\DIFaddendFL \end{table}
+
+\DIFdelbegin \section{\DIFdel{Dataset for context-sensitive pooling}}%DIFAUXCMD
+\addtocounter{section}{-1}%DIFAUXCMD
+%DIFDELCMD < \label{sec:dataset}
+%DIFDELCMD < %%%
+\DIFdel{I analyzed the format-corpus}\footnote{%DIFDELCMD < \url{https://github.com/openpreserve/format-corpus}%%%
+} %DIFAUXCMD
+\addtocounter{footnote}{-1}%DIFAUXCMD
+\DIFdel{from Open Preserve Foundation}\footnote{%DIFDELCMD < \url{ http://openpreservation.org/}%%%
+} %DIFAUXCMD
+\addtocounter{footnote}{-1}%DIFAUXCMD
+\DIFdel{to get a better understanding of various file formats, mostly on how volatile they are. The latest commit for my analysis was }\textit{\DIFdel{commit 4e4b9a34540f72612ba6eab2d28bccceb7a848ae}}%DIFAUXCMD
+\footnote{%DIFDELCMD < \url{https://github.com/openpreserve/format-corpus/commit/4e4b9a34540f72612ba6eab2d28bccceb7a848ae}%%%
+} %DIFAUXCMD
+\addtocounter{footnote}{-1}%DIFAUXCMD
+\DIFdel{on the 16th of February. The format-corpus is well-structured in a public GitHub repo with a decent amount of reputation in form of GitHub stars, where other datasets did provide corrupt links;were not available or did expect a tedious amount of time to download and re-structure them.
+Convenience; diversity of file extensions; and reputation of the organization affected my decision to use the format-corpus for analysis. For the analysis I used the python package folderstats}\footnote{%DIFDELCMD < \url{https://pypi.org/project/folderstats/}%%%
+} %DIFAUXCMD
+\addtocounter{footnote}{-1}%DIFAUXCMD
+\DIFdel{which transforms a directory into a pandas}\footnote{%DIFDELCMD < \url{https://pandas.pydata.org/}%%%
+} %DIFAUXCMD
+\addtocounter{footnote}{-1}%DIFAUXCMD
+\DIFdel{dataframe. The repository contains 1560 files with 90 distinct file extensions, e. g. 986 }\textit{\DIFdel{.xml}} %DIFAUXCMD
+\DIFdel{files which are mostly PRONOM}\footnote{%DIFDELCMD < \url{https://www.nationalarchives.gov.uk/PRONOM/}%%%
+} %DIFAUXCMD
+\addtocounter{footnote}{-1}%DIFAUXCMD
+\DIFdel{registry files or }\textit{\DIFdel{pom.xml}} %DIFAUXCMD
+\DIFdel{files in case of java projects. In Figure \ref{fig:extension_distribution} you can see the distribution of file extensions where }\textit{\DIFdel{.xml}} %DIFAUXCMD
+\DIFdel{files make 62.2 percent of the portion and PDF with 6.79 percent as the second-largest portion.
+}%DIFDELCMD < \begin{figure}[h]
+%DIFDELCMD <     %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Distribution of file extensions in the format-corpus of Open Preserve Foundation. }%DIFDELCMD < \url{https://github.com/openpreserve/format-corpus}%%%
+}
+    %DIFAUXCMD
+%DIFDELCMD < \label{fig:extension_distribution}
+%DIFDELCMD <     %%%
+\DIFdelendFL \DIFaddbeginFL \DIFaddFL{The goal of this thesis was to reduce the cost of the fixity storage by at least 50\%, this goal can be met when the optimal pool size is at least two, which is guaranteed with a prevalence lower than 35.9\%, as seen in Figure \ref{fig:threshhold}.
+}\begin{figure}[tb]
+    \caption{\DIFaddFL{For a prevalence of corruption of maximum 35.9\%, an optimal pool size of at least two is guaranteed.}}
+    \label{fig:threshhold}
+    \DIFaddendFL \centering
+    \DIFdelbeginFL %DIFDELCMD < \includegraphics[width=0.5\textwidth]{extension_distribution.png}
+%DIFDELCMD < %%%
+\DIFdelendFL \DIFaddbeginFL \includegraphics[width=0.5\textwidth]{threshhold.png}
+\DIFaddendFL \end{figure}
+\DIFdelbegin %DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\subsection{\DIFdel{Transformations}}
+%DIFAUXCMD
+\addtocounter{subsection}{-1}%DIFAUXCMD
+\DIFdel{To get a baseline estimate on how volatile certain extensions are due to updates and alterations, I analyzed Git logs and count how many times a file extension was involved in a commit. The resulting column }\textit{\DIFdel{positives}} %DIFAUXCMD
+\DIFdel{was always higher or equal than the occurrence of a file extension, since each file was involved in at least one commit, the initial commit of }\DIFdelend \DIFaddbegin \DIFadd{What happens if the prevalence is higher than 35.9\%, the optimal pool size would be between 1.0 and 2.0 which is not practical since a pool can not include 1.42 objects, therefore I have decided to round the result up from Equation \ref{eq:poolsize} which results in Figure \ref{fig:threshhold-ceil}.
+}\begin{figure}[tb]
+    \caption{\DIFaddFL{Round the resulting optimal pool size up to avoid non-integer pool sizes.}}
+    \label{fig:threshhold-ceil}
+    \centering
+    \includegraphics[width=0.5\textwidth]{threshhold-ceil.png}
+\end{figure}
+ \chapter{\DIFadd{Discussion}}
+\DIFadd{I have evaluated two distinct pooling strategies on an ingest consisting of 1560 digital objects. The change rate of the dataset is 32\%, meaning that a third of the objects are expected to be corrupted or changed during the storage in the archive. With an individual testing strategy, 1560 writing operations on the blockchain are needed. The exact gas cost, to persist 1560 SHA256 values is $1560 \cdot 42,368 = 66,094,080$. The cost in USD for that much gas is \$13218.81, assuming a gas price of 50 \mbox{%DIFAUXCMD
+\acrlong{gwei} }\hskip0pt%DIFAUXCMD
+and an \mbox{%DIFAUXCMD
+\acrlong{eth} }\hskip0pt%DIFAUXCMD
+price of 4000, see Equation \ref{eq:tx-cost}. It is important to denote the operation cost in gas because the gas price is changing in the minute ranging from 30 \mbox{%DIFAUXCMD
+\acrlong{gwei} }\hskip0pt%DIFAUXCMD
+up to 60 \mbox{%DIFAUXCMD
+\acrlong{gwei} }\hskip0pt%DIFAUXCMD
+and }\DIFaddend the \DIFdelbegin \DIFdel{file. To count the commits I used the python package gitphyton}\footnote{%DIFDELCMD < \url{https://gitpython.readthedocs.io/en/stable/}%%%
+} %DIFAUXCMD
+\addtocounter{footnote}{-1}%DIFAUXCMD
+\DIFdel{and utilized the git command --log.For each file in the repository, I fired up the command }\textit{\DIFdel{git log --oneline filename}} %DIFAUXCMD
+\DIFdel{in python which resulted in one or multiple lines of logs.
+Latter I used the multiline log as an input for the }\textit{\DIFdel{.splitlines()}} %DIFAUXCMD
+\DIFdel{function }\DIFdelend \DIFaddbegin \DIFadd{price of the \mbox{%DIFAUXCMD
+\acrlong{eth} }\hskip0pt%DIFAUXCMD
+also fluctuates. With a gas price of 30 \mbox{%DIFAUXCMD
+\acrlong{gwei}}\hskip0pt%DIFAUXCMD
+, the operation cost for an ingest of 1560 objects would decrease to \$7931.
+Therefore, it is important to be aware of the changing gas prices throughout the day. Gas prices are an indicator on how active the Ethereum network is at the moment, e.g., the gas prices are the lowest in the early morning in Europe when North America is mostly asleep.
+I have shown that the amount of costly writing operations can be decreased up to three times utilizing pooled testing. With a two-stage-hierarchical pooling strategy, the amount of writing operations is 520, }\DIFaddend which results in \DIFdelbegin \DIFdel{an array of log lines, the length of this array minus 1 (the initial commit) is used to determine the new column }\textit{\DIFdel{positives}} %DIFAUXCMD
+\DIFdel{in the dataframe which shows if and how often a certain file has changed over the lifetime of the git repository. 
+This method of determining the volatility of a certain file extension is by no means ideal, but }\DIFdelend \DIFaddbegin \DIFadd{a total gas cost of $22,031,360$ (\$4406.27).
+Although the operation cost was decreased to a third, the cost is still high for a digital archive considering that only a small part of the preservation process is done, persisting fixity information. An operator must decide what is more important to them, the cost, the security or the convenience of their chosen storage-medium for fixity information. 
+}
+
+\DIFadd{The proposed implementation of pooled testing, utilizing hash-lists, does not have any method to find out which exact digital object in the pool has changed. On retrieval of a changed object, one must get the SHA256 value from the blockchain and re-compute the SHA256 value of a pool with its respective digital objects. If a mismatch occurs of the two cryptographic hashes, }\DIFaddend there is no \DIFdelbegin \DIFdel{other method to look into how often a certain file has changedwithout monitoring them on a system for a certain time interval. Therefore, I have decided to use the amount of file alterations in the git repository as a rough estimate. The prevalence rate $p$ of a file extension is calculated with $positives/N$, see Table \ref{tb:git-alterations}
+}%DIFDELCMD < \begin{table}[h]
+%DIFDELCMD <     %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Volatility of certain file extensions in the format-corpus dataset}}
+    %DIFAUXCMD
+%DIFDELCMD < \centering
+%DIFDELCMD <     \begin{tabular}{ c c c c c}
+%DIFDELCMD <     \label{tb:git-alterations}
+%DIFDELCMD <      %%%
+\DIFdelFL{extension }%DIFDELCMD < & %%%
+\DIFdelFL{N }%DIFDELCMD < & %%%
+\DIFdelFL{positives}%DIFDELCMD < \\ 
+%DIFDELCMD <      \hline
+%DIFDELCMD <      %%%
+\DIFdelFL{XML }%DIFDELCMD < & %%%
+\DIFdelFL{986 }%DIFDELCMD < & %%%
+\DIFdelFL{432 }%DIFDELCMD < & %%%
+\DIFdelFL{0.43  }%DIFDELCMD < \\
+%DIFDELCMD <      \hline
+%DIFDELCMD <      %%%
+\DIFdelFL{PDF }%DIFDELCMD < &%%%
+\DIFdelFL{106 }%DIFDELCMD < &%%%
+\DIFdelFL{2 }%DIFDELCMD < &%%%
+\DIFdelFL{0.01  }%DIFDELCMD < \\
+%DIFDELCMD <      \hline
+%DIFDELCMD <      %%%
+\DIFdelFL{MD }%DIFDELCMD < & %%%
+\DIFdelFL{74 }%DIFDELCMD < & %%%
+\DIFdelFL{17 }%DIFDELCMD < & %%%
+\DIFdelFL{0.22  }%DIFDELCMD < \\   
+%DIFDELCMD <      \hline
+%DIFDELCMD <      %%%
+\DIFdelFL{MOV}%DIFDELCMD < &%%%
+\DIFdelFL{61 }%DIFDELCMD < & %%%
+\DIFdelFL{0 }%DIFDELCMD < & %%%
+\DIFdelFL{0.00 }%DIFDELCMD < \\ 
+%DIFDELCMD <      \hline
+%DIFDELCMD <      %%%
+\DIFdelFL{JAVA }%DIFDELCMD < &%%%
+\DIFdelFL{47 }%DIFDELCMD < &%%%
+\DIFdelFL{39}%DIFDELCMD < &%%%
+\DIFdelFL{0.82 }%DIFDELCMD < \\ 
+%DIFDELCMD <      \hline
+%DIFDELCMD <      %%%
+\DIFdelFL{ZIP }%DIFDELCMD < & %%%
+\DIFdelFL{17 }%DIFDELCMD < &%%%
+\DIFdelFL{0 }%DIFDELCMD < &%%%
+\DIFdelFL{0.00 }%DIFDELCMD < \\
+%DIFDELCMD <      \hline
+%DIFDELCMD <      %%%
+\DIFdelFL{TXT }%DIFDELCMD < & %%%
+\DIFdelFL{14 }%DIFDELCMD < & %%%
+\DIFdelFL{2 }%DIFDELCMD < & %%%
+\DIFdelFL{0.14 }%DIFDELCMD < \\
+%DIFDELCMD <      \hline
+%DIFDELCMD <      %%%
+\DIFdelFL{DOC }%DIFDELCMD < & %%%
+\DIFdelFL{13 }%DIFDELCMD < & %%%
+\DIFdelFL{0 }%DIFDELCMD < & %%%
+\DIFdelFL{0.00 }%DIFDELCMD < \\ 
+%DIFDELCMD <      \hline
+%DIFDELCMD <      %%%
+\DIFdelFL{JP2 }%DIFDELCMD < & %%%
+\DIFdelFL{12 }%DIFDELCMD < & %%%
+\DIFdelFL{0 }%DIFDELCMD < & %%%
+\DIFdelFL{0.00 }%DIFDELCMD < \\  
+%DIFDELCMD <      \hline
+%DIFDELCMD <      %%%
+\DIFdelFL{HTML }%DIFDELCMD < & %%%
+\DIFdelFL{11 }%DIFDELCMD < & %%%
+\DIFdelFL{6 }%DIFDELCMD < & %%%
+\DIFdelFL{0.54 }%DIFDELCMD < \\ 
+%DIFDELCMD <      \hline
+%DIFDELCMD <      %%%
+\DIFdelFL{CSS }%DIFDELCMD < & %%%
+\DIFdelFL{11 }%DIFDELCMD < & %%%
+\DIFdelFL{4 }%DIFDELCMD < & %%%
+\DIFdelFL{0.36 }%DIFDELCMD < \\
+%DIFDELCMD <      \hline
+%DIFDELCMD <      %%%
+\DIFdelFL{JS }%DIFDELCMD < & %%%
+\DIFdelFL{10 }%DIFDELCMD < & %%%
+\DIFdelFL{3 }%DIFDELCMD < & %%%
+\DIFdelFL{0.3 }%DIFDELCMD < \\
+%DIFDELCMD <     \end{tabular}
+%DIFDELCMD < \end{table}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \DIFadd{way of defining which exact object in the pool has changed. This is because the information on the integrity of single objects is lost while computing the root hash of a hash-list. Only the resulting root hash matters to guarantee the integrity of the whole pool. The downside of this method is, that one must replace the whole pool with correct copies of the objects every time a corrupt pool is detected. To lower the amount of these data-scrubbing operations, smaller pool sizes are considered in the proposed pooled testing strategies.
+In this thesis, I considered bit level error and data manipulation as sources of data change. For legitimate updates, one must either persist a previous version of the object or only persist the SHA256 of the object to be able to re-compute the root hash of the original pool. The updated object than have to be pooled in a new pool with other objects or individually and its hash re-uploaded to the Ethereum blockchain.
+}\DIFaddend 
+
+\DIFdelbegin \chapter{\DIFdel{Discussion}}
+%DIFAUXCMD
+\addtocounter{chapter}{-1}%DIFAUXCMD
+\DIFdelend The first research \DIFdelbegin \DIFdel{questions where I did research }\DIFdelend \DIFaddbegin \DIFadd{question was }\DIFaddend to find the optimal pool size for the fixity information \DIFdelbegin \DIFdel{had two different approaches, }\DIFdelend \DIFaddbegin \DIFadd{with respect to two metrics: }\DIFaddend the first was to minimize the cost and the second was to maximize the efficiency. The two of them were inversely correlated, where to minimize the cost the pool size \DIFdelbegin \DIFdel{was actually }\DIFdelend \DIFaddbegin \DIFadd{is }\DIFaddend N, since there was only one writing transaction on the blockchain when we have only one pool on ingest. On the other hand, a pool size of N is extremely inefficient on retrieval\DIFdelbegin \DIFdel{, where }\DIFdelend \DIFaddbegin \DIFadd{. On retrieval, }\DIFaddend I have to replace the whole ingest bulk with \DIFdelbegin \DIFdel{fresh }\DIFdelend \DIFaddbegin \DIFadd{correct }\DIFaddend copies if only one object in the pool is corrupt, since I cannot determine \DIFdelbegin \DIFdel{any more }\DIFdelend which object in the pool got corrupted due to the nature of hash lists. Therefore, I had to also account the number of data scrubbing operations into the optimal pool size, resulting in Equation \ref{eq:expected_data-scrubbing}. The pool size is therefore heavily dependent on the \DIFdelbegin \DIFdel{prevalence of corruption }\DIFdelend \DIFaddbegin \DIFadd{change }\DIFaddend in the ingest bulk, where if the \DIFdelbegin \DIFdel{prevalence }\DIFdelend \DIFaddbegin \DIFadd{change rate }\DIFaddend is high smaller pool sizes are favorable.
+\DIFdelbegin \DIFdel{The goal of this thesis was to reduce the cost of the fixity storage by at least 50\%, this goal can be met when the optimal pool size is at least two, which is guaranteed with a prevalence lower than 35.9\%, as seen in Figure \ref{fig:threshhold}.
+}%DIFDELCMD < \begin{figure}[h]
+%DIFDELCMD <     %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{For a prevalence of corruption of maximum 35.9\%, an optimal pool size of at least two is guaranteed}}
+    %DIFAUXCMD
+%DIFDELCMD < \label{fig:threshhold}
+%DIFDELCMD <     \centering
+%DIFDELCMD <     \includegraphics[width=0.5\textwidth]{threshhold.png}
+%DIFDELCMD < \end{figure}
+%DIFDELCMD < %%%
+\DIFdel{What happens if the prevalence is higher than 35.9\%, the optimal pool size would be between 1.0 and 2.0 which is not practical since a pool can not include 1.42 objects, therefore I have decided to round the result up from Equation \ref{eq:poolsize} which results in Figure \ref{fig:threshhold-ceil}.
+}%DIFDELCMD < \begin{figure}[h]
+%DIFDELCMD <     %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{For a prevalence of corruption of maximum 35.9\%, an optimal pool size of at least two is guaranteed}}
+    %DIFAUXCMD
+%DIFDELCMD < \label{fig:threshhold-ceil}
+%DIFDELCMD <     \centering
+%DIFDELCMD <     \includegraphics[width=0.5\textwidth]{threshhold-ceil.png}
+%DIFDELCMD < \end{figure}
+%DIFDELCMD < %%%
+\DIFdelend For the second research question, I have compared two different approaches for pooled testing. Where the efficiency of both strategies is compared to the efficiency of individual testing. The efficiency of individual testing for sample population of 100 objects where 20 of them are corrupt, meaning that I need 100 writing \DIFdelbegin \DIFdel{+ }\DIFdelend \DIFaddbegin \DIFadd{and additionally }\DIFaddend 20 \DIFdelbegin \DIFdel{scrubbing }\DIFdelend \DIFaddbegin \DIFadd{data-scrubbing }\DIFaddend operations during the preservation process. With two stage hierarchical pooling an efficiency of \DIFdelbegin \DIFdel{2.24 }\DIFdelend \DIFaddbegin \DIFadd{1.28 }\DIFaddend can be achieved\DIFdelbegin \DIFdel{, meaning that this strategy is more than two times as efficient as individual testing}\DIFdelend . In the format-corpus dataset there were just a few file extensions of 90 that were altered and had a \DIFdelbegin \DIFdel{prevalence of corruption }\DIFdelend \DIFaddbegin \DIFadd{change rate }\DIFaddend greater than 0.0, suggesting that the two-stage strategy was not optimal, since non-volatile files would give been grouped together creating unnecessary traffic on repairing a corrupt pool. Therefore, I have proposed a context-sensitive approach where the inner group \DIFdelbegin \DIFdel{prevalence }\DIFdelend \DIFaddbegin \DIFadd{change rate }\DIFaddend of each file extension is \DIFdelbegin \DIFdel{taken into account}\DIFdelend \DIFaddbegin \DIFadd{considered}\DIFaddend . Each group in the ingest-bulk is assigned to an own pool with their respective pool size. For instance, in table \ref{tb:efficiency} the file extension PDF has 8 corrupted objects out of 106, which results in a pool size of 8, whereas the XML extension has a much higher corruption rate with an optimal poolside of 2. The context-sensitive approach takes these differences into account and pools homogenous groups, where groups with \DIFdelbegin \DIFdel{0.0 prevalence of corruption }\DIFdelend \DIFaddbegin \DIFadd{0.00 change rate }\DIFaddend can be grouped with a pool size as large as the inner group. With this method, groups with low \DIFdelbegin \DIFdel{prevalence }\DIFdelend \DIFaddbegin \DIFadd{change rate }\DIFaddend can be pooled with large poolside and therefore reduce the cost and increase the efficiency even more than individual testing or two-stage hierarchical pooling.
+\DIFdelbegin \DIFdel{The }\DIFdelend \DIFaddbegin \DIFadd{In the }\DIFaddend third research question\DIFdelbegin \DIFdel{had a surprising result, given that metadata has a much higher prevalence of corruption ratethan the object themselves, two-stage hierarchical pooling increases its efficiency with split off metadatawhereas the context-sensitive strategy looses efficiency by a large margin}\DIFdelend \DIFaddbegin \DIFadd{, where I tried to split-off metadata from the digital objects to create a bulk of highly volatile objects and a bulk of stable objects with low change rate, I showed that the approach is worse than with non-split-off metadata}\DIFaddend . This is \DIFdelbegin \DIFdel{due, the double amount of }\DIFdelend \DIFaddbegin \DIFadd{because I have to persist the double number of digital objects and the pooling strategies could not compensate for the high number of }\DIFaddend objects\DIFdelbegin \DIFdel{needed to be processed during the preservation process where the context-sensitive approach can not make up for it, whereas the two-stage hierarchical approach is able to increase the efficiency: due to the low average prevalence of corruption. Because I have N/2 objectswith very high prevalence but with the same file extension, therefore we have only one inner group in the dataset with e.
+g. p=0.99 where the N-1 file extensions have a very low prevalence rate. The imbalance of alteration rates, see Table \ref{tb:context-sensitive}, is favorable because the average prevalence rate gets very low which results in a large pool size in the two-stage approach.
+The }\DIFdelend \DIFaddbegin \DIFadd{.
+}
+
+\DIFadd{The }\DIFaddend limitations of the strategies proposed in this thesis is the missing data on \DIFdelbegin \DIFdel{prevalence }\DIFdelend \DIFaddbegin \DIFadd{change }\DIFaddend rates on digital objects, this is \DIFdelbegin \DIFdel{due to the fact that }\DIFdelend \DIFaddbegin \DIFadd{because }\DIFaddend I would have had to monitor an archive and measure the \DIFdelbegin \DIFdel{amount }\DIFdelend \DIFaddbegin \DIFadd{number }\DIFaddend of times an object has changed. In this thesis, I have arbitrarily chosen \DIFdelbegin \DIFdel{prevalence }\DIFdelend \DIFaddbegin \DIFadd{change }\DIFaddend rates for the objects and their metadata, see Table \ref{tb:split-off}. Future work may propose a method on how to estimate the \DIFdelbegin \DIFdel{prevalence }\DIFdelend \DIFaddbegin \DIFadd{change }\DIFaddend rate of an \DIFdelbegin \DIFdel{ingest-bulk in order }\DIFdelend \DIFaddbegin \DIFadd{ingest }\DIFaddend to calculate the real optimal pool size\DIFdelbegin \DIFdel{for the bulk.
+}\DIFdelend \DIFaddbegin \DIFadd{.
+}
+
+\DIFaddend The results indicate that the cost for the decentralized fixity storage \DIFaddbegin \DIFadd{on the Ethereum blockchain }\DIFaddend can be reduced, depending on the \DIFdelbegin \DIFdel{prevalence }\DIFdelend \DIFaddbegin \DIFadd{change }\DIFaddend rate of the digital objects\DIFaddbegin \DIFadd{, }\DIFaddend by at least 50\%\DIFdelbegin \DIFdel{, given that the }\DIFdelend \DIFaddbegin \DIFadd{. }\chapter{\DIFadd{Conclusion}}
+\DIFadd{While the Ethereum blockchain has its limitation regarding the cost, the results of pooled testing showed in this thesis may include the blockchain in future implementations of fixity information storages. This research has shown that the operation cost can be reduced up to a third of cost, but also raises the question if that is enough to establish the Ethereum blockchain as a storage medium for fixity information due to its high cost. While the security and convenience of the Ethereum blockchain stands out, the cost of persisting fixity information for large ingest bulks in digital archives is still high, even after reducing the cost with pooled testing. Operators of digital archives may consider only persisting the fixity of hand-picked digital objects, where security and availability is needed the most, on the blockchain.
+}
+
+\DIFadd{A digital archive could deploy the fixity storage on the Ethereum network by setting up an own Ethereum node or by utilizing the developer tools presented in this thesis. After deployment, the operator of the digital archive would be immediately able to persist fixity information on the blockchain after the installation of an Ethereum client of their choice, such as Pythons Web3.py. Due to its minimal requirements, the proposed solution is lightweight and does not require a larger infrastructure to be executed, since the infrastructure to store the fixity information is provided by the Ethereum blockchain.
+}
+
+\DIFadd{The }\DIFaddend optimal pool size for an \DIFdelbegin \DIFdel{ingest-bulk is at least 2. }\chapter{\DIFdel{Conclusion}}
+%DIFAUXCMD
+\addtocounter{chapter}{-1}%DIFAUXCMD
+\DIFdel{The }\DIFdelend \DIFaddbegin \DIFadd{ingest bulk is dependent on the change rate of its object. For an ingest of N digital objects, the }\DIFaddend optimal pool size \DIFdelbegin \DIFdel{can be calculated with two points in mind, when only regarding the cost you are able to increase the pool size until you have only one pool to ingest, whereas if you have the efficiency in mind you have to utilize }\DIFdelend \DIFaddbegin \DIFadd{regarding the operation cost is N. With a pool of size N, you only must write once on the blockchain and therefore minimize the cost. But, for a pooling strategy to be efficient, }\DIFaddend smaller pool sizes \DIFdelbegin \DIFdel{utilize to minimize data-srcubbing actions on retrieval. I have presented two pooling strategies, two-hierarchical and context-sensitive pooling, which each of them is able to reduce the cost and increase efficiency . }\DIFdelend \DIFaddbegin \DIFadd{have to be chosen to minimize the number of data-scrubbing operations. Therefore, pool sizes from 2 to 10 are favorable, depending on the change rate of the objects. A pool with size 10 is already at the limit of efficiency and can only be considered for non-volatile digital objects which are not expected to change and may only suffer from bit level errors.
+}
+
+\DIFaddend With pooled testing, I \DIFdelbegin \DIFdel{am guaranteed to decrease the cost of a decentralized fixity storage by at least 50\%, see Table \ref{tb:split-off} where each pooling strategy achieved a cost efficiency C(S) higher than 2, meaning the amount of writing transactions is at least halved. On the format-corpus dataset with prevalence ratesestimated from git commits, the experiment with }\DIFdelend \DIFaddbegin \DIFadd{was able to reduce the operation cost of preserving the fixity information of 1560 digital objects up to a third. The dataset used is the OpenPreserve format-corpus, an openly licensed dataset consisting of various file set and files from creation tools. The cost, utilizing an individual testing strategy was \$13218.81 whereas with a two-stage-hierarchical approach the cost was \$4406.27. In this thesis, it is also shown that the operation cost in USD is not relevant, since it is heavily dependent on the price of gas and the Ether token, the native cryptocurrency of the Ethereum blockchain. In this thesis, I have chosen to present the operation cost in gas which is a constant value and does not change even when the \mbox{%DIFAUXCMD
+\acrlong{eth} }\hskip0pt%DIFAUXCMD
+price rises or falls. The presented amount of gas can be converted into USD or any other currency. I have also shown that the efficiency can be improved by a factor of 1.38 with the implementation of context-sensitive pooling. The context-sensitive approach is slightly more efficient than the two-stage-hierarchical pooling due to its consideration of inner group change rates, whereas two-stage-hierarchical pooling only considers a single change rate over the whole ingest bulk.
+The third approach, utilizing }\DIFaddend split-off \DIFaddbegin \DIFadd{metadata has shown to have a worse the cost and efficiency compared to with non-split-off metadata. Although, considering with split-off }\DIFaddend metadata \DIFdelbegin \DIFdel{showed that, two-stage hierarchical pooled can decrease the cost even further whereas the context-sensitive approach shows weakness to }\DIFdelend \DIFaddbegin \DIFadd{you have the double number of digital objects, }\DIFaddend the \DIFdelbegin \DIFdel{doubled amount of data with  high prevalence group such as the metadata, as shown in Table \ref{tb:context-sensitive}. The research showed that varying price for tokens on the blockchain may be neglected from calculations, since they fluctuate too much.The focus was to find the absolute numbers of computational effort in form of gas, see Section \ref{sec:costs} for preserving fixity information, from which }\DIFdelend \DIFaddbegin \DIFadd{cost of this approach is still almost halved compared to individual testing.
+}
+
+\DIFadd{Future work may include the migration of this proposed fixity information storage to another blockchain, a cheaper one. Although you must consider that the price on }\DIFaddend the \DIFdelbegin \DIFdel{value in EUR; \acrshort{eth} or other currencies may be derived at a later point.}\DIFdelend \DIFaddbegin \DIFadd{established Ethereum network has its security advantages, e.g., denial-of-service attacks only hurts the attacker because of the cost. A good consideration are so-called Layer 2 solutions, which is a term for Ethereum scaling solutions that handle transactions off Ethereum Layer 1 while still taking advantage of the security}\footnote{\url{https://ethereum.org/en/layer-2/}}\DIFadd{. Layer 2 solutions are considered faster, cheaper, and therefore would be great candidate to enhance the proposed fixity information storage.}\\
+\DIFaddend Future work may \DIFaddbegin \DIFadd{also }\DIFaddend include the estimation of \DIFdelbegin \DIFdel{prevalence of corruption of }\DIFdelend \DIFaddbegin \DIFadd{change rates in }\DIFaddend ingest-bulks \DIFdelbegin \DIFdel{, my suggestion }\DIFdelend \DIFaddbegin \DIFadd{to compute the optimal pool size. In this work, I estimated the change rate of the format-corpus dataset by counting the involvement of certain file extensions in Git commits. My suggestion for the estimation }\DIFaddend is to monitor a digital archive for a certain \DIFdelbegin \DIFdel{amount of time }\DIFdelend \DIFaddbegin \DIFadd{time interval }\DIFaddend and count the \DIFdelbegin \DIFdel{amount }\DIFdelend \DIFaddbegin \DIFadd{number }\DIFaddend of times a certain object has changed. \DIFaddbegin \DIFadd{Another interesting method would be, to estimate the change rate of an object based on its file size. If a larger file has a higher chance to experience a bit level error during long term storage.
+}
+
+\DIFaddend My contribution to \DIFdelbegin \DIFdel{the research field is }\DIFdelend \DIFaddbegin \DIFadd{archival science and preservation research was }\DIFaddend to gather the exact computational effort, in form of gas, needed to operate a decentralized fixity information storage on the Ethereum blockchain. Additionally, I have presented a \DIFdelbegin \DIFdel{strategy }\DIFdelend \DIFaddbegin \DIFadd{method }\DIFaddend to decrease the \DIFdelbegin \DIFdel{amount }\DIFdelend \DIFaddbegin \DIFadd{number }\DIFaddend of operations and therefore the \DIFdelbegin \DIFdel{amount }\DIFdelend \DIFaddbegin \DIFadd{number }\DIFaddend of cost relevant transactions needed to operate such an application. With pooled testing, \DIFdelbegin \DIFdel{currently utilized in the COVID-19 pandemic, the amount of cost relevant \mbox{%DIFAUXCMD
+\gls{transaction} }\hskip0pt%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{the operation cost of storing the fixity information for 1560 files in format-corpus dataset }\DIFaddend has been reduced \DIFdelbegin \DIFdel{by at least 50\%}\DIFdelend \DIFaddbegin \DIFadd{to a third of the cost}\DIFaddend .
+
+
+
+
+
+\backmatter
+
+\listoffigures 
+
+\listoftables 
+
+
+
+\printindex
+\printnoidxglossaries
+\glsaddall
+\bibliographystyle{alpha}
+\bibliography{bibliography}
+\end{document}

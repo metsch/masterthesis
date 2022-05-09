@@ -1,0 +1,4 @@
+PWD C:\Users\User\Uni\Masterarbeit
+INPUT C:\Users\User\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
+INPUT diff.tex
+OUTPUT diff.log
