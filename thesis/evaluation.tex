@@ -1,3 +1,4 @@
+\section{Dataset used in the evaluation}
 The proposed fixity storage is evaluated on a local installation of the Ethereum blockchain and on the online Ropsten test network, where \acrshort{eth} tokens used for transactions are free of charge. The dataset used for evaluation is the format-corpus\footnote{\url{https://github.com/openpreserve/format-corpus}} from Open Preserve Foundation\footnote{\url{ http://openpreservation.org/}} on commit \textit{4e4b9a34540f72612ba6eab2d28bccceb7a848ae}\footnote{\url{https://github.com/openpreserve/format-corpus/commit/4e4b9a34540f72612ba6eab2d28bccceb7a848ae}} on the 16th of February.
 
 I analyzed it to get a better understanding of various file formats, mostly on how volatile they are. The format-corpus is well-structured in a public GitHub repo with a decent amount of reputation in form of GitHub stars, where other datasets did provide corrupt links;were not available or did expect a lot of work to download them because they only allow single file downloads instead of bulks. Convenience; diversity of file extensions; and reputation of the organization affected my decision to use the format-corpus for analysis.
@@ -13,7 +14,7 @@ In Figure \ref{fig:extension_distribution} you can see the distribution of file 
 To get a baseline estimate on how volatile certain extensions are due to updates and changes, I analyzed Git logs and count how many times a file extension was involved in a commit. The resulting column \textit{positives} was always higher or equal than the occurrence of a file extension, since each file was involved in at least one commit, the initial commit of the file. To count the commits I used the python package gitphyton\footnote{\url{https://gitpython.readthedocs.io/en/stable/}} and utilized the git command --log. For each file in the repository, I fired up the command \textit{git log --oneline filename} in python which resulted in one or multiple lines of logs. Later I used the multiline log as an input for the \textit{.splitlines()} function which results in an array of log lines, the length of this array minus 1 (the initial commit) is used to determine the new column \textit{positives} in the dataframe which shows if and how often a certain file has changed over the lifetime of the git repository. 
 This method of determining the volatility of a certain file extension is by no means ideal, but there is no other method to check how often a certain file has changed without monitoring them on a system for a certain time interval. Therefore, I have decided to use the amount of file changes in the git repository as a rough estimate.
 The change rate $p$ of a file extension is calculated with $positives/N$.
-
+\section{Approach}
 The two key parameters for evaluation are the operation cost and efficiency. 
 \textit{Operation cost} \acrshort{op-cost} is calculated by multiplying the number of relevant cost transactions with the average gas cost for a \textit{setPoolHash} transaction on the blockchain, see Equation \ref{eq:expected_cost}
 \begin{equation}\label{eq:expected_cost}
@@ -26,6 +27,7 @@ I intend to present the operation cost in the form of gas, the unit that measure
     \acrshort{eff} = O(S_{i})/\acrshort{count_op}
 \end{equation}
 where, assuming the preservation process of 10,000 digital objects without pooling requires O(\acrshort{two-stage}) operations and the preservation of the same objects using strategy S requires \acrshort{count_op} operations. In the case of individual testing the efficiency is 1, whereas if strategy S requires two times fewer operations the efficiency \acrshort{eff} is 2 \cite[4]{vzilinskas2021pooled}.
+\section{Results}
 
 \textit{What is the optimal pool size based on the change rates of digital objects in the archive regarding cost and efficiency?}
 
@@ -179,7 +181,7 @@ To know what effect the split off metadata has, I had to double the initial 1560
     \label{tb:metadata}
 \end{table}
 I calculate the efficiency for context-sensitive and two-stage hierarchical for various combinations of $p$ and $p_{meta}$ and the result is resulting in Table \ref{tb:split-off}. The combinations for $p$ and $p_{meta}$ are set arbitrary, future work may include the estimation of change rates based on the file sizes.
-The Context-sensitive strategy never even reaches a 1.00 efficiency, which would state that it performs worse as the individual testing in terms of efficiency, this is due to the implementation of the context-sensitive strategy where the pool sizes cannot exceed the group size cannot exceed and loose the advantage of low change rates. In the two-stage-hierarchical I can group the metadata independently of the objects, resulting in 1560 objects with high change rate and 1560 objects with very low change rate. Although the performance is better than individual testing in terms of cost, the split off-metadata does have a worse effect on the overall performance due to the double amount of objects that have to be preserved\footnote{\url{https://github.com/metsch/masterthesis/blob/main/src/py/rq3.ipynb}}.
+The Context-sensitive strategy never even reaches a 1.00 efficiency, which would state that it performs worse as the individual testing in terms of efficiency. This is due to the implementation of the context-sensitive strategy where the pool sizes cannot exceed the group size cannot exceed and loose the advantage of low change rates. In the two-stage-hierarchical I can group the metadata independently of the objects, resulting in 1560 objects with high change rate and 1560 objects with very low change rate. Although the performance is better than individual testing in terms of cost, the split off-metadata does have a worse effect on the overall performance due to the double amount of objects that have to be preserved\footnote{\url{https://github.com/metsch/masterthesis/blob/main/src/py/rq3.ipynb}}.
 \begin{table}[t]
     \centering
     \begin{tabular}{c c c c c c}
